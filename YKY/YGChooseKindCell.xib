@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="YGChooseCityCell" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="YGChooseKindCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="全部分类" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBQ-Xn-UK4">
+                        <rect key="frame" x="15" y="11" width="305" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V4b-y8-hSW">
+                        <rect key="frame" x="15" y="37" width="305" height="1"/>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="WtJ-Fb-MXb"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="qBQ-Xn-UK4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="1cB-6M-e8v"/>
+                    <constraint firstItem="qBQ-Xn-UK4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="4zH-Lt-Pxn"/>
+                    <constraint firstAttribute="bottom" secondItem="qBQ-Xn-UK4" secondAttribute="bottom" constant="12" id="JmD-kj-kOd"/>
+                    <constraint firstAttribute="bottom" secondItem="V4b-y8-hSW" secondAttribute="bottom" constant="2" id="Mry-iV-Cd5"/>
+                    <constraint firstAttribute="trailing" secondItem="V4b-y8-hSW" secondAttribute="trailing" id="QCN-kS-Xms"/>
+                    <constraint firstItem="V4b-y8-hSW" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="x04-vP-LMZ"/>
+                    <constraint firstAttribute="trailing" secondItem="qBQ-Xn-UK4" secondAttribute="trailing" id="xnl-ab-rr8"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="kindTitleLabel" destination="qBQ-Xn-UK4" id="IOz-t7-Khb"/>
+            </connections>
+            <point key="canvasLocation" x="133" y="338"/>
+        </tableViewCell>
+    </objects>
+</document>

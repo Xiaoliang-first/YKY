@@ -1,0 +1,26 @@
+//
+//  detailTitleLabel.m
+//  YKY
+//
+//  Created by 肖亮 on 15/11/18.
+//  Copyright © 2015年 金蚂蚁（北京）网络科技有限公司. All rights reserved.
+//
+
+#import "detailTitleLabel.h"
+
+@implementation detailTitleLabel
+
+-(instancetype)initWithFrame:(CGRect)frame{
+    
+    if (self = [super initWithFrame:frame]) {
+        
+        self.font = [UIFont systemFontOfSize:15];
+        self.tintAdjustmentMode = UIViewTintAdjustmentModeDimmed;
+        self.textColor = YKYTitleColor;
+        
+    }
+    return self;
+}
+
+
+@end

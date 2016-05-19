@@ -1,0 +1,76 @@
+//
+//  yaogouCell.m
+//  YKY
+//
+//  Created by 肖 亮 on 16/4/5.
+//  Copyright © 2016年 金蚂蚁（北京）网络科技有限公司. All rights reserved.
+//
+
+#import "yaogouCell.h"
+#import "rockListModel.h"
+#import "UIImageView+WebCache.h"
+#import "XLProgressBarView.h"
+
+@interface yaogouCell()
+
+
+@end
+
+@implementation yaogouCell
+
+-(void)setPrizeModel:(rockListModel *)prizeModel{
+    _prizeModel = prizeModel;
+
+    if (prizeModel.prizeUrl) {
+        [self.prizeImgView sd_setImageWithURL:[NSURL URLWithString:prizeModel.prizeUrl] placeholderImage:[UIImage imageNamed:@"prepareloading_small"]];
+    }
+    if (prizeModel.oderNum) {
+        self.oderNumLabel.text = [NSString stringWithFormat:@"第%@期",prizeModel.oderNum];
+    }
+    if (prizeModel.prizeName) {
+        self.prizeNameLabel.text = prizeModel.prizeName;
+    }
+    if ([prizeModel.isTenYuan isEqualToString:@"1"]) {
+        self.tenYaunImgView.hidden = NO;
+    }else{
+        self.tenYaunImgView.hidden = YES;
+    }
+    if (prizeModel.zongNum && prizeModel.shengNum) {
+        //添加progress
+        XLProgressBarView * progressVeiw = [[XLProgressBarView alloc]initWithFrame:CGRectMake(8, _prizeImgView.y+_prizeImgView.height+4, kScreenWidth-16, 8) backgroundImage:[UIImage imageNamed:@"baise"] foregroundImage:[UIImage imageNamed:@"twoBtns-right"]];
+        CGFloat pro = [prizeModel.zongNum floatValue] - [prizeModel.shengNum floatValue];
+//        progressVeiw.progress = [prizeModel.zongNum floatValue];
+        progressVeiw.progress = pro/[prizeModel.zongNum floatValue];
+//        [progressVeiw setProgress:pro];
+        [self.myConnectView addSubview:progressVeiw];
+
+        //添加底部左右显示数量label
+        //1.左
+        UILabel * leftLabel = [[UILabel alloc]initWithFrame:CGRectMake(8, progressVeiw.y+progressVeiw.height+4, 0.4*progressVeiw.width, 13)];
+        leftLabel.font = [UIFont systemFontOfSize:13];
+        leftLabel.textColor = [UIColor darkGrayColor];
+        leftLabel.textAlignment = NSTextAlignmentLeft;
+        leftLabel.text = [NSString stringWithFormat:@"%@总需人次",prizeModel.zongNum];
+        [self.myConnectView addSubview:leftLabel];
+        //2.右
+        UILabel * rightLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-leftLabel.width-8, progressVeiw.y+progressVeiw.height+4, 0.4*progressVeiw.width, 13)];
+        rightLabel.font = [UIFont systemFontOfSize:13];
+        rightLabel.textColor = [UIColor darkGrayColor];
+        rightLabel.textAlignment = NSTextAlignmentRight;
+        rightLabel.text = [NSString stringWithFormat:@"%@剩余人次",prizeModel.shengNum];
+        [self.myConnectView addSubview:rightLabel];
+    }
+}
+
+
+- (IBAction)goRockBtnClick:(id)sender {
+
+    NSString * index = [NSString stringWithFormat:@"%d",self.index];
+    [[NSUserDefaults standardUserDefaults]setObject:index forKey:@"index-yaogou"];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"quyao" object:nil];
+}
+
+
+
+@end

@@ -1,0 +1,145 @@
+//
+//  bossAlterPwdVC.m
+//  YKY
+//
+//  Created by 亮肖 on 15/6/30.
+//  Copyright (c) 2015年 金蚂蚁（北京）网络科技有限公司. All rights reserved.
+//
+
+#import "bossAlterPwdVC.h"
+#import "AFNetworking.h"
+#import "common.h"
+#import "MBProgressHUD+MJ.h"
+#import <CommonCrypto/CommonDigest.h>
+#import "bossLogInAccountVC.h"
+#import "bossAccount.h"
+#import "bossAccountTool.h"
+
+
+@interface bossAlterPwdVC ()<UITextFieldDelegate>
+
+
+/** 旧密码Field */
+@property (weak, nonatomic) IBOutlet UITextField *oldPwdField;
+/** 新密码Field */
+@property (weak, nonatomic) IBOutlet UITextField *currountPwdField;
+/** 确认新密码Field */
+@property (weak, nonatomic) IBOutlet UITextField *okNewPwdField;
+/** 确认修改按钮 */
+@property (weak, nonatomic) IBOutlet UIButton *okBtn;
+
+
+@end
+
+@implementation bossAlterPwdVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.navigationItem.title = @"修改密码";
+    
+    //设置确认修改按钮圆角
+    self.okBtn.layer.cornerRadius = 5;
+    self.okBtn.layer.masksToBounds = YES;
+    self.okBtn.layer.borderWidth = 0.1;
+    
+    [self setLeftNavBtn];
+    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self setLeftNavBtn];
+}
+
+#pragma mark - 设置左导航nav
+-(void)setLeftNavBtn{
+    UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
+    left.tintColor = [UIColor whiteColor];
+    [left setImage:[UIImage imageNamed:@"jiantou-Left"]];
+    self.navigationItem.leftBarButtonItem = left;
+}
+-(void)leftClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - 退出键盘
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.oldPwdField resignFirstResponder];
+    [self.currountPwdField resignFirstResponder];
+    [self.okNewPwdField resignFirstResponder];
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self.oldPwdField resignFirstResponder];
+    [self.currountPwdField resignFirstResponder];
+    [self.okNewPwdField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - 确认修改按钮被点击事件
+- (IBAction)okAlterBtnClick:(id)sender {
+    
+    [MBProgressHUD showMessage:@"加载中..." toView:self.view];
+    if (![self.currountPwdField.text isEqualToString:self.okNewPwdField.text]) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError:@"两次密码输入不一致!"];
+        return;
+    }
+    if (self.currountPwdField.text.length == 0) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError:@"新密码不能为空!"];
+        return;
+
+    }
+//    NSString *bossPhone = [[NSUserDefaults standardUserDefaults]objectForKey:@"bossPhone"];//取出登陆商家的电话号码
+    NSString *str = kBossFixPwdStr;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    if (self.bossID==nil) {
+        [MBProgressHUD showError:@"用户信息有误"];
+        return;
+    }
+    NSDictionary*parameters = @{@"oldPwd":[self md5:self.oldPwdField.text],@"newPwd":[self md5:self.currountPwdField.text],@"mId":self.bossID};
+    [manager POST:str parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if ([responseObject[@"code"] isEqual:@(0)]) {
+            [MBProgressHUD showSuccess:@"密码修改成功,请重新登录!"];
+            
+            [self backAndLogInAgain];//令其重新登录
+            
+        }else{
+            [MBProgressHUD showError:responseObject[@"msg"]];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError:@"网络加载失败"];
+    }];
+    
+}
+
+
+#pragma mark - MD5密码加密
+-(NSString *)md5:(NSString *)str {
+    
+    const char *cStr = [str UTF8String];
+    unsigned char result[16];
+    CC_MD5( cStr, (unsigned int)strlen(cStr), result );
+    
+    return [NSString stringWithFormat:@"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+            result[0], result[1], result[2], result[3],
+            result[4], result[5], result[6], result[7],
+            result[8], result[9], result[10], result[11],
+            result[12], result[13], result[14], result[15]
+            ];
+}
+
+-(void)backAndLogInAgain{
+    [bossAccountTool saveAccount:nil];//清空登陆商家的信息
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];    
+    bossLogInAccountVC *vc = [sb instantiateViewControllerWithIdentifier:@"bossLogInAccountVC"];
+    vc.alterPwdVC_Back = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+@end

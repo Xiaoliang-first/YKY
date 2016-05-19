@@ -1,0 +1,61 @@
+//
+//  adDetailVC.m
+//  YKY
+//
+//  Created by 亮肖 on 15/5/1.
+//  Copyright (c) 2015年 云途基石（北京）信息技术有限公司. All rights reserved.
+//
+
+#import "adDetailVC.h"
+#import "common.h"
+
+@interface adDetailVC ()
+
+/**  加载详情的webView */
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
+@end
+
+@implementation adDetailVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.navigationItem.title = @"广告详情";
+    // 将页面缩放到 webView 大小
+    self.webView.scalesPageToFit = YES;
+    //判断字符是否包含某字符串；
+    NSString * staA = [NSString stringWithFormat:@"%@",self.adDetailUrl];
+    NSURL * url = [NSURL URLWithString:staA];
+    
+    //字条串开始包含有某字符串
+    if ([staA hasPrefix:@"http://"]) {
+        //不作处理
+    }else{//不包含的时候加上http://
+        NSString * last = [NSString stringWithFormat:@"http://%@",staA];
+        url = [NSURL URLWithString:last];
+    }
+    DebugLog(@"======url%@",url);
+    NSURLRequest *quest = [NSURLRequest requestWithURL:url];
+    
+    [self.webView loadRequest:quest];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    [self setLeftNavBtn];
+}
+
+#pragma mark - 设置左导航nav
+-(void)setLeftNavBtn{
+    UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
+    left.tintColor = [UIColor whiteColor];
+    [left setImage:[UIImage imageNamed:@"jiantou-Left"]];
+    self.navigationItem.leftBarButtonItem = left;
+}
+-(void)leftClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+@end

@@ -1,0 +1,32 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "1428e312-9f07-c44c-bbf8-e6dcc7ec8dac++2272",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "1428e312-9f07-c44c-bbf8-e6dcc7ec8dac++2272" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "6E1E852DB5BB54D427AE74F18D8359BCAD3353B9" : 0,
+    "1428e312-9f07-c44c-bbf8-e6dcc7ec8dac++2272" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CAC80B5D-5454-4614-A933-C0FDFF7E883B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "6E1E852DB5BB54D427AE74F18D8359BCAD3353B9" : "",
+    "1428e312-9f07-c44c-bbf8-e6dcc7ec8dac++2272" : "YKY\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "YKY",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "YKY.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/192.168.1.110\/ykyIos",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "1428e312-9f07-c44c-bbf8-e6dcc7ec8dac++2272"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/git.oschina.net\/yikuaiyao\/yikuaiyao_Ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "6E1E852DB5BB54D427AE74F18D8359BCAD3353B9"
+    }
+  ]
+}

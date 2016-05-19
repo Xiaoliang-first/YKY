@@ -1,0 +1,83 @@
+//
+//  homeTableBarVC.m
+//  YKY
+//
+//  Created by 肖亮 on 15/9/6.
+//  Copyright (c) 2015年 金蚂蚁（北京）网络科技有限公司. All rights reserved.
+//
+
+#import "homeTableBarVC.h"
+
+@interface homeTableBarVC ()
+
+@end
+
+@implementation homeTableBarVC
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    //设置tabbar
+    [self setTabBarImges];
+    
+}
+
+
+-(void)setTabBarImges{
+    
+//改变tabbar背景色
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    backView.backgroundColor = [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0];
+    
+    NSArray *TabBarSubView = [[self tabBar] subviews];
+    for(UIView *CurrentView in TabBarSubView)
+    {
+        NSInteger tabBarItemTag = [CurrentView tag];
+        if (tabBarItemTag==100){
+            [CurrentView removeFromSuperview];//remove the old bgColorView
+            break;
+        }
+    }
+    [self.tabBar insertSubview:backView atIndex:0];
+    
+
+    UITabBarItem *item0 = [self.tabBar.items objectAtIndex:0];
+    UITabBarItem *item1 = [self.tabBar.items objectAtIndex:1];
+    UITabBarItem *item2 = [self.tabBar.items objectAtIndex:2];
+    UITabBarItem *item3 = [self.tabBar.items objectAtIndex:3];
+    UITabBarItem *item4 = [self.tabBar.items objectAtIndex:4];
+
+// 对item设置相应地图片
+    //首页
+    item0.selectedImage = [[UIImage imageNamed:@"首页"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item0.image = [[UIImage imageNamed:@"首页1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [item0 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor],NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+
+    //奖兜
+    item1.selectedImage = [[UIImage imageNamed:@"奖兜"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item1.image = [[UIImage imageNamed:@"奖兜1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [item1 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor],NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+    
+    //摇一摇
+    item2.selectedImage = [[UIImage imageNamed:@"摇一摇"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item2.image = [[UIImage imageNamed:@"摇一摇1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [item2 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor],NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+
+    //充值
+    item3.selectedImage = [[UIImage imageNamed:@"充值"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item3.image = [[UIImage imageNamed:@"充值1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [item3 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor],NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+    
+    //我
+    item4.selectedImage = [[UIImage imageNamed:@"我的"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    item4.image = [[UIImage imageNamed:@"我的1"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    [item4 setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor redColor],NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+
+    self.tabBar.tintColor = [UIColor darkGrayColor];
+}
+
+
+
+
+
+@end

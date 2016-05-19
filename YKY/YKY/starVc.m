@@ -1,0 +1,137 @@
+//
+//  starVc.m
+//  YKY
+//
+//  Created by 亮肖 on 15/5/30.
+//  Copyright (c) 2015年 云途基石（北京）信息技术有限公司. All rights reserved.
+//
+
+#import "starVc.h"
+#import "AFNetworking.h"
+#import "common.h"
+#import "IWControllerTool.h"
+#import "UIImageView+WebCache.h"
+
+
+
+@interface starVc ()
+@property(nonatomic,weak)UIImageView * imageView;
+
+@property (nonatomic , strong) UIImage * starImg;
+
+@end
+
+@implementation starVc
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    
+    UIImageView *starImage = [[UIImageView alloc]init];
+    starImage.frame = self.view.frame;
+    
+    [self.view addSubview:starImage];
+    self.imageView=starImage;
+
+    //获取保存的图片
+    NSData * imgData = [[NSUserDefaults standardUserDefaults]objectForKey:@"starImgData"];
+    if (imgData != nil) {
+         self.starImg = [UIImage imageWithData:imgData];
+    }
+    if (self.starImg == NULL) {//上次保存的图片为空的情况下
+        [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"starUrl"];//置空保存的图片url
+        starImage.image = [UIImage imageNamed:@"new6p"];//设定固定图片
+    }else{//获取到的图片不为空的情况下，直接附图
+        starImage.image = self.starImg;
+    }
+    
+    //请求网络闪屏图
+    [self addImageUrl];
+
+
+    //获取用户IP
+    [getIpVC getUserIp];
+}
+
+-(void)addImageUrl{
+    UIApplication *app = [UIApplication sharedApplication];
+    //设置指示器的联网动画
+    app.networkActivityIndicatorVisible=YES;
+    
+    NSString *str = [kbaseURL stringByAppendingString:@"/system/getStartPic"];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager POST:str parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        if ([responseObject[@"code"] isEqual:@(0)]) {//请求成功情况下
+            NSString * stMsg = responseObject[@"data"][0][@"url"];
+            if ([[stMsg class] isSubclassOfClass:[NSNull class]]) {
+                [NSThread sleepForTimeInterval:1.0];
+                app.networkActivityIndicatorVisible = NO;
+                [IWControllerTool chooseRootViewController];
+                return ;
+            }
+            //编码当前获取到的图片URL字符串
+            NSString *string = [responseObject[@"data"][0][@"url"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSURL *url = [NSURL URLWithString:string];
+            
+            
+            //编码上次保存的图片URL字符串
+            NSString *localUrlStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"starUrl"];
+            NSString *localUrlString = [localUrlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSURL * localUrl = [NSURL URLWithString:localUrlString];
+            
+            if (url!=NULL && ![localUrl isEqual:url]) {//请求网络上图片地址URL与本地保存的URL对比不相等  并且网络请求的图片URL不为空的情况下，进行图片下载
+
+                [self.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"new6p"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                    
+                    [[NSUserDefaults standardUserDefaults]setObject:responseObject[@"data"][0][@"url"] forKey:@"starUrl"];//保存网络请求的图片url
+                    
+                    //保存图片为二进制格式
+                    NSData *data;
+                    if (UIImagePNGRepresentation(image) == nil) {
+                        data = UIImageJPEGRepresentation(image, 1);
+                    } else {
+                        data = UIImagePNGRepresentation(image);
+                    }
+                    [[NSUserDefaults standardUserDefaults]setObject:data forKey:@"starImgData"];
+                    
+                    
+                      [self performSelector:@selector(standimage) withObject:nil afterDelay:2.0];//成功的跳转
+                }];
+                
+            }else{
+                [NSThread sleepForTimeInterval:1.0f];
+                app.networkActivityIndicatorVisible = NO;
+                [IWControllerTool chooseRootViewController];
+            }
+
+        }else{
+
+            [NSThread sleepForTimeInterval:1.0];
+            app.networkActivityIndicatorVisible = NO;
+            [IWControllerTool chooseRootViewController];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [NSThread sleepForTimeInterval:1.0];
+        app.networkActivityIndicatorVisible = NO;
+        [IWControllerTool chooseRootViewController];
+    }];
+}
+-(void)standimage
+{
+    UIApplication * app = [UIApplication sharedApplication];
+    if ([self.imageView image]) {
+        [NSThread sleepForTimeInterval:1.0];
+        app.networkActivityIndicatorVisible = NO;
+        [IWControllerTool chooseRootViewController];
+    }
+}
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+
+
+@end

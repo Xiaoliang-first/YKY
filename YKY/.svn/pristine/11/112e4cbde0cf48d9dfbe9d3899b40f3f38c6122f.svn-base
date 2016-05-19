@@ -1,0 +1,229 @@
+//
+//  chooseChargeWayViewController.m
+//  YKY
+//
+//  Created by 肖 亮 on 16/3/28.
+//  Copyright © 2016年 金蚂蚁（北京）网络科技有限公司. All rights reserved.
+//
+
+#import "chooseChargeWayViewController.h"
+#import "Account.h"
+#import "AccountTool.h"
+#import "common.h"
+#import "MBProgressHUD+MJ.h"
+#import "myAccountVC.h"
+#import "AFNetworking.h"
+#import "WXApi.h"
+#import "wxPayDataMidel.h"
+#import "UMSocialWechatHandler.h"
+
+@interface chooseChargeWayViewController ()<WXApiDelegate>
+
+@property(nonatomic,strong) NSMutableArray * dataArray;
+
+@property (weak, nonatomic) IBOutlet UILabel *jineLabel;
+@property (weak, nonatomic) IBOutlet UILabel *jiangliLabel;
+
+
+@end
+
+
+
+@implementation chooseChargeWayViewController
+
+
+-(NSMutableArray *)dataArray{
+    if (_dataArray == nil) {
+        self.dataArray = [[NSMutableArray alloc]init];
+    }
+    return _dataArray;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.title = @"选择充值";
+    self.jineLabel.text = _money;
+    self.jiangliLabel.text = _zsZuanShi;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+    [self setLeftNavBtn];
+}
+
+#pragma mark - 设置左导航nav
+-(void)setLeftNavBtn{
+    UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
+    left.tintColor = [UIColor whiteColor];
+    [left setImage:[UIImage imageNamed:@"jiantou-Left"]];
+    self.navigationItem.leftBarButtonItem = left;
+}
+-(void)leftClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - 银联支付
+- (IBAction)yinlianPay:(id)sender {
+    [self ylPay];
+}
+
+#pragma mark - 银联支付
+-(void)ylPay{
+    NSString *money = @"0";
+    //获取银联支付所需参数
+    Account *account = [AccountTool account];
+    if (!account) {
+        [MBProgressHUD showError:@"请登录账号!"];
+        [NSTimer scheduledTimerWithTimeInterval:1.2 target:self selector:@selector(jumpToMyaccountVC) userInfo:nil repeats:NO];
+        return;
+    }
+    //加密参数，作为请求后台的URL
+    NSString * desString = [NSString stringWithFormat:@"client=%@&userId=%@&serverToken=%@&money=%@&giveDiamonds=%@",Kclient,account.uiId,account.reponseToken,self.money,self.zsZuanShi];
+    if (account.uiId == nil || account.reponseToken == nil || Kclient == nil ||money == nil || account.diamonds == nil) {
+        [MBProgressHUD showError:@"支付失败!"];
+        return;
+    }
+    NSString *str = [@"/clientRecharge/saveRechargeForUPWap?" stringByAppendingString:desString];
+    NSString * str2 = [kbaseURL stringByAppendingString:str];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str2]];
+//    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - 微信支付
+- (IBAction)weixinPay:(id)sender {
+    [self wxPay];
+}
+
+#pragma mark - 微信支付
+-(void)wxPay{
+
+    [MBProgressHUD showMessage:@"支付中..." toView:self.view];
+
+    Account *account = [AccountTool account];
+
+    if (!account) {
+        //当前用户注销之后跳转到登陆界面
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        myAccountVC * myAccountVC = [sb instantiateViewControllerWithIdentifier:@"myAccountVC"];
+        [self.navigationController pushViewController:myAccountVC animated:YES];
+        return;
+    }
+
+    if (account.uiId == nil) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError:@"用户信息有误!"];
+        return;
+    }else if (account.phone == nil){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError:@"用户信息有误!"];
+        return;
+    }else if (account.reponseToken == nil){
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError:@"用户信息有误!"];
+        return;
+    }
+
+    NSDictionary *parameter = @{@"client":Kclient,@"userId":account.uiId,@"serverToken":account.reponseToken,@"money":self.money,@"giveDiamonds":self.zsZuanShi};
+
+    NSString *str = kweixinPay;
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
+    [manager POST:str parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+
+        if ([responseObject[@"retcode"] isEqualToString:@"0"]) {
+            wxPayDataMidel * model = [wxPayDataMidel modelWithDict:responseObject];
+            [self.dataArray addObject:model];
+            [self starPay];
+        }else{
+            [MBProgressHUD showError:responseObject[@"retmsg"]];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError:@"网络加载失败"];
+    }];
+}
+
+#pragma mark - 开始微信支付
+-(void)starPay{
+
+    if (self.dataArray.count == 0) {
+        [MBProgressHUD showError:@"交易失败!"];
+        return;
+    }
+    wxPayDataMidel * model = self.dataArray[0];
+    [UMSocialWechatHandler setWXAppId:model.appid appSecret:@"999a8ffe1c324f72b84f477c847bc255" url:@"http://www.yikuaiyao.com"];
+
+    // 调起微信支付
+    PayReq *request   = [[PayReq alloc] init];
+    request.partnerId = model.partnerid;
+    request.prepayId  = model.prepayid;
+    request.package   = model.package;      // 文档为 `Request.package = _package;` , 但如果填写上面生成的 `package` 将不能支付成功
+    request.nonceStr  = model.noncestr;
+    request.timeStamp = [model.timestamp intValue];
+    request.sign = model.sign;
+
+    if ([WXApi isWXAppInstalled]) {//用户已安装微信
+    }else{//用户未安装微信
+        UIAlertView *alter = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"当前设备未检测到微信客户端，请用其他方式支付!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alter show];
+        return;
+    }
+    [WXApi sendReq:request];
+    if ([WXApi sendReq:request]) {//吊起微信支付成功
+        request = nil;
+        //延时发起微信支付结果回调
+        //        [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(setMoney) userInfo:nil repeats:NO];
+    }else if(![WXApi sendReq:request]){//吊起微信支付未成功
+        [MBProgressHUD showError:@"支付失败!"];
+    }
+//    [self.navigationController popViewControllerAnimated:YES];
+}
+
+//单点登录
+-(void)jumpToMyaccountVC{
+    Account * account2 = [AccountTool account];
+    if (account2) {
+        //实现当前用户注销（就是把 account.data文件清空）
+        account2 = nil;
+        [AccountTool saveAccount:account2];
+
+        //当前用户注销之后跳转到登陆界面
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        myAccountVC * myAccountVC = [sb instantiateViewControllerWithIdentifier:@"myAccountVC"];
+        [self.navigationController pushViewController:myAccountVC animated:YES];
+    }else{
+        //当前用户注销之后跳转到登陆界面
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        myAccountVC * myAccountVC = [sb instantiateViewControllerWithIdentifier:@"myAccountVC"];
+        [self.navigationController pushViewController:myAccountVC animated:YES];
+    }
+}
+
+
+
+//
+//-(void)onResp:(BaseResp *)resp{
+//    //如果第三方程序向微信发送了sendReq的请求，那么onResp会被回调。sendReq请求调用后，会切到微信终端程序界面
+//    NSString *strMsg=[NSString stringWithFormat:@"errcode:%d",resp.errCode];
+//    NSString *strTitle;
+//    if ([resp isKindOfClass:[PayResp class]]) {
+//        //支付返回结果，实际支付结果需要去微信服务器端查询
+//        strTitle=[NSString stringWithFormat:@"支付结果"];
+//        switch (resp.errCode) {
+//            case WXSuccess:
+//                strMsg=@"支付结果：成功！";
+//                break;
+//
+//            default:
+//                strMsg = [NSString stringWithFormat:@"支付结果：失败！retcode = %d, retstr = %@", resp.errCode,resp.errStr];
+//                break;
+//        }
+//    }
+//}
+
+
+
+@end

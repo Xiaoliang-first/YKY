@@ -1,0 +1,57 @@
+//
+//  PrefixHeader.pch
+//  YKY
+//
+//  Created by 肖 亮 on 16/4/1.
+//  Copyright © 2016年 金蚂蚁（北京）网络科技有限公司. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+#import "UIView+XL.h"
+#import "XLRequest.h"
+#import "common.h"
+#import "MBProgressHUD+MJ.h"
+#import "MJRefresh.h"
+#import "UIImageView+WebCache.h"
+
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#endif
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#if DEBUG
+#define DebugLog(...) NSLog(__VA_ARGS__)
+#else
+#define DebugLog(...)
+#endif
+
+
+// 颜色的宏，可以直接用
+#define YKYColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
+#define YKYColorRGBA(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:a]
+// 随机色
+#define YKYRandomColor YKYColor(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
+
+
+//屏幕的宽和高
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenheight [UIScreen mainScreen].bounds.size.height
+
+
+//相应设备判断
+#define iPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define iPhone6 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size)) : NO)
+#define iPhone6plus ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(1125, 2001), [[UIScreen mainScreen] currentMode].size) || CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size)) : NO)
+
+
+
+
+
+
+#endif /* PrefixHeader_pch */

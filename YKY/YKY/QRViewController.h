@@ -12,7 +12,10 @@ typedef void(^QRUrlBlock)(NSString *url);
 
 @interface QRViewController : UIViewController
 
+/** 1：标示是首页进入的。其他是商家登陆端进入的 */
+@property (nonatomic , copy) NSString * ID;
 
 @property (nonatomic, copy) QRUrlBlock qrUrlBlock;
+
 
 @end

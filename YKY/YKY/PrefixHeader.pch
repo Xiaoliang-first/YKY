@@ -32,6 +32,7 @@
 #import "luckView.h"
 #import "getIpVC.h"
 #import "rightImgBtn.h"
+#import "getLabelHeight.h"
 
 
 #ifdef __OBJC__

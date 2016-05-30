@@ -20,6 +20,7 @@
 @property (strong, nonatomic) AVCaptureMetadataOutput * output;
 @property (strong, nonatomic) AVCaptureSession * session;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * preview;
+@property (nonatomic , strong) UIAlertView * photoAlterView;
 
 @end
 
@@ -33,18 +34,32 @@
 
 
     AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-//    NSString *tips = NSLocalizedString(@"AVAuthorization", @"您没有权限访问相机");
+
     if(status == AVAuthorizationStatusNotDetermined || status == AVAuthorizationStatusAuthorized) {
         // authorized
         [self setupCamera];
     } else if(status == AVAuthorizationStatusDenied || status == AVAuthorizationStatusRestricted){
-        UIAlertView * alter = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"没有访问相机权限,请您去设置界面提供访问授权!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-//        [[UIAlertView alloc]initWithTitle:@"提示:" message:@"没有访问相机权限,请您去设置界面提供访问授权!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-        [alter show];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        self.photoAlterView = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"没有访问相机权限,请您去设置界面提供访问授权!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:@"去设置", nil];
+        [self.photoAlterView show];
     }
 }
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            break;
+        case 1:
+            if ([alertView isEqual:self.photoAlterView]) {
+                //跳转到设置的 Photos 照片与相机页面
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+            }
+            break;
 
+        default:
+            break;
+    }
+
+}
 //开始相机访问（扫描）
 -(void)setupCamera{
     _device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -146,9 +161,16 @@
         stringValue = metadataObject.stringValue;
     }
 
+    DebugLog(@"扫描结果=%@",stringValue);
     if (stringValue) {
-        [[NSUserDefaults standardUserDefaults]setObject:stringValue forKey:@"prizeCodes"];
-        [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"saomiaochenggong"];
+        if ([self.ID isEqualToString:@"1"]) {//首页进入传1，商家段登陆不传
+            [[NSUserDefaults standardUserDefaults]setObject:stringValue forKey:@"prizeCodes"];
+            //进入扫描结果的列表界面
+            
+        }else{
+            [[NSUserDefaults standardUserDefaults]setObject:stringValue forKey:@"prizeCodes"];
+            [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"saomiaochenggong"];
+        }
     }else{
         [MBProgressHUD showError:@"二维码扫描失败"];
     }

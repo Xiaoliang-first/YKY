@@ -150,6 +150,7 @@
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     
     [manager POST:str parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DebugLog(@"活动奖品列表数据=%@",responseObject);
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSArray * array = [[NSArray alloc]init];
         array = responseObject[@"data"];

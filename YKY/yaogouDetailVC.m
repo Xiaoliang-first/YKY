@@ -80,9 +80,6 @@
     //    _scrollView.delegate = self;
     [self.view addSubview:_scrollView];
 
-    //添加固定控件
-    [self addSubViews];
-
     //加载网络数据
     [self loadData];
 }
@@ -237,6 +234,10 @@
     [_bottomView addSubview:_rockBtn];
     //调整scrollView 的 Size
     _scrollView.contentSize = CGSizeMake(kScreenWidth, _midBackView.y+_midBackView.height+100+2*Hmagin+_rockBtn.height);
+
+    if (iPhone6 || iPhone6plus) {
+        _scrollView.contentSize = CGSizeMake(kScreenWidth, kScreenheight + _rockBtn.height);
+    }
 }
 
 #pragma mark - 中部cell点击事件
@@ -338,6 +339,8 @@
 -(void)setDataWithModel{
     DebugLog(@"\n=prizeName=%@\n=prizeUrl=%@\n=plimit=%@\n=zongNum=%@\n=shengNum=%@\n=oderNum=%@\n=pid=%@\n",_prizeModel.pname,_prizeModel.headImage,_prizeModel.plimit,_prizeModel.zongNum,_prizeModel.shengNum,_prizeModel.serials,_prizeModel.pid);
 
+    //添加固定控件
+    [self addSubViews];
 
     [self addTopAdScrollView];//添加banner
 
@@ -452,6 +455,13 @@
     DebugLog(@"摇购详情可以刷新数据啦");
 
     if (_scrollView.contentOffset.y < -77.0) {
+        [_topBackView removeFromSuperview];
+        [_midBackView removeFromSuperview];
+        [_bottomView removeFromSuperview];
+        [_rockBtn removeFromSuperview];
+        for (UIView * view in _scrollView.subviews) {
+            [view removeFromSuperview];
+        }
         [self loadData];
     }
 }
@@ -472,7 +482,7 @@
         [parameters setValue:self.prizeModel.serialId forKey:@"serailId"];
     }
 
-    [MBProgressHUD showMessage:@"加载中..." toView:self.view];
+    [MBProgressHUD showMessage:@"刷新中..." toView:self.view];
     [XLRequest AFPostHost:kbaseURL bindPath:bindPath postParam:parameters isClient:NO getParam:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDic) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         DebugLog(@"摇购列表详情获取结果=%@",responseDic);
@@ -498,9 +508,9 @@
     [parameters setValue:self.prizeModel.pid forKey:@"pid"];
     
     DebugLog(@"model.pid = %@ ===data.pid=%@",self.prizeModel.pid,_data[@"pid"]);
-    [MBProgressHUD showMessage:@"加载中..." toView:self.view];
+//    [MBProgressHUD showMessage:@"加载中..." toView:self.view];
     [XLRequest AFPostHost:kbaseURL bindPath:bindPath postParam:parameters isClient:NO getParam:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDic) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
         DebugLog(@"摇购列表详情获取banner=%@",responseDic);
         if ([responseDic[@"code"] isEqual:@0]) {
             NSArray * array = [NSArray arrayWithArray:responseDic[@"data"]];
@@ -519,7 +529,7 @@
             [MBProgressHUD showError:responseDic[@"msg"]];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showError:@"网络加载失败!"];
         [self.navigationController popViewControllerAnimated:YES];
         DebugLog(@"摇购列表详情获取banner失败==error=%@===oper=%@",error,operation);

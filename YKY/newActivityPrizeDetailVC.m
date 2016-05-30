@@ -147,6 +147,7 @@
     NSDictionary * parameters = @{@"pId":self.prizeId};
     
     [manager POST:str parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        DebugLog(@"活动奖品详情=%@",responseObject);
         if ([responseObject[@"code"] isEqual:@(0)]) {
             for (NSDictionary * dict in responseObject[@"data"]) {
                 self.prizeDetailModel = [prizeDetailModel modelWithDict:dict];
@@ -211,6 +212,7 @@
     priceLB.font = [UIFont systemFontOfSize:14];
     NSString * RMB = @"￥";
     NSString * price = [RMB stringByAppendingFormat:@"%@",self.prizeDetailModel.marketPrice];
+//    DebugLog(@"price=%@-------%@",self.prizeDetailModel.price,price);
     priceLB.text = price;
     [TopView addSubview:priceLB];
 

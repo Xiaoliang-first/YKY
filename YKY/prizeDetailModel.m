@@ -16,6 +16,7 @@
     prizeDetailModel * model = [[prizeDetailModel alloc]init];
     model.mname = dic[@"mname"];
     model.marketPrice = [NSString stringWithFormat:@"%@",dic[@"marketPrice"]];
+//    model.price = [NSString stringWithFormat:@"%@",dic[@"price"]];
     model.address = dic[@"address"];
     model.pintroduction = dic[@"pintroduction"];
     model.pname = dic[@"pname"];

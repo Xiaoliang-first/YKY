@@ -13,8 +13,10 @@
 
 /** 商家名称 */
 @property (nonatomic , copy) NSString * mname;
-/** 奖品价格 */
+/** 奖品市场价格 */
 @property (nonatomic , copy) NSString * marketPrice;
+///** 奖品价格 */
+//@property (nonatomic , copy) NSString * price;
 /** 商家地址 */
 @property (nonatomic , copy) NSString * address;
 /** 奖品详情 */

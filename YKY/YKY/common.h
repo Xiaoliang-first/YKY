@@ -23,14 +23,16 @@
 
 
 //局域网电脑
-//#define kbaseURL @"http://192.168.1.110:8090/ykyInterface"
+#define kbaseURL @"http://192.168.1.110:8090"
+///ykyInterface
 //#define kbaseURL @"http://192.168.1.91:8090/ykyInterface"
 //#define kbaseURL @"http://192.168.1.31:8080"
 
 
 
 //公司外网接口
-#define kbaseURL @"http://api.yikuaiyao.com"
+//#define kbaseURL @"http://api.yikuaiyao.com"
+
 //#define kbaseURL @"http://220.194.52.2:8084/ykyInterface"
 
 

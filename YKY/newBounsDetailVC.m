@@ -129,7 +129,7 @@
 
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     [manager POST:str parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        DebugLog(@"==%@",responseObject);
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([responseObject[@"code"] isEqual:@(0)]) {
             for (NSDictionary * dict in responseObject[@"data"]) {
@@ -209,7 +209,7 @@
     UILabel * priceLB = [[UILabel alloc]initWithFrame:CGRectMake(TopView.width-priceLbW-8, IMGVH, priceLbW, TopView.height-IMGVH)];
     priceLB.font = [UIFont systemFontOfSize:14];
     NSString * RMB = @"￥";
-    NSString * price = [RMB stringByAppendingFormat:@"%@",self.boundsDetailModel.price];
+    NSString * price = [RMB stringByAppendingFormat:@"%@",self.boundsDetailModel.marketPrice];
     priceLB.text = price;
     priceLB.textAlignment = NSTextAlignmentRight;
     [TopView addSubview:priceLB];

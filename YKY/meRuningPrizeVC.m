@@ -218,7 +218,6 @@
     NSMutableDictionary * paramter = [NSMutableDictionary dictionary];
     [paramter setValue:page forKey:@"pageNum"];
 
-
    [XLRequest AFPostHost:kbaseURL bindPath:bindPath postParam:paramter isClient:YES getParam:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDic) {
        DebugLog(@"进行中奖品请求结果==%@",responseDic);
        if ([responseDic[@"code"] isEqual:@0]) {

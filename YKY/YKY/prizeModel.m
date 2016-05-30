@@ -45,6 +45,7 @@
 //@property (nonatomic , copy) NSString * supplierId;
 
 #import "prizeModel.h"
+#import "common.h"
 
 @implementation prizeModel
 

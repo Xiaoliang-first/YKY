@@ -32,6 +32,7 @@
 #import "adBannerModle.h"
 #import "YaogouVC.h"
 #import "homeNewScuessPrizeVC.h"
+#import "QRViewController.h"
 
 
 
@@ -86,8 +87,6 @@
 @property (nonatomic , strong) NSMutableArray * townsArray;
 
 @property (nonatomic , strong) UIAlertView * locationAlertView;
-
-
 
 @property (nonatomic , strong) UIAlertView * NWStateAlter;
 @property (nonatomic, strong) Reachability *reachability;
@@ -150,7 +149,40 @@
     // 开始监控网络
     [self.reachability startNotifier];
 
+
+    [self setRight];
     
+}
+
+#pragma mark - 设置导航条右侧扫描按钮
+-(void)setRight{
+    UIButton * rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 22, 22)];
+    [rightBtn setBackgroundImage:[UIImage imageNamed:@"saomiaoanniu"] forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+
+    self.navigationItem.rightBarButtonItem = right;
+}
+-(void)rightClick{
+
+    if ([self validateCamera]) {
+        [self showQRViewController];
+    } else {
+        UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"没有摄像头或摄像头不可用" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alter show];
+    }
+}
+#pragma mark - 判断是否有摄像头或者摄像头是否能用
+- (BOOL)validateCamera {
+    return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] &&
+    [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
+}
+#pragma mark - 跳转到扫描界面
+- (void)showQRViewController {
+    QRViewController *qrVC = [[QRViewController alloc] init];
+    qrVC.ID = @"1";
+    self.tabBarController.tabBar.hidden = YES;
+    [self.navigationController pushViewController:qrVC animated:YES];
 }
 
 
@@ -671,6 +703,7 @@
                 self.haveGoneCitys = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             }
+            
             break;
         default:
             break;

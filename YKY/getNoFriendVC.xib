@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1808" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="getNoFriendVC">
+            <connections>
+                <outlet property="getFriendBtn" destination="Ul0-0v-Dix" id="XMm-cI-d8O"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ul0-0v-Dix">
+                    <rect key="frame" x="15" y="545" width="570" height="40"/>
+                    <color key="backgroundColor" red="0.93333333330000001" green="0.019607843140000001" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="FHH-te-6GD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="速去推荐好友">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted" title="速去推荐好友">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="getFriendBtnClick:" destination="-1" eventType="touchUpInside" id="JWI-0B-mMe"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E9P-BU-WN5">
+                    <rect key="frame" x="0.0" y="64" width="600" height="90"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您还没有成功推荐，速去邀请好友吧!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NVh-oJ-xdP">
+                            <rect key="frame" x="0.0" y="16" width="600" height="19"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="19" id="QVO-kV-Jb1"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奖励在呼唤你哦!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kZX-Yt-qYN">
+                            <rect key="frame" x="0.0" y="43" width="600" height="34"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="0qX-jn-ned"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <color key="textColor" red="0.93333333330000001" green="0.019607843140000001" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96862745100000003" green="0.92941176469999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="kZX-Yt-qYN" firstAttribute="top" secondItem="NVh-oJ-xdP" secondAttribute="bottom" constant="8" id="7QG-5W-u7V"/>
+                        <constraint firstAttribute="height" constant="90" id="G9s-d0-X55"/>
+                        <constraint firstAttribute="trailing" secondItem="kZX-Yt-qYN" secondAttribute="trailing" id="IZH-SK-ztI"/>
+                        <constraint firstItem="kZX-Yt-qYN" firstAttribute="leading" secondItem="E9P-BU-WN5" secondAttribute="leading" id="LmT-sc-NAj"/>
+                        <constraint firstAttribute="trailing" secondItem="NVh-oJ-xdP" secondAttribute="trailing" id="MCT-Ks-dZE"/>
+                        <constraint firstItem="NVh-oJ-xdP" firstAttribute="top" secondItem="E9P-BU-WN5" secondAttribute="top" constant="16" id="xwf-0q-KwF"/>
+                        <constraint firstItem="NVh-oJ-xdP" firstAttribute="leading" secondItem="E9P-BU-WN5" secondAttribute="leading" id="ze3-Pp-dVg"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Ul0-0v-Dix" secondAttribute="bottom" constant="15" id="68e-ea-taz"/>
+                <constraint firstItem="E9P-BU-WN5" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="Hfl-gR-Y3z"/>
+                <constraint firstAttribute="trailing" secondItem="Ul0-0v-Dix" secondAttribute="trailing" constant="15" id="ePb-Bv-ViK"/>
+                <constraint firstItem="Ul0-0v-Dix" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="kwC-Z3-66p"/>
+                <constraint firstAttribute="trailing" secondItem="E9P-BU-WN5" secondAttribute="trailing" id="oZ6-pw-aMF"/>
+                <constraint firstItem="E9P-BU-WN5" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uAR-uM-gB7"/>
+            </constraints>
+            <point key="canvasLocation" x="346" y="329"/>
+        </view>
+    </objects>
+</document>

@@ -23,16 +23,14 @@
 +(void)shareWithImgurl:(NSString*)imgurl andPid:(NSString *)pid phone:(NSString*)phone andVC:(UIViewController*)VC{
 
     //手机号中间四位用*隐藏
-    NSString * phone2 = [phone substringFromIndex:7];
-    NSString * phone1 = [phone substringToIndex:3];
-    NSString * sPhone = [[phone1 stringByAppendingString:@"****"] stringByAppendingString:phone2];
+    NSString * sPhone = [phoneSecret phoneSecretWithPhoneNum:phone];
 
     //完成分享链接编码
     NSString *url = [kbaseURL stringByAppendingString:[NSString stringWithFormat:@"/coupons/shareCoupons/%@-%@",sPhone,pid]];
 
     //设置分享内容，（图片加上分享内容和链接）
     UIImageView *imgview = [[UIImageView alloc]init];
-    
+
     [imgview sd_setImageWithURL:[NSURL URLWithString:imgurl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [UMSocialSnsService presentSnsIconSheetView:VC appKey:@"53f77204fd98c585f200de09"shareText:[NSString stringWithFormat:@"我刚在一块摇中获取了一个奖品，只要你摇，惊喜一直不断，你准备好了吗？%@",imgurl] shareImage:imgview.image shareToSnsNames:[NSArray arrayWithObjects:UMShareToSina,UMShareToLWSession,UMShareToTencent,UMShareToWechatTimeline,UMShareToWechatSession,nil,nil] delegate:VC];
         [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina,UMShareToLWSession,UMShareToTencent,UMShareToWechatTimeline,UMShareToWechatSession]content:[NSString stringWithFormat:@"我刚在一块摇中获取了一个奖品，只要你摇，惊喜一直不断，你准备好了吗？%@",imgurl] image:imgview.image location:nil urlResource:nil presentedController:VC completion:^(UMSocialResponseEntity *response) {

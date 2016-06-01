@@ -280,6 +280,15 @@
 		DF6DACCC1CB65A73005EF558 /* TGMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6DACCB1CB65A73005EF558 /* TGMainVC.m */; };
 		DF6DACCF1CB66812005EF558 /* line.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6DACCE1CB66812005EF558 /* line.m */; };
 		DF7CACA01CC4CF27006B876F /* meAddAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7CAC9F1CC4CF27006B876F /* meAddAddressVC.m */; };
+		DF873CDE1CFD35E700193B51 /* getMyFriendsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CDC1CFD35E700193B51 /* getMyFriendsVC.m */; };
+		DF873CDF1CFD35E700193B51 /* getMyFriendsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF873CDD1CFD35E700193B51 /* getMyFriendsVC.xib */; };
+		DF873CE31CFD496700193B51 /* getNoFriendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CE11CFD496700193B51 /* getNoFriendVC.m */; };
+		DF873CE41CFD496700193B51 /* getNoFriendVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF873CE21CFD496700193B51 /* getNoFriendVC.xib */; };
+		DF873CE81CFD499800193B51 /* getManyFriendsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CE61CFD499800193B51 /* getManyFriendsVC.m */; };
+		DF873CE91CFD499800193B51 /* getManyFriendsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF873CE71CFD499800193B51 /* getManyFriendsVC.xib */; };
+		DF873CEE1CFD7C1D00193B51 /* getFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CEC1CFD7C1D00193B51 /* getFriendsCell.m */; };
+		DF873CEF1CFD7C1D00193B51 /* getFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF873CED1CFD7C1D00193B51 /* getFriendsCell.xib */; };
+		DF873CF41CFD84B100193B51 /* getFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CF31CFD84B100193B51 /* getFriendModel.m */; };
 		DF8779FA1CBC999B00BED752 /* YGPrizeDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8779F91CBC999B00BED752 /* YGPrizeDetailVC.m */; };
 		DF8779FD1CBCA90000BED752 /* YGLookOldVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8779FC1CBCA90000BED752 /* YGLookOldVC.m */; };
 		DF877A041CBCADAE00BED752 /* YGLookOldItems.m in Sources */ = {isa = PBXBuildFile; fileRef = DF877A021CBCADAE00BED752 /* YGLookOldItems.m */; };
@@ -865,6 +874,20 @@
 		DF6DACCE1CB66812005EF558 /* line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = line.m; sourceTree = "<group>"; };
 		DF7CAC9E1CC4CF27006B876F /* meAddAddressVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meAddAddressVC.h; sourceTree = "<group>"; };
 		DF7CAC9F1CC4CF27006B876F /* meAddAddressVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = meAddAddressVC.m; sourceTree = "<group>"; };
+		DF873CDB1CFD35E700193B51 /* getMyFriendsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getMyFriendsVC.h; sourceTree = "<group>"; };
+		DF873CDC1CFD35E700193B51 /* getMyFriendsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getMyFriendsVC.m; sourceTree = "<group>"; };
+		DF873CDD1CFD35E700193B51 /* getMyFriendsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = getMyFriendsVC.xib; sourceTree = "<group>"; };
+		DF873CE01CFD496700193B51 /* getNoFriendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getNoFriendVC.h; sourceTree = "<group>"; };
+		DF873CE11CFD496700193B51 /* getNoFriendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getNoFriendVC.m; sourceTree = "<group>"; };
+		DF873CE21CFD496700193B51 /* getNoFriendVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = getNoFriendVC.xib; sourceTree = "<group>"; };
+		DF873CE51CFD499800193B51 /* getManyFriendsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getManyFriendsVC.h; sourceTree = "<group>"; };
+		DF873CE61CFD499800193B51 /* getManyFriendsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getManyFriendsVC.m; sourceTree = "<group>"; };
+		DF873CE71CFD499800193B51 /* getManyFriendsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = getManyFriendsVC.xib; sourceTree = "<group>"; };
+		DF873CEB1CFD7C1D00193B51 /* getFriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getFriendsCell.h; sourceTree = "<group>"; };
+		DF873CEC1CFD7C1D00193B51 /* getFriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getFriendsCell.m; sourceTree = "<group>"; };
+		DF873CED1CFD7C1D00193B51 /* getFriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = getFriendsCell.xib; sourceTree = "<group>"; };
+		DF873CF21CFD84B100193B51 /* getFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getFriendModel.h; sourceTree = "<group>"; };
+		DF873CF31CFD84B100193B51 /* getFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getFriendModel.m; sourceTree = "<group>"; };
 		DF8779F81CBC999B00BED752 /* YGPrizeDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGPrizeDetailVC.h; sourceTree = "<group>"; };
 		DF8779F91CBC999B00BED752 /* YGPrizeDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGPrizeDetailVC.m; sourceTree = "<group>"; };
 		DF8779FB1CBCA90000BED752 /* YGLookOldVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGLookOldVC.h; sourceTree = "<group>"; };
@@ -2500,6 +2523,7 @@
 			children = (
 				CEAD7C5D1B9C13F700711D2A /* newMeVC.h */,
 				CEAD7C5E1B9C13F700711D2A /* newMeVC.m */,
+				DF873CDA1CFD35B200193B51 /* 邀请好友 */,
 				DFEEB7641CCE15E400FCAA30 /* 幸运摇购 */,
 				DFEEB7551CCDCF6000FCAA30 /* 已揭晓 */,
 				DF004B441CC61C6400C8B179 /* 进行中 */,
@@ -2827,6 +2851,51 @@
 				DFFAF03F1CC4DAA900ADB628 /* C */,
 			);
 			name = "增加地址";
+			sourceTree = "<group>";
+		};
+		DF873CDA1CFD35B200193B51 /* 邀请好友 */ = {
+			isa = PBXGroup;
+			children = (
+				DF873CF01CFD847800193B51 /* M */,
+				DF873CEA1CFD7BF900193B51 /* V */,
+				DF873CF11CFD848000193B51 /* C */,
+			);
+			name = "邀请好友";
+			sourceTree = "<group>";
+		};
+		DF873CEA1CFD7BF900193B51 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				DF873CEB1CFD7C1D00193B51 /* getFriendsCell.h */,
+				DF873CEC1CFD7C1D00193B51 /* getFriendsCell.m */,
+				DF873CED1CFD7C1D00193B51 /* getFriendsCell.xib */,
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
+		DF873CF01CFD847800193B51 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				DF873CF21CFD84B100193B51 /* getFriendModel.h */,
+				DF873CF31CFD84B100193B51 /* getFriendModel.m */,
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		DF873CF11CFD848000193B51 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				DF873CDB1CFD35E700193B51 /* getMyFriendsVC.h */,
+				DF873CDC1CFD35E700193B51 /* getMyFriendsVC.m */,
+				DF873CDD1CFD35E700193B51 /* getMyFriendsVC.xib */,
+				DF873CE01CFD496700193B51 /* getNoFriendVC.h */,
+				DF873CE11CFD496700193B51 /* getNoFriendVC.m */,
+				DF873CE21CFD496700193B51 /* getNoFriendVC.xib */,
+				DF873CE51CFD499800193B51 /* getManyFriendsVC.h */,
+				DF873CE61CFD499800193B51 /* getManyFriendsVC.m */,
+				DF873CE71CFD499800193B51 /* getManyFriendsVC.xib */,
+			);
+			name = C;
 			sourceTree = "<group>";
 		};
 		DF8779FE1CBCAA4300BED752 /* C */ = {
@@ -3368,6 +3437,7 @@
 				CE19163C1B4271E700AFC192 /* bossExpenseCell.xib in Resources */,
 				CEC4B68C1B0CEB1300705BD4 /* UMSLoginViewController.xib in Resources */,
 				CEE4FC811B9FEEBB007BBB1D /* boundCells.xib in Resources */,
+				DF873CDF1CFD35E700193B51 /* getMyFriendsVC.xib in Resources */,
 				DF05E0C31CB3729B0015202B /* yaogouCell.xib in Resources */,
 				CE803A091B1D485F00301B03 /* icon_zoom_out-30.png in Resources */,
 				CE05CCA31AF1F34F005C3B3E /* topic_talk_normal.png in Resources */,
@@ -3381,6 +3451,7 @@
 				CEC4B6841B0CEB1300705BD4 /* UMSocialLocalizable.strings in Resources */,
 				CEC4B6891B0CEB1300705BD4 /* UMSCommentInputControlleriPad.xib in Resources */,
 				DF6B87971C3F57060008CF3F /* Images.xcassets in Resources */,
+				DF873CE41CFD496700193B51 /* getNoFriendVC.xib in Resources */,
 				CEC4B6881B0CEB1300705BD4 /* UMSCommentInputController.xib in Resources */,
 				CEAA41861B2EC57B00622688 /* managerCommendatoryCell.xib in Resources */,
 				CE31A5B21B16BD4100CE0862 /* grade_2.mp3 in Resources */,
@@ -3396,9 +3467,11 @@
 				DFEEB76E1CCE17B300FCAA30 /* meLuckCell.xib in Resources */,
 				CE7E5E921B1475EF00B9FA41 /* MBProgressHUD.bundle in Resources */,
 				CEC4B68B1B0CEB1300705BD4 /* UMShareEditViewControlleriPad.xib in Resources */,
+				DF873CE91CFD499800193B51 /* getManyFriendsVC.xib in Resources */,
 				CEC4B68A1B0CEB1300705BD4 /* UMShareEditViewController.xib in Resources */,
 				CEE3C2FD1BAA603900F379A6 /* newActivityDetailCell.xib in Resources */,
 				CEC4B68E1B0CEB1300705BD4 /* UMSShareListController.xib in Resources */,
+				DF873CEF1CFD7C1D00193B51 /* getFriendsCell.xib in Resources */,
 				DFEEB7781CCE25F900FCAA30 /* addLuckNumCell.xib in Resources */,
 				CEDF4BDB1BB132CE000536E6 /* chargeCityCell.xib in Resources */,
 				CEE3C2F21BA9BCDE00F379A6 /* newActivityCell.xib in Resources */,
@@ -3558,8 +3631,10 @@
 				CE31A58B1B1588FA00CE0862 /* XLPlaySound.m in Sources */,
 				DFEEB7691CCE166700FCAA30 /* meLucksVC.m in Sources */,
 				CE7E5E931B1475EF00B9FA41 /* MBProgressHUD.m in Sources */,
+				DF873CEE1CFD7C1D00193B51 /* getFriendsCell.m in Sources */,
 				DF8779FD1CBCA90000BED752 /* YGLookOldVC.m in Sources */,
 				DF6DACBC1CB4AC34005EF558 /* yaogouDetailVC.m in Sources */,
+				DF873CF41CFD84B100193B51 /* getFriendModel.m in Sources */,
 				CE6A38E71B29855F005B7D30 /* bossEnvirModel.m in Sources */,
 				DF4A0B981CBB4B71001D67BD /* XLTextLabel.m in Sources */,
 				DF1EB4301C8ABCB800F71D20 /* lookLucksModel.m in Sources */,
@@ -3584,6 +3659,7 @@
 				CE1357D11B049E8900280309 /* ZHPickView.m in Sources */,
 				DFEEB7771CCE25F900FCAA30 /* addLuckNumCell.m in Sources */,
 				DFED5A531CBF8C6600DE50CF /* meShezhiVC.m in Sources */,
+				DF873CE31CFD496700193B51 /* getNoFriendVC.m in Sources */,
 				DF7CACA01CC4CF27006B876F /* meAddAddressVC.m in Sources */,
 				CEE3C2F11BA9BCDE00F379A6 /* newActivityCell.m in Sources */,
 				CE9F90B21C043E5F00995C62 /* AFNetworkReachabilityManager.m in Sources */,
@@ -3650,6 +3726,7 @@
 				CE05CC531AF1EBC9005C3B3E /* main.m in Sources */,
 				CE05CCEA1AF1F600005C3B3E /* UIView+XL.m in Sources */,
 				CE05CD181AF1F640005C3B3E /* SDWebImagePrefetcher.m in Sources */,
+				DF873CE81CFD499800193B51 /* getManyFriendsVC.m in Sources */,
 				CEE3A3481BA18A8A00C48856 /* fixUserNameVC.m in Sources */,
 				CE05CD101AF1F640005C3B3E /* MKAnnotationView+WebCache.m in Sources */,
 				CE9F90D71C0593AA00995C62 /* navBtn.m in Sources */,
@@ -3658,6 +3735,7 @@
 				CEDF4BD61BB122B8000536E6 /* signinDetailVC.m in Sources */,
 				CE42B58B1BAAAB7B0002A8B2 /* newChargeDetailVC.m in Sources */,
 				CE4A88F31AFA0D4C00BEAB96 /* usedPrizeVC.m in Sources */,
+				DF873CDE1CFD35E700193B51 /* getMyFriendsVC.m in Sources */,
 				DF004B4A1CC61CD100C8B179 /* meRuningPrizeVC.m in Sources */,
 				CE4A88F01AF9ABA000BEAB96 /* unUsedPrizeModel.m in Sources */,
 				DFD4702C1CC0C6EF008088B0 /* meJinzhuanZuanVC.m in Sources */,

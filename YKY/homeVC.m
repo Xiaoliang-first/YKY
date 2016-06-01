@@ -87,6 +87,7 @@
 @property (nonatomic , strong) NSMutableArray * townsArray;
 
 @property (nonatomic , strong) UIAlertView * locationAlertView;
+@property (nonatomic , strong) UIAlertView * photoAlter;
 
 @property (nonatomic , strong) UIAlertView * NWStateAlter;
 @property (nonatomic, strong) Reachability *reachability;
@@ -168,8 +169,8 @@
     if ([self validateCamera]) {
         [self showQRViewController];
     } else {
-        UIAlertView * alter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"没有摄像头或摄像头不可用" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-        [alter show];
+        self.photoAlter = [[UIAlertView alloc] initWithTitle:@"提示" message:@"没有摄像头或摄像头不可用" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [self.photoAlter show];
     }
 }
 #pragma mark - 判断是否有摄像头或者摄像头是否能用
@@ -696,7 +697,11 @@
     
     switch (buttonIndex) {
         case 0:
-            [self.navigationController pushViewController:vc animated:YES];
+            if ([alertView isEqual:self.photoAlter]) {
+                //点击右上角扫描按钮不做处理，避免与跳转城市列表功能重叠
+            }else{
+                [self.navigationController pushViewController:vc animated:YES];
+            }
             break;
         case 1:
             if ([alertView isEqual:self.locationAlertView]) {

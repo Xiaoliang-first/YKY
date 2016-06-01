@@ -29,6 +29,7 @@
 #import "meSucessVCViewController.h"
 #import "meLucksVC.h"
 #import "YGPrizeDetailVC.h"
+#import "getMyFriendsVC.h"
 
 
 #define kMargin 15
@@ -44,6 +45,7 @@
 /** 顶部backView */
 @property (nonatomic , strong) UIView * topView;
 @property (nonatomic , strong) UIView * moneyBackView;
+@property (nonatomic , strong) UIView * the1View;
 @property (nonatomic , strong) UIView * the2View;
 @property (nonatomic , strong) UIView * the3View;
 @property (nonatomic , strong) UIView * the4View;
@@ -173,6 +175,13 @@
     Account * account = [AccountTool account];
 
     [self addTopViews];
+
+    [self add1View];
+
+    UIView * line0 = [[UIView alloc]initWithFrame:CGRectMake(0, self.the1View.y+self.the1View.height, kScreenWidth, 10)];
+    line0.backgroundColor = YKYColor(242, 242, 242);
+    [self.backScrollView addSubview:line0];
+
     [self add2View];
 
     UIView * line1 = [[UIView alloc]initWithFrame:CGRectMake(0, self.the2View.y+self.the2View.height, kScreenWidth, 10)];
@@ -359,17 +368,49 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+#pragma mark - 添加邀请好友赚钱承载view
+-(void)add1View{
+    Account * account = [AccountTool account];
+    CGFloat h = 40;
+    CGFloat lableH = 17;
+    self.the1View = [[UIView alloc]initWithFrame:CGRectMake(0, self.moneyBackView.y+self.moneyBackView.height+10, kScreenWidth, h)];
+    if (!account) {
+        self.the1View.frame = CGRectMake(0, self.topView.y+self.topView.height+10, kScreenWidth, h);
+    }
+    self.the1View.backgroundColor = [UIColor whiteColor];
+    [self.backScrollView addSubview:self.the1View];
+
+    //label
+    UILabel * title = [[UILabel alloc]initWithFrame:CGRectMake(kMargin, 0.5*(h-lableH), 190, lableH)];
+    title.text = @"邀请好友赚钱";
+    title.textColor = YKYTitleColor;
+    [self.the1View addSubview:title];
+    title.font = [UIFont systemFontOfSize:[myFont getTitle2]];
+    UIImageView * jiantou = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth-kMargin-8, 0.5*(h-14),8,14)];
+    jiantou.image = [UIImage imageNamed:@"jiantou_me"];
+    [self.the1View addSubview:jiantou];
+
+    UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, h)];
+    btn.backgroundColor = [UIColor clearColor];
+    [btn addTarget:self action:@selector(getMyFriends) forControlEvents:UIControlEventTouchUpInside];
+    [self.the1View addSubview:btn];
+}
+#pragma mark - 邀请好友赚钱实现方法
+-(void)getMyFriends{
+    DebugLog(@"=====邀请好友");
+    getMyFriendsVC * vc = [[getMyFriendsVC alloc]initWithNibName:@"getMyFriendsVC" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+
 #pragma mark - 添加摇一摇奖品承载view
 -(void)add2View{
-    Account * account = [AccountTool account];
     CGFloat h = 40;
     CGFloat lableH = 17;
     int num = 3;
     NSArray * array = @[@"摇一摇奖品",@"随意摇奖品",@"活动摇奖品"];
-    self.the2View = [[UIView alloc]initWithFrame:CGRectMake(0, self.moneyBackView.y+self.moneyBackView.height+10, kScreenWidth, num*h)];
-    if (!account) {
-        self.the2View.frame = CGRectMake(0, self.topView.y+self.topView.height+10, kScreenWidth, num*h);
-    }
+    self.the2View = [[UIView alloc]initWithFrame:CGRectMake(0, self.the1View.y+self.the1View.height+10, kScreenWidth, num*h)];
     self.the2View.backgroundColor = [UIColor whiteColor];
     [self.backScrollView addSubview:self.the2View];
     for (int i = 0; i<num; i++) {

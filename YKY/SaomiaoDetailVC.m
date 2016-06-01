@@ -38,6 +38,10 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+
+
+#pragma mark - 添加子控件
 -(void)addSubView{
 //scrollView
     self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
@@ -85,11 +89,37 @@
 
 
 //底部悬浮view 提示以及兑换按钮
+    UIView * bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenheight-44, kScreenWidth, 44)];
+    bottomView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:bottomView];
+
+    //提示文字和兑换按钮
+    CGFloat btnW = 100;
+    UILabel * tishiL = [[UILabel alloc]initWithFrame:CGRectMake(kmagin, 12, kScreenWidth-2*kmagin-btnW, 20)];
+    tishiL.textColor = [UIColor redColor];
+    tishiL.text = @"*请在商户员工知道下点击确认使用";
+    tishiL.font = [UIFont systemFontOfSize:[myFont getTitle4]];
+    [bottomView addSubview:tishiL];
+
+    UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-kmagin-btnW, 10, btnW, 24)];
+    [btn setTitle:@"我要兑换" forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor redColor];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(duihuan) forControlEvents:UIControlEventTouchUpInside];
+    [bottomView addSubview:btn];
+    //设置图片圆角
+    btn.layer.cornerRadius = 8;
+    btn.layer.masksToBounds = YES;
+    btn.layer.borderWidth = 0.01;
 
 
 }
 
+-(void)duihuan{
 
+    
+
+}
 
 
 

@@ -202,53 +202,43 @@ static bool agree = YES;
         [MBProgressHUD showError:@"两次密码输入不一致!"];
         return;
     }
-    
     if (self.pwdField.text.length == 0) {
         [MBProgressHUD showError:@"密码不能为空"];
         return;
     }
-    
     if (self.agreeSever == NO) {
         [MBProgressHUD showError:@"请仔细阅读并同意相关协议!"];
         return;
     }
-    
     [MBProgressHUD hideHUDForView:self.view animated:YES];
-    
     NSString * str = ksignStr;
-
     if (self.model.ciId == nil) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showError:@"请选择城市!"];
         return;
     }
 
-    NSDictionary *parameter = @{@"loginName":self.phone,@"pwd":self.okPwdField.text,@"cid":self.model.ciId,@"regFrom":@1};//regFrom：注册来源，0安卓 1苹果 2后台
+    NSDictionary *parameter = @{@"loginName":self.phone,@"pwd":[self md5:self.okPwdField.text],@"cid":self.model.ciId,@"regFrom":@1};//regFrom：注册来源，0安卓 1苹果 2后台
 
     if (self.friendPhoneField.text.length == 11) {
         parameter = @{@"loginName":self.phone,@"pwd":[self md5:self.okPwdField.text],@"cid":self.model.ciId,@"linkPhone":self.friendPhoneField.text,@"regFrom":@1};
     }
-
+    DebugLog(@"=====%@",parameter);
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     
     [manager POST:str parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
         [MBProgressHUD hideHUDForView:self.view animated:YES];
 
         if ([responseObject[@"code"] isEqual:@(0)]) {
             [MBProgressHUD showSuccess:@"注册成功"];
-            
             //保存登录用户的数据
             Account * account = [Account accountWithDict:responseObject[@"data"][0]];
             [[NSUserDefaults standardUserDefaults]setObject:account.gold forKey:@"gold"];
             [[NSUserDefaults standardUserDefaults]setObject:account.silverCoin forKey:@"silverCoin"];
             [[NSUserDefaults standardUserDefaults]setObject:account.diamonds forKey:@"diamonds"];
             [AccountTool saveAccount:account];
-            
             [MobClick profileSignInWithPUID:[NSString stringWithFormat:@"%@",account.uiId]];//用户浏览量统计
-            
             [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"registOK"];//切换账号时把签到时间置空
-            
             //清空奖兜跳转登陆界面的标志
             [[NSUserDefaults standardUserDefaults]setObject:@"0" forKey:@"haveJumped"];
             

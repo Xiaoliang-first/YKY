@@ -13,8 +13,17 @@
 
 /** 消费商品的名字 */
 @property (nonatomic , copy) NSString * name;
-/** 消费商品的总数 */
-@property (nonatomic , copy) NSString * count;
+/** 消费商品的兑换码 */
+@property (nonatomic , copy) NSString * code;
+
+/** 消费者的phone */
+@property (nonatomic , copy) NSString * phone;
+
+/** 兑换时间time */
+@property (nonatomic , copy) NSString * time;
+
+
+
 
 + (instancetype)usedPrizeWithDict:(NSDictionary *)dict;
 

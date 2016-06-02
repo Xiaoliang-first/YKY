@@ -282,13 +282,13 @@
 		DF7CACA01CC4CF27006B876F /* meAddAddressVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF7CAC9F1CC4CF27006B876F /* meAddAddressVC.m */; };
 		DF873CDE1CFD35E700193B51 /* getMyFriendsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CDC1CFD35E700193B51 /* getMyFriendsVC.m */; };
 		DF873CDF1CFD35E700193B51 /* getMyFriendsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF873CDD1CFD35E700193B51 /* getMyFriendsVC.xib */; };
-		DF873CE31CFD496700193B51 /* getNoFriendVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CE11CFD496700193B51 /* getNoFriendVC.m */; };
-		DF873CE41CFD496700193B51 /* getNoFriendVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF873CE21CFD496700193B51 /* getNoFriendVC.xib */; };
 		DF873CE81CFD499800193B51 /* getManyFriendsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CE61CFD499800193B51 /* getManyFriendsVC.m */; };
 		DF873CE91CFD499800193B51 /* getManyFriendsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF873CE71CFD499800193B51 /* getManyFriendsVC.xib */; };
 		DF873CEE1CFD7C1D00193B51 /* getFriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CEC1CFD7C1D00193B51 /* getFriendsCell.m */; };
 		DF873CEF1CFD7C1D00193B51 /* getFriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF873CED1CFD7C1D00193B51 /* getFriendsCell.xib */; };
 		DF873CF41CFD84B100193B51 /* getFriendModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CF31CFD84B100193B51 /* getFriendModel.m */; };
+		DF873CF81CFE80A900193B51 /* QRCodeImgVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF873CF61CFE80A900193B51 /* QRCodeImgVC.m */; };
+		DF873CF91CFE80A900193B51 /* QRCodeImgVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF873CF71CFE80A900193B51 /* QRCodeImgVC.xib */; };
 		DF8779FA1CBC999B00BED752 /* YGPrizeDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8779F91CBC999B00BED752 /* YGPrizeDetailVC.m */; };
 		DF8779FD1CBCA90000BED752 /* YGLookOldVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF8779FC1CBCA90000BED752 /* YGLookOldVC.m */; };
 		DF877A041CBCADAE00BED752 /* YGLookOldItems.m in Sources */ = {isa = PBXBuildFile; fileRef = DF877A021CBCADAE00BED752 /* YGLookOldItems.m */; };
@@ -877,9 +877,6 @@
 		DF873CDB1CFD35E700193B51 /* getMyFriendsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getMyFriendsVC.h; sourceTree = "<group>"; };
 		DF873CDC1CFD35E700193B51 /* getMyFriendsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getMyFriendsVC.m; sourceTree = "<group>"; };
 		DF873CDD1CFD35E700193B51 /* getMyFriendsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = getMyFriendsVC.xib; sourceTree = "<group>"; };
-		DF873CE01CFD496700193B51 /* getNoFriendVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getNoFriendVC.h; sourceTree = "<group>"; };
-		DF873CE11CFD496700193B51 /* getNoFriendVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getNoFriendVC.m; sourceTree = "<group>"; };
-		DF873CE21CFD496700193B51 /* getNoFriendVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = getNoFriendVC.xib; sourceTree = "<group>"; };
 		DF873CE51CFD499800193B51 /* getManyFriendsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getManyFriendsVC.h; sourceTree = "<group>"; };
 		DF873CE61CFD499800193B51 /* getManyFriendsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getManyFriendsVC.m; sourceTree = "<group>"; };
 		DF873CE71CFD499800193B51 /* getManyFriendsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = getManyFriendsVC.xib; sourceTree = "<group>"; };
@@ -888,6 +885,9 @@
 		DF873CED1CFD7C1D00193B51 /* getFriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = getFriendsCell.xib; sourceTree = "<group>"; };
 		DF873CF21CFD84B100193B51 /* getFriendModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = getFriendModel.h; sourceTree = "<group>"; };
 		DF873CF31CFD84B100193B51 /* getFriendModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = getFriendModel.m; sourceTree = "<group>"; };
+		DF873CF51CFE80A900193B51 /* QRCodeImgVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeImgVC.h; sourceTree = "<group>"; };
+		DF873CF61CFE80A900193B51 /* QRCodeImgVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeImgVC.m; sourceTree = "<group>"; };
+		DF873CF71CFE80A900193B51 /* QRCodeImgVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeImgVC.xib; sourceTree = "<group>"; };
 		DF8779F81CBC999B00BED752 /* YGPrizeDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGPrizeDetailVC.h; sourceTree = "<group>"; };
 		DF8779F91CBC999B00BED752 /* YGPrizeDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGPrizeDetailVC.m; sourceTree = "<group>"; };
 		DF8779FB1CBCA90000BED752 /* YGLookOldVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGLookOldVC.h; sourceTree = "<group>"; };
@@ -1699,6 +1699,7 @@
 			children = (
 				CEAD7C511B9C03DC00711D2A /* homeVC.h */,
 				CEAD7C521B9C03DC00711D2A /* homeVC.m */,
+				DF873CFF1CFE991A00193B51 /* 扫描列表 */,
 				CEE3C2E01BA82E3500F379A6 /* 顶部广告点击进入 */,
 				CEE3C2DC1BA81D7C00F379A6 /* 本期大奖详情 */,
 				CEE147731BA57847006EA553 /* 查看中奖名单 */,
@@ -1720,10 +1721,6 @@
 				CE4A88F21AFA0D4C00BEAB96 /* usedPrizeVC.m */,
 				DF0B42751C465417008F9971 /* searchPrizesVC.h */,
 				DF0B42761C465417008F9971 /* searchPrizesVC.m */,
-				DFBFE19E1CFC1733009CF441 /* SaomiaojieguoVC.h */,
-				DFBFE19F1CFC1733009CF441 /* SaomiaojieguoVC.m */,
-				DFBFE1A11CFC27DB009CF441 /* SaomiaoDetailVC.h */,
-				DFBFE1A21CFC27DB009CF441 /* SaomiaoDetailVC.m */,
 				CE206B5B1BAFCEF400ADF729 /* 到期提醒 */,
 			);
 			name = C;
@@ -2480,16 +2477,11 @@
 		CEE436901BAFAEDA00A0E7B4 /* C */ = {
 			isa = PBXGroup;
 			children = (
-				CED353FF1B3D3A86005D2BEE /* bossLogInAccountVC.h */,
-				CED354001B3D3A86005D2BEE /* bossLogInAccountVC.m */,
-				CE0371501B3BFED3007703B9 /* bossLogAccountVC.h */,
-				CE0371511B3BFED3007703B9 /* bossLogAccountVC.m */,
-				CED3540C1B3D57EF005D2BEE /* QRViewController.h */,
-				CED3540D1B3D57EF005D2BEE /* QRViewController.m */,
-				CE0371531B3C0BC6007703B9 /* bossViewLogVC.h */,
-				CE0371541B3C0BC6007703B9 /* bossViewLogVC.m */,
-				CE1916351B4242FA00AFC192 /* bossAlterPwdVC.h */,
-				CE1916361B4242FA00AFC192 /* bossAlterPwdVC.m */,
+				DF873CFB1CFE80D400193B51 /* 首页 */,
+				DF873CFA1CFE80B400193B51 /* 登录 */,
+				DF873CFD1CFE812300193B51 /* 扫描 */,
+				DF873CFE1CFE813C00193B51 /* 查询记录 */,
+				DF873CFC1CFE810300193B51 /* 密码修改 */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -2888,14 +2880,70 @@
 				DF873CDB1CFD35E700193B51 /* getMyFriendsVC.h */,
 				DF873CDC1CFD35E700193B51 /* getMyFriendsVC.m */,
 				DF873CDD1CFD35E700193B51 /* getMyFriendsVC.xib */,
-				DF873CE01CFD496700193B51 /* getNoFriendVC.h */,
-				DF873CE11CFD496700193B51 /* getNoFriendVC.m */,
-				DF873CE21CFD496700193B51 /* getNoFriendVC.xib */,
 				DF873CE51CFD499800193B51 /* getManyFriendsVC.h */,
 				DF873CE61CFD499800193B51 /* getManyFriendsVC.m */,
 				DF873CE71CFD499800193B51 /* getManyFriendsVC.xib */,
 			);
 			name = C;
+			sourceTree = "<group>";
+		};
+		DF873CFA1CFE80B400193B51 /* 登录 */ = {
+			isa = PBXGroup;
+			children = (
+				CED353FF1B3D3A86005D2BEE /* bossLogInAccountVC.h */,
+				CED354001B3D3A86005D2BEE /* bossLogInAccountVC.m */,
+			);
+			name = "登录";
+			sourceTree = "<group>";
+		};
+		DF873CFB1CFE80D400193B51 /* 首页 */ = {
+			isa = PBXGroup;
+			children = (
+				CE0371501B3BFED3007703B9 /* bossLogAccountVC.h */,
+				CE0371511B3BFED3007703B9 /* bossLogAccountVC.m */,
+				DF873CF51CFE80A900193B51 /* QRCodeImgVC.h */,
+				DF873CF61CFE80A900193B51 /* QRCodeImgVC.m */,
+				DF873CF71CFE80A900193B51 /* QRCodeImgVC.xib */,
+			);
+			name = "首页";
+			sourceTree = "<group>";
+		};
+		DF873CFC1CFE810300193B51 /* 密码修改 */ = {
+			isa = PBXGroup;
+			children = (
+				CE1916351B4242FA00AFC192 /* bossAlterPwdVC.h */,
+				CE1916361B4242FA00AFC192 /* bossAlterPwdVC.m */,
+			);
+			name = "密码修改";
+			sourceTree = "<group>";
+		};
+		DF873CFD1CFE812300193B51 /* 扫描 */ = {
+			isa = PBXGroup;
+			children = (
+				CED3540C1B3D57EF005D2BEE /* QRViewController.h */,
+				CED3540D1B3D57EF005D2BEE /* QRViewController.m */,
+			);
+			name = "扫描";
+			sourceTree = "<group>";
+		};
+		DF873CFE1CFE813C00193B51 /* 查询记录 */ = {
+			isa = PBXGroup;
+			children = (
+				CE0371531B3C0BC6007703B9 /* bossViewLogVC.h */,
+				CE0371541B3C0BC6007703B9 /* bossViewLogVC.m */,
+			);
+			name = "查询记录";
+			sourceTree = "<group>";
+		};
+		DF873CFF1CFE991A00193B51 /* 扫描列表 */ = {
+			isa = PBXGroup;
+			children = (
+				DFBFE19E1CFC1733009CF441 /* SaomiaojieguoVC.h */,
+				DFBFE19F1CFC1733009CF441 /* SaomiaojieguoVC.m */,
+				DFBFE1A11CFC27DB009CF441 /* SaomiaoDetailVC.h */,
+				DFBFE1A21CFC27DB009CF441 /* SaomiaoDetailVC.m */,
+			);
+			name = "扫描列表";
 			sourceTree = "<group>";
 		};
 		DF8779FE1CBCAA4300BED752 /* C */ = {
@@ -3451,7 +3499,7 @@
 				CEC4B6841B0CEB1300705BD4 /* UMSocialLocalizable.strings in Resources */,
 				CEC4B6891B0CEB1300705BD4 /* UMSCommentInputControlleriPad.xib in Resources */,
 				DF6B87971C3F57060008CF3F /* Images.xcassets in Resources */,
-				DF873CE41CFD496700193B51 /* getNoFriendVC.xib in Resources */,
+				DF873CF91CFE80A900193B51 /* QRCodeImgVC.xib in Resources */,
 				CEC4B6881B0CEB1300705BD4 /* UMSCommentInputController.xib in Resources */,
 				CEAA41861B2EC57B00622688 /* managerCommendatoryCell.xib in Resources */,
 				CE31A5B21B16BD4100CE0862 /* grade_2.mp3 in Resources */,
@@ -3616,6 +3664,7 @@
 				CEAD7C561B9C137800711D2A /* newBonusVC.m in Sources */,
 				CEE2CF321B11EA9000ABA795 /* MJRefreshLegendFooter.m in Sources */,
 				CEAA41851B2EC57B00622688 /* managerCommendatoryCell.m in Sources */,
+				DF873CF81CFE80A900193B51 /* QRCodeImgVC.m in Sources */,
 				CE9F90B01C043E5F00995C62 /* AFHTTPRequestOperationManager.m in Sources */,
 				CEDF4BDA1BB132CE000536E6 /* chargeCityCell.m in Sources */,
 				CE8134F41BA6B64B00358C32 /* messageCentercell.m in Sources */,
@@ -3659,7 +3708,6 @@
 				CE1357D11B049E8900280309 /* ZHPickView.m in Sources */,
 				DFEEB7771CCE25F900FCAA30 /* addLuckNumCell.m in Sources */,
 				DFED5A531CBF8C6600DE50CF /* meShezhiVC.m in Sources */,
-				DF873CE31CFD496700193B51 /* getNoFriendVC.m in Sources */,
 				DF7CACA01CC4CF27006B876F /* meAddAddressVC.m in Sources */,
 				CEE3C2F11BA9BCDE00F379A6 /* newActivityCell.m in Sources */,
 				CE9F90B21C043E5F00995C62 /* AFNetworkReachabilityManager.m in Sources */,

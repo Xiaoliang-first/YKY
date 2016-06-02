@@ -14,9 +14,13 @@
 
 
 -(void)setModel:(bossLookConsumeListModel *)model{
-    self.prizeNameLabel.text = model.name;
-    self.peizeNumberLabel.text = [NSString stringWithFormat:@"%@",model.count];
-    
+    _model = model;
+    self.prizeNameLabel.text = [NSString stringWithFormat:@"%@",model.name];
+    NSString * phone = [phoneSecret phoneSecretWithPhoneNum:model.phone];
+    self.phoneL.text = [NSString stringWithFormat:@"%@",phone];
+    self.timeL.text = [NSString stringWithFormat:@"%@",model.time];
+    self.codeL.text = [NSString stringWithFormat:@"%@",model.code];
+
 }
 
 @end

@@ -21,6 +21,8 @@
 #import "bossViewLogVC.h"
 #import "myAccountVC.h"
 #import "bossLogInAccountVC.h"
+#import "QRCodeImgVC.h"
+#import "myNavViewController.h"
 
 
 @interface bossLogAccountVC ()<UITextFieldDelegate,UIAlertViewDelegate>
@@ -60,29 +62,35 @@
 
 #pragma mark - 导航栏左侧按钮被点击
 -(void)setLeftItem{
-    UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
+    UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithTitle:@"二维码" style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
     left.tintColor = [UIColor whiteColor];
-    [left setImage:[UIImage imageNamed:@"jiantou-Left"]];
     self.navigationItem.leftBarButtonItem = left;
 }
-
 -(void)leftClick{
-    UIAlertView *alter = [[UIAlertView alloc]initWithTitle:@"是否要退出应用!" message:@"点击“是”，应用将退出!" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
-    [alter show];
+    DebugLog(@"生成二维码");
+
+    QRCodeImgVC * vc = [[QRCodeImgVC alloc]initWithNibName:@"QRCodeImgVC" bundle:nil];
+    myNavViewController * navc = [[myNavViewController alloc]initWithRootViewController:vc];
+    [self presentViewController:navc animated:YES completion:nil];
 }
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 0:
-            //点击取消的时候不做任何处理，只是消失提示窗
-            break;
-        case 1:
-            exit(0);//暴力退出程序
-            break;
-            
-        default:
-            break;
-    }
-}
+
+//-(void)leftClick{
+//    UIAlertView *alter = [[UIAlertView alloc]initWithTitle:@"是否要退出应用!" message:@"点击“是”，应用将退出!" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+//    [alter show];
+//}
+//-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//    switch (buttonIndex) {
+//        case 0:
+//            //点击取消的时候不做任何处理，只是消失提示窗
+//            break;
+//        case 1:
+//            exit(0);//暴力退出程序
+//            break;
+//            
+//        default:
+//            break;
+//    }
+//}
 
 
 #pragma mark - 隐藏键盘
@@ -252,9 +260,10 @@
 
 
 -(void)loadDataWhenClickUsedBtn{
+    bossAccount * account = [bossAccountTool account];
+
     [MBProgressHUD showMessage:@"加载中..." toView:self.view];
 
-    bossAccount * account = [bossAccountTool account];
     NSString *str = kUserUsePrizeStr;
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -265,6 +274,7 @@
         return;
     }
     NSDictionary * parameters = @{@"couponsId":self.prizeId,@"mId":account.supplierId};
+
     [manager POST:str parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject[@"code"] isEqual:@(0)]) {
             [MBProgressHUD showSuccess:@"交易成功!"];

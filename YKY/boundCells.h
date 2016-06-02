@@ -13,6 +13,9 @@
 
 @interface boundCells : UITableViewCell
 
+/** id不为空表示是从扫描列表进来的 */
+@property (nonatomic , copy) NSString * ID;
+
 @property (weak, nonatomic) IBOutlet UIImageView *prizeImageView;
 @property (weak, nonatomic) IBOutlet UILabel *bossNameLabel;
 

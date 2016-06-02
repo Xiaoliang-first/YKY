@@ -149,7 +149,6 @@
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         severceDeal *vc = [sb instantiateViewControllerWithIdentifier:@"severceDeal"];
         vc.identify = @"1";
-        
         [self presentViewController:vc animated:YES completion:nil];
     }else{
         window.rootViewController = VC;

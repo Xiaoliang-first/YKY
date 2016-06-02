@@ -11,10 +11,14 @@
 @class bossLookConsumeListModel;
 @interface bossExpenseCell : UITableViewCell
 
-/** 已消费的奖品数量 */
-@property (weak, nonatomic) IBOutlet UILabel *peizeNumberLabel;
 /** 奖品名字 */
 @property (weak, nonatomic) IBOutlet UILabel *prizeNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *phoneL;
+@property (weak, nonatomic) IBOutlet UILabel *timeL;
+@property (weak, nonatomic) IBOutlet UILabel *codeL;
+
+
+
 
 
 @property (nonatomic , strong) bossLookConsumeListModel * model;

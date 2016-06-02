@@ -266,7 +266,7 @@
 
 
     //昵称label
-    UILabel * nameL = [[UILabel alloc]initWithFrame:CGRectMake(ico.x+ico.width+15, ico.y+0.35*ico.height, 0.45*self.view.width, 20)];
+    UILabel * nameL = [[UILabel alloc]initWithFrame:CGRectMake(ico.x+ico.width+15, ico.y+0.35*ico.height, 0.5*self.view.width, 20)];
     nameL.font = [UIFont boldSystemFontOfSize:17];
     nameL.textAlignment = NSTextAlignmentLeft;
     nameL.textColor = [UIColor whiteColor];

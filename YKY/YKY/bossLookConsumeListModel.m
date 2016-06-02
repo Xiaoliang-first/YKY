@@ -14,8 +14,11 @@
     
     bossLookConsumeListModel * prizeInfo = [[bossLookConsumeListModel alloc]init];
     
-    prizeInfo.name = dict[@"name"];
-    prizeInfo.count = dict[@"count"];
+    prizeInfo.name = dict[@"pname"];
+    prizeInfo.phone = dict[@"phone"];
+    prizeInfo.code = dict[@"code"];
+    prizeInfo.time = dict[@"time"];
+
     
     return prizeInfo;
 }

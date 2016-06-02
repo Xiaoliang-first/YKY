@@ -264,8 +264,8 @@
     //详情内容
     NSString * connect = [self.boundsDetailModel.instructions  stringByReplacingOccurrencesOfString:@" " withString:@""];
     connect = [connect  stringByReplacingOccurrencesOfString:@"	" withString:@""];
-    connect = [connect stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    connect = [connect stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    connect = [connect stringByReplacingOccurrencesOfString:@"\\r" withString:@""];
+    connect = [connect stringByReplacingOccurrencesOfString:@"\\n" withString:@""];
 
     CGFloat maxHeight = [getLabelHeight heightWithConnect:connect andLabelW:self.view.width-30 font:[myFont getTitle3]];
     UILabel * label = [getLabelHeight labelWithFrame:CGRectMake(10, self.prizeDeTitle.y+self.prizeDeTitle.height, self.view.width-30, maxHeight+8) andConnect:connect font:[myFont getTitle3]];

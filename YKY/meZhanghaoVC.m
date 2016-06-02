@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = YKYColor(242, 242, 242);
     self.title = @"账户管理";
     [self setLeft];
     [self addViews];
@@ -48,124 +48,47 @@
 -(void)addViews{
     CGFloat h = 44;
     CGFloat magin = 15;
-    //个人信息backView
-    CGFloat naoW = 16;
-    CGFloat naoH = 22;
-    UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0, 70, kScreenWidth, h)];
-    view1.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view1];
-    //个人信息图
-    UIImageView * naozhong = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-naoH), naoW, naoH)];
-    naozhong.image = [UIImage imageNamed:@"me-geren"];
-    [view1 addSubview:naozhong];
-    //个人信息label
-    UILabel * tixingL = [[UILabel alloc]initWithFrame:CGRectMake(naozhong.x+naozhong.width+magin, 0.5*(h-naoH), 80, naoH)];
-    tixingL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
-    tixingL.textColor = [UIColor darkGrayColor];
-    tixingL.text = @"个人信息";
-    [view1 addSubview:tixingL];
-    //个人信息btn
-    UIButton * tixingBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, h)];
-    [tixingBtn addTarget:self action:@selector(myCenterBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [view1 addSubview:tixingBtn];
-    [line addLineWithFrame:CGRectMake(tixingL.x, h-1, kScreenWidth-tixingL.x, 1) andBackView:view1];
 
+    UIView * view1 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, 74, kScreenWidth, h) title:@"个人信息" action:@selector(myCenterBtnClick)];
 
     //修改手机号
-    CGFloat shoujiW = 16;
-    CGFloat shoujiH = 22;
-    UIView * view2 = [[UIView alloc]initWithFrame:CGRectMake(0, 70+h, kScreenWidth, h)];
-    view2.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view2];
-    //手机
-    UIImageView * shouji = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-shoujiH), shoujiW, shoujiH)];
-    shouji.image = [UIImage imageNamed:@"手机"];
-    [view2 addSubview:shouji];
-    //修改手机号Label
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(shouji.x+shouji.width+14, 0.5*(h-shoujiH), 200, shoujiH)];
-    label.text = @"修改手机号";
-    label.font = [UIFont systemFontOfSize:[myFont getTitle2]];
-    label.textColor = [UIColor darkGrayColor];
-    [view2 addSubview:label];
-    [line addLineWithFrame:CGRectMake(label.x, h-1, kScreenWidth-label.x, 1) andBackView:view2];
-    //修改手机号Btn
-    UIButton * fixBt = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, h)];
-    fixBt.backgroundColor = [UIColor clearColor];
-    [fixBt addTarget:self action:@selector(fixPhoneNumberBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [view2 addSubview:fixBt];
-    
-
-
+    UIView * view2 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view1.y+h, kScreenWidth, h) title:@"修改手机号" action:@selector(fixPhoneNumberBtnClick)];
 
     //修改密码
-    CGFloat mimaW = 16;
-    CGFloat mimaH = 22;
-    UIView * view3 = [[UIView alloc]initWithFrame:CGRectMake(0, 70+2*h, kScreenWidth, h)];
-    view3.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view3];
-    UIImageView * suo = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-mimaH), mimaW, mimaH)];
-    suo.image = [UIImage imageNamed:@"密码"];
-    [view3 addSubview:suo];
-    //修改密码label
-    UILabel * fixPwdL = [[UILabel alloc]initWithFrame:CGRectMake(label.x, 0.5*(h-mimaH), 200, mimaH)];
-    fixPwdL.text = @"修改密码";
-    fixPwdL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
-    fixPwdL.textColor = [UIColor darkGrayColor];
-    [view3 addSubview:fixPwdL];
-    [line addLineWithFrame:CGRectMake(fixPwdL.x, h-1, kScreenWidth-fixPwdL.x, 1) andBackView:view3];
-    //修改密码按钮
-    UIButton * fixPwdBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, h)];
-    fixPwdBtn.backgroundColor = [UIColor clearColor];
-    [fixPwdBtn addTarget:self action:@selector(fixPwdBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [view3 addSubview:fixPwdBtn];
-
-
-
+    UIView * view3 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view2.y+h, kScreenWidth, h) title:@"修改密码" action:@selector(fixPwdBtnClick)];
 
     //地址管理
-    UIView * view4 = [[UIView alloc]initWithFrame:CGRectMake(0, 70+3*h, kScreenWidth, h)];
-    view4.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view4];
-    UIImageView * dizhi = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-mimaH), mimaW, mimaH)];
-    dizhi.image = [UIImage imageNamed:@"me-dizhi"];
-    [view4 addSubview:dizhi];
-    //修改密码label
-    UILabel * dizhiL = [[UILabel alloc]initWithFrame:CGRectMake(label.x, 0.5*(h-mimaH), 200, mimaH)];
-    dizhiL.text = @"地址管理";
-    dizhiL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
-    dizhiL.textColor = [UIColor darkGrayColor];
-    [view4 addSubview:dizhiL];
-    [line addLineWithFrame:CGRectMake(dizhiL.x, h-1, kScreenWidth-dizhiL.x, 1) andBackView:view4];
-    //修改密码按钮
-    UIButton * dizhiBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, h)];
-    dizhiBtn.backgroundColor = [UIColor clearColor];
-    [dizhiBtn addTarget:self action:@selector(dizhiGuanliBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [view4 addSubview:dizhiBtn];
-
-
+    UIView * view4 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view3.y+h+10, kScreenWidth, h) title:@"地址管理" action:@selector(dizhiGuanliBtnClick)];
 
     //产品吐槽
-    UIView * view5 = [[UIView alloc]initWithFrame:CGRectMake(0, 70+4*h, kScreenWidth, h)];
-    view5.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view5];
-    UIImageView * tucaoImgV = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-mimaH), mimaW, mimaH )];
-    tucaoImgV.image = [UIImage imageNamed:@"产品吐槽"];
-    [view5 addSubview:tucaoImgV];
+    UIView * view5 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view4.y+h, kScreenWidth, h) title:@"产品吐槽" action:@selector(productTucaoBtnClick)];
+    view5.backgroundColor = [UIColor whiteColor];
+}
 
-    UILabel * tucaoL = [[UILabel alloc]initWithFrame:CGRectMake(label.x, 0.5*(h-mimaH), 80, mimaH)];
-    tucaoL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
-    tucaoL.text = @"产品吐槽";
-    tucaoL.textColor = [UIColor darkGrayColor];
-    [view5 addSubview:tucaoL];
-    [line addLineWithFrame:CGRectMake(tucaoL.x, h-1, kScreenWidth-tucaoL.x, 1) andBackView:view5];
-    UIButton * tucaoBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, h)];
-    [tucaoBtn addTarget:self action:@selector(productTucaoBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    tucaoBtn.backgroundColor = [UIColor clearColor];
-    [view5 addSubview:tucaoBtn];
-    
-
-
-
+-(UIView*)addCellWithH:(CGFloat)h magin:(CGFloat)magin viewFrame:(CGRect)frame title:(NSString*)title action:(SEL)action{
+    //backview
+    CGFloat labelH = 23;
+    UIView * view1 = [[UIView alloc]initWithFrame:frame];
+    view1.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:view1];
+    //label
+    UILabel * msgL = [[UILabel alloc]initWithFrame:CGRectMake(magin, 0.5*(h-labelH), 80, labelH)];
+    msgL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
+    msgL.textColor = [UIColor darkGrayColor];
+    msgL.text = title;
+    [view1 addSubview:msgL];
+    //image
+    UIImageView * msgImg = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth-magin-8, 0.5*(h-14),8,14)];
+    msgImg.image = [UIImage imageNamed:@"jiantou_me"];
+    [view1 addSubview:msgImg];
+    //button
+    UIButton * msgBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, h)];
+    msgBtn.backgroundColor = [UIColor clearColor];
+    [view1 addSubview:msgBtn];
+    [msgBtn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    //bottomLine
+    [line addLineWithFrame:CGRectMake(msgL.x, h-1, kScreenWidth-msgL.x, 1) andBackView:view1];
+    return view1;
 }
 
 
@@ -222,17 +145,6 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

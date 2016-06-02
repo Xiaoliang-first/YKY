@@ -59,6 +59,9 @@
 /** 首页广告图片数据的请求接口 */
 #define khomeBannerStr [kbaseURL stringByAppendingString:@"/index/bannerAdver"]
 
+/** 首页用户扫描接口 */
+#define kuserSaomiaoStr @"/coupons/selectCouponsInMerchant"
+
 /** 首页获取奖品数据接口 */
 #define khomePrizeDataStr [kbaseURL stringByAppendingString:@"/index/prizeList"]
 

@@ -13,6 +13,8 @@
 @property (nonatomic , copy) NSString * phone;
 @property (nonatomic , copy) NSString * signTime;
 @property (nonatomic , copy) NSString * diamondsNum;
+/** 1:钻石 2：金币 3：银币 */
+@property (nonatomic , copy) NSString * type;
 
 +(instancetype)modelWithDict:(NSDictionary*)dict;
 

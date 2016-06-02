@@ -33,6 +33,7 @@
 #import "YaogouVC.h"
 #import "homeNewScuessPrizeVC.h"
 #import "QRViewController.h"
+#import "SaomiaojieguoVC.h"
 
 
 
@@ -92,7 +93,7 @@
 @property (nonatomic , strong) UIAlertView * NWStateAlter;
 @property (nonatomic, strong) Reachability *reachability;
 
-@property (nonatomic , strong) UILabel * leftL;
+//@property (nonatomic , strong) UILabel * leftL;
 @property (nonatomic) BOOL one;//网络监听标志,防止网络环境变化请求两次banner属于数据
 
 @end
@@ -178,6 +179,7 @@
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] &&
     [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
 }
+
 #pragma mark - 跳转到扫描界面
 - (void)showQRViewController {
     QRViewController *qrVC = [[QRViewController alloc] init];
@@ -185,7 +187,6 @@
     self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:qrVC animated:YES];
 }
-
 
 #pragma mark - 网络变化重新加载数据
 - (void)networkStateChange
@@ -202,9 +203,6 @@
         }
     }
 }
-
-
-
 
 
 #pragma mark - 旧viewdidload
@@ -260,13 +258,11 @@
     self.backScrollerView.contentInset = UIEdgeInsetsMake(0, 0, kScreenheight*0.5, 0);
     [self.view addSubview:self.backScrollerView];
 
-
     //banner
     UIView * bannerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
     bannerView.backgroundColor = [UIColor clearColor];
     self.ADScrollBackView = bannerView;
     [self.backScrollerView addSubview:bannerView];
-
 
     //middleView
     [homeMidView addMidViewWithY:bannerView.y+bannerView.height andViewController:self andActiviAction:@selector(activityCenterBtnClick) andzhongjiagnAction:@selector(lookLucksBtnClick) andTaoAction:@selector(taoGouBtnClick) andYaoAction:@selector(yaoGouBtnClick)];
@@ -408,6 +404,9 @@
     }
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"cityName"]) {
         NSString * city = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"cityName"]];
+        if (city.length>6) {
+            city = [city substringToIndex:6];//城市选择只取城市名的前六个字
+        }
         self.navigationItem.leftBarButtonItem.title = city;
     }else{//没有选择城市
         self.locationAlertView = [[UIAlertView alloc]initWithTitle:@"选择城市" message:@"您还未选择活动城市" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];

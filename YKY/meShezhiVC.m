@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = YKYColor(242, 242, 242);
     self.title = @"设置";
     //默认音效开
     NSString * str = [[NSUserDefaults standardUserDefaults]objectForKey:@"on"];
@@ -53,44 +53,21 @@
 
 
 -(void)addViews{
-
     CGFloat h = 44;
     CGFloat magin = 15;
 
-    //消息中心backview
-    CGFloat imgH = 23;
-    CGFloat imgW = 16;
-    UIView * view1 = [[UIView alloc]initWithFrame:CGRectMake(0,70, kScreenWidth, h)];
-    view1.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view1];
     //消息中心
-    UIImageView * msgImg = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-imgH), imgW, imgH)];
-    msgImg.image = [UIImage imageNamed:@"消息中心"];
-    [view1 addSubview:msgImg];
-    UILabel * msgL = [[UILabel alloc]initWithFrame:CGRectMake(msgImg.x+msgImg.width+14, 0.5*(h-imgH), 80, imgH)];
-    msgL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
-    msgL.textColor = [UIColor darkGrayColor];
-    msgL.text = @"消息中心";
-    [view1 addSubview:msgL];
-    UIButton * msgBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, h)];
-    msgBtn.backgroundColor = [UIColor clearColor];
-    [view1 addSubview:msgBtn];
-    [msgBtn addTarget:self action:@selector(messageCenterBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [line addLineWithFrame:CGRectMake(msgL.x, h-1, kScreenWidth-msgL.x, 1) andBackView:view1];
+    UIView * view1 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0,74, kScreenWidth, h) title:@"消息中心" action:@selector(messageCenterBtnClick)];
 
 
     //音效backView
     UIView * view2 = [[UIView alloc]initWithFrame:CGRectMake(0, view1.y+view1.height, kScreenWidth, h)];
-    view2.backgroundColor = [UIColor clearColor];
+    view2.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:view2];
     //ling
-    CGFloat lingW = 16;
-    CGFloat lingH = 20;
-    UIImageView * ling = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-lingH), lingW, lingH)];
-    ling.image = [UIImage imageNamed:@"音效"];
-    [view2 addSubview:ling];
+    CGFloat voiceLH = 20;
     //音效label
-    UILabel * voiceL = [[UILabel alloc]initWithFrame:CGRectMake(ling.x+ling.width+14, 0.5*(h-lingH), 60, lingH)];
+    UILabel * voiceL = [[UILabel alloc]initWithFrame:CGRectMake(magin, 0.5*(h-voiceLH), 60, voiceLH)];
     voiceL.text = @"音效";
     voiceL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
     voiceL.textColor = [UIColor darkGrayColor];
@@ -98,14 +75,13 @@
     //音效开关
     CGFloat vioW = 45;
     CGFloat vioH = 24;
-    UIButton * voiveBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.width-vioW*1.5, 0.5*(h-lingH), vioW, vioH)];
+    UIButton * voiveBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.width-vioW*1.5, 0.5*(h-voiceLH), vioW, vioH)];
     NSString * openStr = [[NSUserDefaults standardUserDefaults]objectForKey:@"on"];
     if ([openStr isEqualToString:@"0"]) {
         [voiveBtn setBackgroundImage:[UIImage imageNamed:@"yinxiaoguan"] forState:UIControlStateNormal];
     }else{
         [voiveBtn setBackgroundImage:[UIImage imageNamed:@"yinxiaokai"] forState:UIControlStateNormal];
     }
-
     [voiveBtn addTarget:self action:@selector(voiceBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [view2 addSubview:voiveBtn];
     self.voiceBtn = voiveBtn;
@@ -113,15 +89,15 @@
 
 
     //到期提醒backView
-    CGFloat naoW = 17;
+//    CGFloat naoW = 17;
     CGFloat naoH = 19;
     UIView * view3 = [[UIView alloc]initWithFrame:CGRectMake(0, view2.y+view2.height, kScreenWidth, h)];
-    view3.backgroundColor = [UIColor clearColor];
+    view3.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:view3];
-    //闹钟图
-    UIImageView * naozhong = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-naoH), naoW, naoH)];
-    naozhong.image = [UIImage imageNamed:@"到期提醒"];
-    [view3 addSubview:naozhong];
+//    //闹钟图
+//    UIImageView * naozhong = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-naoH), naoW, naoH)];
+//    naozhong.image = [UIImage imageNamed:@"到期提醒"];
+//    [view3 addSubview:naozhong];
     //到期提醒label
     UILabel * tixingL = [[UILabel alloc]initWithFrame:CGRectMake(voiceL.x, 10, 80, 20)];
     tixingL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
@@ -143,73 +119,67 @@
 
 
 
-    //清除缓存backView
-    CGFloat clearImgW = 16;
-    CGFloat clearImgH = 20;
-    UIView * view4 = [[UIView alloc]initWithFrame:CGRectMake(0, view3.y+view3.height, kScreenWidth, h)];
-    view4.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view4];
-    //垃圾桶图
-    UIImageView * clearImgV = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-clearImgH), clearImgW, clearImgH)];
-    clearImgV.image = [UIImage imageNamed:@"清除缓存"];
-    [view4 addSubview:clearImgV];
-    //清缓存lbel
-    UILabel * clearL = [[UILabel alloc]initWithFrame:CGRectMake(voiceL.x, 0.5*(h-clearImgH), 90, clearImgH)];
-    clearL.text = @"清空缓存";
-    clearL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
-    clearL.textColor = [UIColor darkGrayColor];
-    [view4 addSubview:clearL];
-    //底线
-    //清空缓存按钮
-    UIButton * clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, h)];
-    clearBtn.backgroundColor = [UIColor clearColor];
-    [view4 addSubview:clearBtn];
-    [clearBtn addTarget:self action:@selector(cleanBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [line addLineWithFrame:CGRectMake(clearL.x, h-1, kScreenWidth, 1) andBackView:view4];
+    //帮助中心backView
+    UIView * view4 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view3.y+view3.height+10, kScreenWidth, h) title:@"帮助中心" action:@selector(goHelpCenter)];
+
+    //服务协议backView
+    UIView * view5 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view4.y+view4.height, kScreenWidth, h) title:@"服务协议" action:@selector(goSeverceDetail)];
 
 
-    //联系客服backView
-    CGFloat callW = 16;
-    CGFloat callH = 22;
-    UIView * view5 = [[UIView alloc]initWithFrame:CGRectMake(0, view4.y+view4.height, kScreenWidth, h)];
-    view5.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view5];
-    UIImageView * callImg = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-callH), callW, callH)];
-    callImg.image = [UIImage imageNamed:@"联系客服"];
-    [view5 addSubview:callImg];
-    UILabel * callL = [[UILabel alloc]initWithFrame:CGRectMake(tixingL.x, 0.5*(h-callH), 80, callH)];
-    callL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
-    callL.textColor = [UIColor darkGrayColor];
-    callL.text = @"联系客服";
-    [view5 addSubview:callL];
-    UIButton * callBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, h)];
-    callBtn.backgroundColor = [UIColor clearColor];
-    [callBtn addTarget:self action:@selector(callSeverBtnClickme) forControlEvents:UIControlEventTouchUpInside];
-    [view5 addSubview:callBtn];
-    [line addLineWithFrame:CGRectMake(callL.x, h-1, kScreenWidth-callL.x, 1) andBackView:view5];
+    //评价一下backView
+    UIView * view6 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view5.y+view5.height, kScreenWidth, h) title:@"评价一下" action:@selector(goPingJia)];
 
 
-    //关于一快摇backView
-    CGFloat aboutYKYImgW = 17;
-    CGFloat aboutYKYImgH = 18;
-    UIView * view6 = [[UIView alloc]initWithFrame:CGRectMake(0, view5.y+view5.height, kScreenWidth, h)];
-    view6.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:view6];
-    UIImageView * abYKYImg = [[UIImageView alloc]initWithFrame:CGRectMake(magin, 0.5*(h-aboutYKYImgH), aboutYKYImgW, aboutYKYImgH)];
-    abYKYImg.image = [UIImage imageNamed:@"一块摇23"];
-    [view6 addSubview:abYKYImg];
+    //联系客服
+    UIView * view7 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view6.y+view6.height+10, kScreenWidth, h)title:@"联系客服" action:@selector(callSeverBtnClickme)];
 
-    UILabel * abYKYL = [[UILabel alloc]initWithFrame:CGRectMake(abYKYImg.x+abYKYImg.width+12, 10, 90, 20)];
-    abYKYL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
-    abYKYL.text = @"关于一块摇";
-    abYKYL.textColor = [UIColor darkGrayColor];
-    [view6 addSubview:abYKYL];
 
-    UIButton * abYBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.width, h)];
-    abYBtn.backgroundColor = [UIColor clearColor];
-    [abYBtn addTarget:self action:@selector(aboutRockingBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [view6 addSubview:abYBtn];
-    [line addLineWithFrame:CGRectMake(abYKYL.x, h-1, kScreenWidth-abYKYL.x, 1) andBackView:view6];
+    //关于一快摇
+    UIView * view8 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view7.y+view7.height, kScreenWidth, h)title:@"关于一快摇" action:@selector(aboutRockingBtnClick)];
+
+    //清空缓存
+    UIView * view9 = [[UIView alloc]initWithFrame:CGRectMake(0, view8.y+view8.height+10, kScreenWidth, h)];
+    view9.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:view9];
+    UILabel * lastL = [[UILabel alloc]initWithFrame:CGRectMake(0, 0.5*(h-23), kScreenWidth, 23)];
+    lastL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
+    lastL.textColor = [UIColor darkGrayColor];
+    lastL.text = @"清空缓存";
+    lastL.textAlignment = NSTextAlignmentCenter;
+    [view9 addSubview:lastL];
+    UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, h)];
+    btn.backgroundColor = [UIColor clearColor];
+    [view9 addSubview:btn];
+    [btn addTarget:self action:@selector(cleanBtnClick) forControlEvents:UIControlEventTouchUpInside];
+
+
+}
+
+
+-(UIView*)addCellWithH:(CGFloat)h magin:(CGFloat)magin viewFrame:(CGRect)frame title:(NSString*)title action:(SEL)action{
+    //backview
+    CGFloat labelH = 23;
+    UIView * view1 = [[UIView alloc]initWithFrame:frame];
+    view1.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:view1];
+    //label
+    UILabel * msgL = [[UILabel alloc]initWithFrame:CGRectMake(magin, 0.5*(h-labelH), 150, labelH)];
+    msgL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
+    msgL.textColor = [UIColor darkGrayColor];
+    msgL.text = title;
+    [view1 addSubview:msgL];
+    //image
+    UIImageView * msgImg = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth-magin-8, 0.5*(h-14),8,14)];
+    msgImg.image = [UIImage imageNamed:@"jiantou_me"];
+    [view1 addSubview:msgImg];
+    //button
+    UIButton * msgBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, h)];
+    msgBtn.backgroundColor = [UIColor clearColor];
+    [view1 addSubview:msgBtn];
+    [msgBtn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+    //bottomLine
+    [line addLineWithFrame:CGRectMake(msgL.x, h-1, kScreenWidth-msgL.x, 1) andBackView:view1];
+    return view1;
 }
 
 
@@ -250,6 +220,28 @@
         DebugLog(@"关闭提醒");
     }
 }
+
+#pragma mark - 帮助中心
+-(void)goHelpCenter{
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController * vc = [sb instantiateViewControllerWithIdentifier:@"IntroductionVC"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - 服务协议
+-(void)goSeverceDetail{
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController * vc = [sb instantiateViewControllerWithIdentifier:@"severceDeal"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - 评价一下
+-(void)goPingJia{
+    NSString *str = [NSString stringWithFormat:@"http://itunes.apple.com/us/app/id%d", 1001065082];//跳转到AppStore
+    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:str]];
+}
+
+
 #pragma mark - 清除缓存按钮点击事件
 - (void)cleanBtnClick{
     DebugLog(@"清理缓存按钮被点击");

@@ -29,6 +29,9 @@
     if (model.mname) {
         self.bossNameLabel.text = model.mname;
     }
+    if (self.ID && self.ID.length > 0) {
+        self.bossNameLabel.text = self.ID;
+    }
     if (model.pname) {
         self.prizeNameLabel.text = model.pname;
     }
@@ -57,7 +60,7 @@
     
     NSString * index = [NSString stringWithFormat:@"%f",self.index];
     [[NSUserDefaults standardUserDefaults]setObject:index forKey:@"index"];
-
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:@"useBtnClick" object:_model];
 }
 

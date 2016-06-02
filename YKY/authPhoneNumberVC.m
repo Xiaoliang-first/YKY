@@ -184,7 +184,7 @@
     self.authCode = automCodeStr;
     NSString * str1 = [@"tpl_value=%23code%23%3D" stringByAppendingString:automCodeStr];
     NSString * str = [NSString stringWithFormat:@"http://v.juhe.cn/sms/send?mobile=%@&tpl_id=5672&%@&key=573becaef88739929129aa21b79798d3",self.phoneNumberField.text,str1];
-    
+    DebugLog(@"=%@",self.authCode);
     self.getAuthCodePhoneNum = self.phoneNumberField.text;
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];

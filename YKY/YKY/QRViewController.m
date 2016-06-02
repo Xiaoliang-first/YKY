@@ -11,6 +11,7 @@
 #import "QRView.h"
 #import "MBProgressHUD+MJ.h"
 #import "bossLogAccountVC.h"
+#import "SaomiaojieguoVC.h"
 
 
 @interface QRViewController ()<AVCaptureMetadataOutputObjectsDelegate,QRViewDelegate,UIAlertViewDelegate>
@@ -163,10 +164,12 @@
 
     DebugLog(@"扫描结果=%@",stringValue);
     if (stringValue) {
-        if ([self.ID isEqualToString:@"1"]) {//首页进入传1，商家段登陆不传
-            [[NSUserDefaults standardUserDefaults]setObject:stringValue forKey:@"prizeCodes"];
+        if ([self.ID isEqualToString:@"1"]) {//首页进入传1，商家端登陆不传
+            [[NSUserDefaults standardUserDefaults]setObject:stringValue forKey:@"bossIDAndPhone"];
             //进入扫描结果的列表界面
-            
+            SaomiaojieguoVC * vc = [[SaomiaojieguoVC alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+            return;
         }else{
             [[NSUserDefaults standardUserDefaults]setObject:stringValue forKey:@"prizeCodes"];
             [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"saomiaochenggong"];

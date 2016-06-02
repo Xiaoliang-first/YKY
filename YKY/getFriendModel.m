@@ -12,9 +12,10 @@
 
 +(instancetype)modelWithDict:(NSDictionary *)dict{
     getFriendModel * model = [[getFriendModel alloc]init];
-    model.phone = [NSString stringWithFormat:@"%@",dict[@"phone"]];
-    model.signTime = [NSString stringWithFormat:@"%@",dict[@"signtime"]];
-    model.diamondsNum = [NSString stringWithFormat:@"%@",dict[@"diamondsnum"]];
+    model.phone = [NSString stringWithFormat:@"%@",dict[@"registerPhone"]];
+    model.signTime = [NSString stringWithFormat:@"%@",dict[@"time"]];
+    model.diamondsNum = [NSString stringWithFormat:@"%@",dict[@"giveNumber"]];
+    model.type = [NSString stringWithFormat:@"%@",dict[@"giveType"]];
 
     return model;
 }

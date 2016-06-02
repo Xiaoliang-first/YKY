@@ -16,7 +16,7 @@
 #import "UIImageView+WebCache.h"
 
 
-@interface bossViewLogVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface bossViewLogVC ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIButton *bossPrizeBtn;
@@ -42,6 +42,16 @@
 /** 奖品类型1：商家奖品 1：专区奖品 */
 @property (nonatomic , copy) NSString * type;
 
+/** 搜索框承载view */
+@property (weak, nonatomic) IBOutlet UIView *searchFeildBackView;
+/** 搜索feild */
+@property (weak, nonatomic) IBOutlet UITextField *searchFeild;
+@property (nonatomic , strong) UIButton * btn;
+
+@property (nonatomic) int index;
+@property (nonatomic , copy) NSString * no;
+
+
 
 @end
 
@@ -57,6 +67,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.searchFeild.delegate = self;
     
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"bossExpenseCell" bundle:nil] forCellReuseIdentifier:@"bossExpenseCell"];
@@ -65,10 +77,37 @@
     
     [self setRigthItem];//设置导航条右侧放大镜按钮
     [self setLeftNavBtn];
-    [MBProgressHUD showMessage:@"查询中..." toView:self.view];
 
-    [self loadConsumeData];
+    _index = 0;
+    __weak typeof (self) weakSelf = self;
+    [self.tableView addLegendFooterWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        self.index = self.index + 1;
+        NSString *idx = [NSString stringWithFormat:@"%d",self.index];
+        if ([weakSelf.no isEqualToString:@"1"]) {
+            self.index = 0;
+            idx = [NSString stringWithFormat:@"%d",self.index];
+            weakSelf.tableView.footer.stateHidden = YES;
+            [weakSelf endrefreshing];
+            return ;
+        }
+        [weakSelf loadConsumeDataWithPage:idx];
+        [weakSelf endrefreshing];
+    }];
+    [self.tableView addLegendHeaderWithRefreshingBlock:^{
+        weakSelf.index = 0;
+        weakSelf.no = @"0";
+        [weakSelf.dataArray removeAllObjects];
+        [weakSelf.tableView reloadData];
+        [weakSelf loadConsumeDataWithPage:@"0"];
+        [weakSelf endrefreshing];
+    }];
 }
+- (void)endrefreshing{
+    [self.tableView.header endRefreshing];
+    [self.tableView.footer endRefreshing];
+}
+
 
 #pragma mark - 设置左导航nav
 -(void)setLeftNavBtn{
@@ -102,7 +141,7 @@
     
     [self.dataArray removeAllObjects];
     //加载数据
-    [self loadConsumeData];
+    [self loadConsumeDataWithPage:@"0"];
 }
 #pragma mark - 专区奖品按钮被点击
 - (IBAction)activityPrizeBtnClick:(id)sender {
@@ -117,7 +156,7 @@
     
     [self.dataArray removeAllObjects];
     //加载数据
-    [self loadConsumeData];
+    [self loadConsumeDataWithPage:@"0"];
 }
 
 #pragma mark - 起始时间按钮被点击
@@ -195,7 +234,6 @@
 
 #pragma mark - 确定按钮点击事件
 -(void)okClick{
-
     NSDateFormatter *dateFoematter = [[NSDateFormatter alloc]init];
     [dateFoematter setDateFormat:@"yyyy-MM-dd"];
 
@@ -265,20 +303,25 @@
     }
     [self.dataArray removeAllObjects];//清空数据源
     [self.tableView reloadData];//刷新界面
-    [self loadConsumeData];//初始化时加载第一页
+    [self loadConsumeDataWithPage:@"0"];//初始化时加载第一页
     
 }
 
 #pragma mark - 加载消费列表数据
--(void)loadConsumeData{
+-(void)loadConsumeDataWithPage:(NSString*)page{
+    [MBProgressHUD showMessage:@"查询中..." toView:self.view];
+
     NSString *str = kcheckCouponsListStr;
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
     if (![self.starDateBtn.titleLabel.text isEqualToString:@"起始时间"]) {
         self.starDate = self.starDateBtn.titleLabel.text;
     }
     if (![self.endDateBtn.titleLabel.text isEqualToString:@"截止时间"]) {
         self.endDate = self.endDateBtn.titleLabel.text;
     }
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+
     NSDictionary *parameters = [NSDictionary dictionary];
     if (self.bossID==nil) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
@@ -286,12 +329,19 @@
         return;
     }
     if (self.starDate.length!=0 && self.endDate.length!=0) {
-        parameters = @{@"mId":self.bossID,@"sTime":self.starDate,@"eTime":self.endDate,@"type":self.type};
+        parameters = @{@"mId":self.bossID,@"sTime":self.starDate,@"eTime":self.endDate,@"type":self.type,@"pageNum":page};
+        if (self.searchFeild.text.length>10) {
+            if (![phone isMobileNumber:self.searchFeild.text]) {
+                [MBProgressHUD showError:@"请输入正确的手机号"];
+                return;
+            }
+            parameters = @{@"mId":self.bossID,@"sTime":self.starDate,@"eTime":self.endDate,@"type":self.type,@"pageNum":page,@"userPhone":self.searchFeild.text};
+        }
     }else{
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         return;
     }
-    
+
     [manager POST:str parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([responseObject[@"code"] isEqual:@(0)]) {
@@ -344,8 +394,33 @@
 
 #pragma mark - 代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60;
+    return 65;
 }
+
+#pragma mark - textfield代理方法
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    CGFloat y = self.searchFeildBackView.y+self.searchFeildBackView.height;
+    self.btn = [[UIButton alloc]initWithFrame:CGRectMake(0, y, kScreenWidth, kScreenheight-y)];
+    self.btn.backgroundColor = YKYClearColor;
+    [self.btn addTarget:self action:@selector(dissMess) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.btn];
+    return YES;
+}
+
+#pragma mark - 键盘消失
+-(void)dissMess{
+    [self.btn removeFromSuperview];
+    [self.searchFeild resignFirstResponder];
+}
+
+
+#pragma mark - 搜索按钮点击事件
+- (IBAction)searchBtnClick:(id)sender {
+    [self dissMess];
+    DebugLog(@"搜索按钮被点击");
+    [self rightClick];
+}
+
 
 
 @end

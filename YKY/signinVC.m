@@ -108,7 +108,7 @@
         self.authCodeBackView.hidden = NO;
         self.getAuthCodeBtn.hidden = NO;
         self.okBtn = [[UIButton alloc]initWithFrame:CGRectMake(30, self.authCodeBackView.y+self.authCodeBackView.height+30, kScreenWidth-60, 40)];
-        
+
         [self.okBtn setTitle:@"确定" forState:UIControlStateNormal];
         [self.okBtn setBackgroundImage:[UIImage imageNamed:@"chengseyuanjiaojuxing"] forState:UIControlStateNormal];
         [self.okBtn addTarget:self action:@selector(okClick) forControlEvents:UIControlEventTouchUpInside];
@@ -208,7 +208,7 @@
     self.authCode = automCodeStr;
     NSString * str1 = [@"tpl_value=%23code%23%3D" stringByAppendingString:automCodeStr];
     NSString * str = [NSString stringWithFormat:@"http://v.juhe.cn/sms/send?mobile=%@&tpl_id=5672&%@&key=573becaef88739929129aa21b79798d3",self.phoneNmbField.text,str1];
-    
+    DebugLog(@"==注册验证码=%@",self.authCode);
     self.getAuthCodePhoneNum = self.phoneNmbField.text;
     
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];

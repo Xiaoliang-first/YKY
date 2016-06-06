@@ -34,7 +34,7 @@
     if (!prizemodel.marketPrice) {
         return;
     }
-    NSString *price = [NSString stringWithFormat:@"￥%@",prizemodel.marketPrice];
+    NSString *price = [NSString stringWithFormat:@"￥%d",[prizemodel.marketPrice intValue]];
     self.prizePriceLabel.text = price;
     self.prizePriceLabel.font = [UIFont systemFontOfSize:[myFont getTitle3]];
     if (!prizemodel.shakeNum || !prizemodel.num) {

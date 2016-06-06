@@ -747,7 +747,7 @@ static BOOL bac = YES;
 #pragma mark - 与好友分享
 - (void)shardWithFriend{
     Account * account = [AccountTool account];
-    [sharToFrend shareWithImgurl:self.prizeLowUrl andPid:self.prizeId phone:account.phone andVC:self];
+    [sharToFrend shareWithImgurl:self.prizeLowUrl title:@"我刚在一块摇中获取了一个奖品，只要你摇，惊喜一直不断，你准备好了吗？" andPid:self.prizeId phone:account.phone andVC:self];
 //    [sharToFrend shareWithImgurl:self.prizeLowUrl andPname:self.couponsName phone:account.phone andVC:self];
 //    [sharToFrend shareWithType:@"1" andImgurl:self.prizeLowUrl andCouponsId:self.couponsId andVC:self];
 }

@@ -12,6 +12,14 @@
 
 @interface sharToFrend : NSObject<UMSocialUIDelegate>
 
-+(void)shareWithImgurl:(NSString*)imgurl andPid:(NSString *)pid phone:(NSString*)phone andVC:(UIViewController*)VC;
+
+/** 奖兜分享 */
++(void)shareWithImgurl:(NSString*)imgurl title:(NSString*)title andPid:(NSString *)pid phone:(NSString*)phone andVC:(UIViewController*)VC;
+
+/** 推荐好友专用推荐分享接口 */
++(void)shareWithUrl:(NSString*)imgurl title:(NSString*)title name:(NSString*)name andQRImage:(UIImage *)image phone:(NSString*)phone andVC:(UIViewController*)VC;
+
+/** 幸运兜分享接口 */
++(void)shareWithImgurl:(NSString*)imgUrl title:(NSString*)title andPid:(NSString *)pid andVC:(UIViewController*)VC;
 
 @end

@@ -36,8 +36,7 @@
     [super viewDidLoad];
     self.title = @"邀请好友明细";
     [self setLeft];
-//    self.tableView.delegate = self;
-//    self.tableView.dataSource = self;
+
     [self.tableView registerNib:[UINib nibWithNibName:@"getFriendsCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"getFriendsCell"];
 
 
@@ -65,6 +64,7 @@
         [weakSelf loadUsedDataWithPage:@"0"];
         [weakSelf endrefreshing];
     }];
+    [self loadUsedDataWithPage:@"0"];
 }
 - (void)endrefreshing{
     [self.tableView.header endRefreshing];
@@ -103,7 +103,6 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 40;
 }
-
 
 
 

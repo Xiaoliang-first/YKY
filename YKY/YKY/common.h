@@ -24,6 +24,7 @@
 
 //局域网电脑
 #define kbaseURL @"http://192.168.1.110:8090"
+
 ///ykyInterface
 //#define kbaseURL @"http://192.168.1.91:8090/ykyInterface"
 //#define kbaseURL @"http://192.168.1.31:8080"

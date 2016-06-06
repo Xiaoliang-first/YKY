@@ -115,7 +115,7 @@
     //添加scrollView
     UIScrollView * scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0,self.view.width, self.view.height)];
     self.backScrollView = scrollView;
-    self.backScrollView.backgroundColor = YKYClearColor;
+    self.backScrollView.backgroundColor = YKYColor(242, 242, 242);
     self.backScrollView.delegate = self;
     self.backScrollView.contentSize = CGSizeMake(self.view.width, 0.4*kScreenheight);
     [self.view addSubview:self.backScrollView];
@@ -163,6 +163,8 @@
     [self.the3View removeFromSuperview];
     [self.the2View removeFromSuperview];
     [self.topView removeFromSuperview];
+    [self.the1View removeFromSuperview];
+    [self.moneyBackView removeFromSuperview];
     [self.logAndOutBtn removeFromSuperview];
     [self.lineBottom removeFromSuperview];
 }
@@ -409,7 +411,7 @@
     CGFloat h = 40;
     CGFloat lableH = 17;
     int num = 3;
-    NSArray * array = @[@"摇一摇奖品",@"随意摇奖品",@"活动摇奖品"];
+    NSArray * array = @[@"摇一摇奖品",@"随意摇奖品",@"指定摇奖品"];
     self.the2View = [[UIView alloc]initWithFrame:CGRectMake(0, self.the1View.y+self.the1View.height+10, kScreenWidth, num*h)];
     self.the2View.backgroundColor = [UIColor whiteColor];
     [self.backScrollView addSubview:self.the2View];
@@ -474,7 +476,7 @@
             [self suiyiyao];
             break;
         case 2:
-            DebugLog(@"活动摇");
+            DebugLog(@"指定摇");
             [self huodongyao];
             break;
         default:
@@ -492,7 +494,7 @@
 -(void)huodongyao{
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     newBonusVC * vc = [sb instantiateViewControllerWithIdentifier:@"newBonusVC"];
-    vc.titleStr = @"活动摇奖品";
+    vc.titleStr = @"指定摇奖品";
     [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"couponsType"];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -571,21 +573,28 @@
 #pragma mark - 登陆承载view
 -(void)add4View{
 
+    self.the4View = [[UIView alloc]initWithFrame:CGRectMake(0, _the3View.height+_the3View.y+30, kScreenWidth, 44)];
+    self.the4View.backgroundColor = [UIColor whiteColor];
+    [self.backScrollView addSubview:self.the4View];
+
     //登陆按钮
-    self.logAndOutBtn = [[UIButton alloc]initWithFrame:CGRectMake(kMargin, _the3View.height+_the3View.y+44, kScreenWidth-2*kMargin, 44)];
-    self.logAndOutBtn.backgroundColor = [UIColor redColor];
-    [self.logAndOutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [line addLineWithFrame:CGRectMake(0, _the3View.height+_the3View.y+44, kScreenWidth, 1) andBackView:self.backScrollView];
+    self.logAndOutBtn = [[UIButton alloc]initWithFrame:CGRectMake(kMargin, 0, kScreenWidth-2*kMargin, 44)];
+    self.logAndOutBtn.backgroundColor = [UIColor clearColor];
+    [self.logAndOutBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     self.logAndOutBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.logAndOutBtn setTitle:@"安全退出" forState:UIControlStateNormal];
     self.logAndOutBtn.titleLabel.font = [UIFont boldSystemFontOfSize:[myFont getTitle2]];
     [self.logAndOutBtn addTarget:self action:@selector(logAndOutBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.backScrollView addSubview:self.logAndOutBtn];
-    //设置图片圆角
-    self.logAndOutBtn.layer.cornerRadius = 5;
-    self.logAndOutBtn.layer.masksToBounds = YES;
-    self.logAndOutBtn.layer.borderWidth = 0.01;
+    [self.the4View addSubview:self.logAndOutBtn];
+//    [line addLineWithFrame:CGRectMake(0, _the3View.height+_the3View.y+88, kScreenWidth, 1) andBackView:self.backScrollView];
+
+//    //设置图片圆角
+//    self.logAndOutBtn.layer.cornerRadius = 5;
+//    self.logAndOutBtn.layer.masksToBounds = YES;
+//    self.logAndOutBtn.layer.borderWidth = 0.01;
     //重置滚动位置
-    self.backScrollView.contentSize = CGSizeMake(kScreenWidth, self.logAndOutBtn.y+self.logAndOutBtn.height+3*kMargin);
+    self.backScrollView.contentSize = CGSizeMake(kScreenWidth, self.the4View.y+self.the4View.height+3*kMargin);
 
 }
 #pragma mark - 登录退出按钮点击事件

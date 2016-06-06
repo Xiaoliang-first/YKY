@@ -34,6 +34,7 @@
 #import "homeNewScuessPrizeVC.h"
 #import "QRViewController.h"
 #import "SaomiaojieguoVC.h"
+#import "homeTableBarVC.h"
 
 
 
@@ -48,6 +49,7 @@
 @property (strong , nonatomic) UITableView *TableView;
 /** 本期大奖数据源 */
 @property (nonatomic , strong) NSMutableArray * dataArray;
+
 
 
 /** 广告图片ID的数组 */
@@ -86,6 +88,7 @@
 @property (nonatomic) CGFloat subCitysBkViewHight;
 /** 县区数据源数组 */
 @property (nonatomic , strong) NSMutableArray * townsArray;
+
 
 @property (nonatomic , strong) UIAlertView * locationAlertView;
 @property (nonatomic , strong) UIAlertView * photoAlter;
@@ -182,11 +185,17 @@
 
 #pragma mark - 跳转到扫描界面
 - (void)showQRViewController {
+    if (![AccountTool account]) {
+        [MBProgressHUD showError:@"请登录!"];
+        [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(jumpToAccountVc) userInfo:nil repeats:NO];
+        return;
+    }
     QRViewController *qrVC = [[QRViewController alloc] init];
     qrVC.ID = @"1";
     self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:qrVC animated:YES];
 }
+
 
 #pragma mark - 网络变化重新加载数据
 - (void)networkStateChange
@@ -285,13 +294,52 @@
     }
 }
 
+#pragma mark - 重磅推出没有数据时tableView隐藏，并添加提示view
+-(void)addNoPrizeBottomView{
+    self.TableView.hidden = YES;
+
+    CGFloat viewW = 0.65*kScreenWidth;//267
+    CGFloat viewH = 0.35*kScreenWidth;//140
+    UIView * tishiView = [[UIView alloc]initWithFrame:CGRectMake(0.5*(kScreenWidth-viewW), self.TableView.y+20, viewW, viewH)];
+    tishiView.backgroundColor = [UIColor whiteColor];
+    [self.backScrollerView addSubview:tishiView];
+    UIImageView *imgV = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, viewW, viewH)];
+    imgV.image = [UIImage imageNamed:@"noPrizeImg"];
+    [tishiView addSubview:imgV];
+    CGFloat btnW = 0.4*kScreenWidth;//165
+    CGFloat btnH = 0.1*kScreenWidth;//40
+    UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(0.5*(kScreenWidth-btnW), tishiView.y+tishiView.height+10, btnW, btnH)];
+    [btn setBackgroundImage:[UIImage imageNamed:@"noPrizeGoRock"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(goRockBuy) forControlEvents:UIControlEventTouchUpInside];
+    [self.backScrollerView addSubview:btn];
+
+
+    //界面滚动范围
+    self.backScrollerView.contentSize = CGSizeMake(self.view.width, tishiView.y+tishiView.height-200);
+    if (self.view.height > 668) {
+        self.backScrollerView.contentSize = CGSizeMake(self.view.width, tishiView.y+tishiView.height-270);
+    }
+    DebugLog(@"===%f====%f",tishiView.y+tishiView.height,self.backScrollerView.contentSize.height);
+}
+#pragma mark - 去摇购界面
+-(void)goRockBuy{
+    DebugLog(@"去摇购");
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    homeTableBarVC *vc = [sb instantiateViewControllerWithIdentifier:@"homeTableBarVC"];
+    UIApplication *app = [UIApplication sharedApplication];
+    UIWindow *window = app.keyWindow;
+    window.rootViewController = vc;
+    UIViewController* myvc =  vc.childViewControllers[1];
+    vc.selectedViewController = myvc;
+}
+
+
+
 #pragma mark - 设置左导航按钮
 -(void)setLeftAndRightNaViBtn{
-    
     UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithTitle:@"城市选择" style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
     left.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = left;
-
 }
 
 #pragma mark - 城市切换按钮
@@ -389,6 +437,9 @@
 #pragma mark - 控制器的willAppear和willDisapper
 -(void)viewWillAppear:(BOOL)animated{
     [super viewDidAppear:YES];
+
+    [getIpVC getUserIp];//获取用户的IP
+
     self.one = YES;
     self.tabBarController.tabBar.hidden = NO;
 
@@ -660,8 +711,11 @@
 
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([responseObject[@"code"] isEqual:@(0)]) {
-            if (responseObject[@"data"] == nil) {
-                [MBProgressHUD showError:@"暂时没有数据"];
+            NSArray * array = [[NSArray alloc]init];
+            array = responseObject[@"data"];
+            if (array.count == 0) {
+//                [MBProgressHUD showError:@"暂时没有数据"];
+                [self addNoPrizeBottomView];
                 return ;
             }
             //清除临时数组的缓存

@@ -120,7 +120,7 @@
 
 
     //帮助中心backView
-    UIView * view4 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view3.y+view3.height+10, kScreenWidth, h) title:@"帮助中心" action:@selector(goHelpCenter)];
+    UIView * view4 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view3.y+view3.height+10, kScreenWidth, h) title:@"新手帮助" action:@selector(goHelpCenter)];
 
     //服务协议backView
     UIView * view5 = [self addCellWithH:h magin:magin viewFrame:CGRectMake(0, view4.y+view4.height, kScreenWidth, h) title:@"服务协议" action:@selector(goSeverceDetail)];

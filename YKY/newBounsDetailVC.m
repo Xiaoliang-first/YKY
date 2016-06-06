@@ -210,6 +210,7 @@
     priceLB.font = [UIFont systemFontOfSize:14];
     NSString * RMB = @"￥";
     NSString * price = [RMB stringByAppendingFormat:@"%@",self.boundsDetailModel.marketPrice];
+    DebugLog(@"===%@====%@",self.boundsDetailModel.marketPrice,price);
     priceLB.text = price;
     priceLB.textAlignment = NSTextAlignmentRight;
     [TopView addSubview:priceLB];
@@ -408,7 +409,8 @@
 #pragma mark - 分享按钮点击事件
 -(void)rightClick{
     Account * account = [AccountTool account];
-    [sharToFrend shareWithImgurl:self.boundsDetailModel.url andPid:self.boundsDetailModel.pid phone:account.phone andVC:self];
+
+    [sharToFrend shareWithImgurl:self.boundsDetailModel.url title:@"我刚在一块摇中获取了一个奖品，只要你摇，惊喜一直不断，你准备好了吗？" andPid:self.boundsDetailModel.pid phone:account.phone andVC:self];
 //    [sharToFrend shareWithImgurl:self.boundsDetailModel.url andPname:self.boundsDetailModel.pname phone:account.phone andVC:self];
 //    [sharToFrend shareWithType:self.Type andImgurl:self.boundsDetailModel.url andCouponsId:self.couponsId andVC:self];
 }

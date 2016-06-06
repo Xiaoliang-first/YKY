@@ -391,7 +391,10 @@
     if (cell == nil) {
         cell = [[yaogouCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"yaogouCell"];
     }
-    cell.index = (int)indexPath.row;
+    cell.index = (long)indexPath.row;
+    if (_dataArray.count == 0) {
+        return cell;
+    }
     if (indexPath.row>_dataArray.count) {
         return cell;
     }

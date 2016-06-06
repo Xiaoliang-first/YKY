@@ -64,6 +64,12 @@
     }
     return _bannerUrls;
 }
+-(NSDictionary *)data{
+    if (_data == nil) {
+        self.data = [[NSDictionary alloc]init];
+    }
+    return _data;
+}
 
 
 - (void)viewDidLoad {
@@ -140,6 +146,7 @@
         _progresView.progress = 0.58f;
     }
     [_topBackView addSubview:_progresView];
+    
     //2.4总需人次跟剩余人次
     _zongLabel = [[UILabel alloc]initWithFrame:CGRectMake(_progresView.x, _progresView.y+_progresView.height+vMagin, 0.5*_progresView.width, 15)];
     _zongLabel.textColor = YKYDeTitleColor;
@@ -337,7 +344,7 @@
 
 #pragma mark - 设置界面信息
 -(void)setDataWithModel{
-    DebugLog(@"\n=prizeName=%@\n=prizeUrl=%@\n=plimit=%@\n=zongNum=%@\n=shengNum=%@\n=oderNum=%@\n=pid=%@\n",_prizeModel.pname,_prizeModel.headImage,_prizeModel.plimit,_prizeModel.zongNum,_prizeModel.shengNum,_prizeModel.serials,_prizeModel.pid);
+    DebugLog(@"\n===prizeModel的===prizeName=%@\n=prizeUrl=%@\n=plimit=%@\n=zongNum=%@\n=shengNum=%@\n=oderNum=%@\n=pid=%@\n",_prizeModel.pname,_prizeModel.headImage,_prizeModel.plimit,_prizeModel.zongNum,_prizeModel.shengNum,_prizeModel.serials,_prizeModel.pid);
 
     //添加固定控件
     [self addSubViews];
@@ -415,7 +422,7 @@
 
     self.zongLabel.text = [NSString stringWithFormat:@"总需%@人次",_data[@"price"]];
     
-    NSString * red1 = [NSString stringWithFormat:@"<font size=\"4\" color=\"red\">%@</font>",_prizeModel.shengNum];
+    NSString * red1 = [NSString stringWithFormat:@"<font size=\"4\" color=\"red\">%@</font>",_data[@"restNum"]];
     NSString * gray1 = @"<font size=\"4\" color=\"#666666\">剩余</font>";
     NSString * gray2 = @"<font size=\"4\" color=\"#666666\">人次</font>";
     NSString * plimit = [NSString stringWithFormat:@"%@%@%@",gray1,red1,gray2];
@@ -487,8 +494,8 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         DebugLog(@"摇购列表详情获取结果=%@",responseDic);
         if ([responseDic[@"code"] isEqual:@0]) {
-            _data = [[NSDictionary alloc]init];
-            _data = responseDic[@"data"][0];
+            self.data = responseDic[@"data"][0];
+//            self.
             [self loadBanner];//加载顶部banner数据
         }else{
             [MBProgressHUD showError:responseDic[@"msg"]];

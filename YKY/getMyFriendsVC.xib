@@ -8,12 +8,15 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="getMyFriendsVC">
             <connections>
                 <outlet property="QRImgView" destination="zfc-OL-Gdg" id="2F2-Y8-4UU"/>
+                <outlet property="bottomBackView" destination="AEZ-oF-snO" id="2WJ-d7-dSx"/>
+                <outlet property="bottomLayout" destination="sRp-hp-CmR" id="rco-vS-5NY"/>
                 <outlet property="friendsNumLabel" destination="gTO-tB-Ebf" id="M9I-nh-6fK"/>
                 <outlet property="getFriendBtn" destination="eyt-RJ-Ebq" id="QhN-AH-oJf"/>
                 <outlet property="getNoFirendBottomL" destination="U9P-iF-PVH" id="T6x-vu-Ws0"/>
                 <outlet property="getNoFirendTopL" destination="62p-GB-7n6" id="bfi-Ug-KAB"/>
                 <outlet property="getedL" destination="fJw-Dc-5Y1" id="fpa-o1-WkI"/>
                 <outlet property="lookDetailBtn" destination="YEq-Na-bpy" id="sn8-UG-YfL"/>
+                <outlet property="nameField" destination="wSN-DM-r72" id="BeG-4q-kEx"/>
                 <outlet property="renL" destination="PQu-8h-Yio" id="221-Zc-QsR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -77,7 +80,7 @@
                             <color key="textColor" red="0.42745098040000001" green="0.42745098040000001" blue="0.42745098040000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奖励在呼唤你哦!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9P-iF-PVH">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享注册领钻石 ^O^" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9P-iF-PVH">
                             <rect key="frame" x="0.0" y="38" width="600" height="34"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="34" id="czb-3M-1xy"/>
@@ -108,25 +111,6 @@
                         <constraint firstItem="gTO-tB-Ebf" firstAttribute="centerY" secondItem="fJw-Dc-5Y1" secondAttribute="centerY" constant="-1" id="wTT-Hd-Ozb"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyt-RJ-Ebq">
-                    <rect key="frame" x="15" y="545" width="570" height="40"/>
-                    <color key="backgroundColor" red="0.93333333330000001" green="0.019607843140000001" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="RVz-8H-Asf"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal" title="速去推荐好友">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="highlighted" title="速去推荐好友">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="getFriendBtnClick:" destination="-1" eventType="touchUpInside" id="gEc-Jd-o5b"/>
-                    </connections>
-                </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="黑白二维码" translatesAutoresizingMaskIntoConstraints="NO" id="zfc-OL-Gdg">
                     <rect key="frame" x="200" y="250" width="200" height="200"/>
                     <constraints>
@@ -134,14 +118,14 @@
                         <constraint firstAttribute="width" constant="200" id="S8N-9Y-RTA"/>
                     </constraints>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="一块摇4" translatesAutoresizingMaskIntoConstraints="NO" id="wRf-jR-LZ7">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="一块摇4" translatesAutoresizingMaskIntoConstraints="NO" id="wRf-jR-LZ7">
                     <rect key="frame" x="280" y="330" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="Irp-U7-ghd"/>
                         <constraint firstAttribute="height" constant="40" id="g1V-Ce-eUf"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="面对面扫描推荐" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hb-Ch-HXA">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="扫一扫立即推荐" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hb-Ch-HXA">
                     <rect key="frame" x="237" y="225" width="127" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="127" id="BKj-0u-iEM"/>
@@ -151,26 +135,87 @@
                     <color key="textColor" red="0.93333333330000001" green="0.019607843140000001" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AEZ-oF-snO">
+                    <rect key="frame" x="0.0" y="555" width="600" height="30"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eyt-RJ-Ebq">
+                            <rect key="frame" x="485" y="0.0" width="100" height="30"/>
+                            <color key="backgroundColor" red="0.93333333330000001" green="0.019607843140000001" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="5vr-Q1-Y2R"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="速去推荐好友">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" title="速去推荐好友">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="getFriendBtnClick:" destination="-1" eventType="touchUpInside" id="gEc-Jd-o5b"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HNo-4k-Sk2">
+                            <rect key="frame" x="15" y="0.0" width="462" height="30"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yuanjiaojuxing" translatesAutoresizingMaskIntoConstraints="NO" id="p2f-Gx-bvT">
+                                    <rect key="frame" x="0.0" y="0.0" width="462" height="30"/>
+                                </imageView>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="把名字告诉您的好友哦~" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wSN-DM-r72">
+                                    <rect key="frame" x="8" y="0.0" width="446" height="30"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                </textField>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="wSN-DM-r72" firstAttribute="top" secondItem="HNo-4k-Sk2" secondAttribute="top" id="0fK-1g-iFc"/>
+                                <constraint firstAttribute="trailing" secondItem="p2f-Gx-bvT" secondAttribute="trailing" id="0pQ-ic-zjO"/>
+                                <constraint firstAttribute="bottom" secondItem="wSN-DM-r72" secondAttribute="bottom" id="Nje-sR-rMq"/>
+                                <constraint firstItem="wSN-DM-r72" firstAttribute="leading" secondItem="HNo-4k-Sk2" secondAttribute="leading" constant="8" id="O5t-8V-Azw"/>
+                                <constraint firstAttribute="trailing" secondItem="wSN-DM-r72" secondAttribute="trailing" constant="8" id="anD-Xn-Dfa"/>
+                                <constraint firstAttribute="bottom" secondItem="p2f-Gx-bvT" secondAttribute="bottom" id="buk-JH-oCT"/>
+                                <constraint firstItem="p2f-Gx-bvT" firstAttribute="leading" secondItem="HNo-4k-Sk2" secondAttribute="leading" id="m66-TP-5ON"/>
+                                <constraint firstItem="p2f-Gx-bvT" firstAttribute="top" secondItem="HNo-4k-Sk2" secondAttribute="top" id="soa-xP-aKS"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="eyt-RJ-Ebq" secondAttribute="bottom" id="DZw-h0-h8Y"/>
+                        <constraint firstItem="HNo-4k-Sk2" firstAttribute="top" secondItem="AEZ-oF-snO" secondAttribute="top" id="IQk-Kw-AHM"/>
+                        <constraint firstAttribute="trailing" secondItem="eyt-RJ-Ebq" secondAttribute="trailing" constant="15" id="Kes-BZ-cqv"/>
+                        <constraint firstItem="eyt-RJ-Ebq" firstAttribute="leading" secondItem="HNo-4k-Sk2" secondAttribute="trailing" constant="8" id="VJO-SE-gJt"/>
+                        <constraint firstAttribute="height" constant="30" id="aes-KR-x7e"/>
+                        <constraint firstItem="HNo-4k-Sk2" firstAttribute="leading" secondItem="AEZ-oF-snO" secondAttribute="leading" constant="15" id="b9C-XK-PPC"/>
+                        <constraint firstAttribute="bottom" secondItem="HNo-4k-Sk2" secondAttribute="bottom" id="plT-m4-mEh"/>
+                        <constraint firstItem="eyt-RJ-Ebq" firstAttribute="top" secondItem="AEZ-oF-snO" secondAttribute="top" id="ycw-z1-626"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="8hb-Ch-HXA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="2XR-jO-mS4"/>
                 <constraint firstItem="2sh-aZ-9et" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="2uV-9h-ySj"/>
-                <constraint firstAttribute="trailing" secondItem="eyt-RJ-Ebq" secondAttribute="trailing" constant="15" id="C8D-rO-Qcw"/>
-                <constraint firstItem="eyt-RJ-Ebq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="EkE-Y9-Kzy"/>
+                <constraint firstAttribute="trailing" secondItem="AEZ-oF-snO" secondAttribute="trailing" id="K07-Kw-7Ig"/>
                 <constraint firstItem="zfc-OL-Gdg" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="50" id="QKX-sB-OaH"/>
                 <constraint firstItem="2sh-aZ-9et" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Uwb-Db-U2K"/>
                 <constraint firstItem="zfc-OL-Gdg" firstAttribute="top" secondItem="8hb-Ch-HXA" secondAttribute="bottom" constant="4" id="WYG-bt-oVC"/>
+                <constraint firstItem="AEZ-oF-snO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wbq-EH-0vf"/>
                 <constraint firstItem="wRf-jR-LZ7" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="50" id="cqC-cT-aUo"/>
                 <constraint firstItem="wRf-jR-LZ7" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="dwO-jA-Ahd"/>
-                <constraint firstAttribute="bottom" secondItem="eyt-RJ-Ebq" secondAttribute="bottom" constant="15" id="i7j-um-cZx"/>
                 <constraint firstItem="zfc-OL-Gdg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lfl-GX-EJx"/>
+                <constraint firstAttribute="bottom" secondItem="AEZ-oF-snO" secondAttribute="bottom" constant="15" id="sRp-hp-CmR"/>
                 <constraint firstAttribute="trailing" secondItem="2sh-aZ-9et" secondAttribute="trailing" id="sgM-nW-UyY"/>
             </constraints>
             <point key="canvasLocation" x="52" y="332"/>
         </view>
     </objects>
     <resources>
+        <image name="yuanjiaojuxing" width="310" height="40"/>
         <image name="一块摇4" width="106" height="106"/>
         <image name="黑白二维码" width="280" height="280"/>
     </resources>

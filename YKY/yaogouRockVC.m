@@ -350,8 +350,6 @@
     //    [self moveInputBarWithKeyboardHeight:keyboardRect.size.height withDuration:animationDuration];
 //    self.self.fieldBackView.frame = CGRectMake(15, kScreenheight-55-keyboardRect.size.height, kScreenWidth-30, 40);
     self.fieldBackView.frame = CGRectMake(0.5*(kScreenWidth-0.33*kScreenWidth), self.centerImgV.y+self.centerImgV.height+7*kmagin-keyboardRect.size.height, 0.33*kScreenWidth, 20);
-
-
 }
 - (void)keyboardWillHide:(NSNotification *)notification{
     NSDictionary* userInfo = [notification userInfo];
@@ -360,7 +358,7 @@
     [animationDurationValue getValue:&animationDuration];
 
     //    [self moveInputBarWithKeyboardHeight:0.0 withDuration:animationDuration];
-    self.self.fieldBackView.frame = CGRectMake(0.5*(kScreenWidth-0.33*kScreenWidth), self.centerImgV.y+self.centerImgV.height+6*kmagin, 0.33*kScreenWidth, 20);
+    self.fieldBackView.frame = CGRectMake(0.5*(kScreenWidth-0.33*kScreenWidth), self.centerImgV.y+self.centerImgV.height+6*kmagin, 0.33*kScreenWidth, 20);
 }
 
 

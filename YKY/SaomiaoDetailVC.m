@@ -184,8 +184,7 @@
         if ([responseObject[@"code"] isEqual:@(0)]) {
             [MBProgressHUD showSuccess:@"交易成功!"];
 //            //兑换成功后操作
-//            [self duihuanSeccuss];
-            [self duiOk];
+            [self duiOk];//完成兑换的提示
         }else{
             [MBProgressHUD showError:responseObject[@"msg"]];
         }
@@ -211,7 +210,7 @@
     switch (buttonIndex) {
         case 0:
             if ([alertView isEqual:self.backAlter]) {
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
             }
             break;
         case 1:

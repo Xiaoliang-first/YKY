@@ -104,7 +104,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.title = @"活动摇";
+    self.navigationItem.title = @"指定摇";
     self.tabBarController.tabBar.hidden = YES;
     
     //设置导航按钮们
@@ -290,7 +290,7 @@
 - (void)shardWithFriend{
     Account * account = [AccountTool account];
 
-    [sharToFrend shareWithImgurl:self.prizeLowUrl andPid:self.prizeId phone:account.phone andVC:self];
+    [sharToFrend shareWithImgurl:self.prizeLowUrl title:@"我刚在一块摇中获取了一个奖品，只要你摇，惊喜一直不断，你准备好了吗？" andPid:self.prizeId phone:account.phone andVC:self];
 //    [sharToFrend shareWithImgurl:self.prizeLowUrl andPname:self.couponsName phone:account.phone andVC:self];
 //    [sharToFrend shareWithType:@"0" andImgurl:self.prizeLowUrl andCouponsId:self.couponsId andVC:self];
 }

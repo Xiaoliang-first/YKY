@@ -47,7 +47,7 @@
     [self setLeftNavBtn];
     
     //设置标题
-    self.navigationItem.title = @"活动专区";
+    self.navigationItem.title = @"指定摇专区";
     self.tabBarController.tabBar.hidden = YES;
     
     //注册cell

@@ -58,8 +58,8 @@ BMKMapManager* _mapManager;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
 
-    //注册监听网络变化的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus)name:kReachabilityChangedNotification object:nil];
+//    //注册监听网络变化的通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus)name:kReachabilityChangedNotification object:nil];
     // Set up Reachability
     _internetReachable = [Reachability reachabilityForInternetConnection];
     [_internetReachable startNotifier];
@@ -475,10 +475,10 @@ BMKMapManager* _mapManager;
     [[NSNotificationCenter defaultCenter] removeObserver:vc name:@"youAreLuckey" object:nil];
 }
 
-#pragma mark - 网络变化时更改user的IP和城市
--(void)checkNetworkStatus{
-    [getIpVC getUserIp];
-}
+//#pragma mark - 网络变化时更改user的IP和城市
+//-(void)checkNetworkStatus{
+//    [getIpVC getUserIp];
+//}
 
 
 

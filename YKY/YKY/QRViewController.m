@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"扫描";
-    [self setLeftNavBtn];
+//    [self setLeft];
     // Do any additional setup after loading the view.
 
 
@@ -108,7 +108,7 @@
 
     UIButton *pop = [UIButton buttonWithType:UIButtonTypeCustom];
     pop.frame = CGRectMake(20, 20, 50, 50);
-    [pop setTitle:@"返回" forState:UIControlStateNormal];
+//    [pop setTitle:@"返回" forState:UIControlStateNormal];
     [pop addTarget:self action:@selector(pop:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:pop];
 
@@ -126,19 +126,18 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self setLeftNavBtn];
+    [self setLeft];
 }
-
-#pragma mark - 设置左导航nav
--(void)setLeftNavBtn{
-    UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
+#pragma mark - 设置leftItem
+-(void)setLeft{
+    UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"jiantou-Left"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
     left.tintColor = [UIColor whiteColor];
-    [left setImage:[UIImage imageNamed:@"jiantou-Left"]];
     self.navigationItem.leftBarButtonItem = left;
 }
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 #pragma mark QRViewDelegate
 -(void)scanTypeConfig:(QRItem *)item {
@@ -165,10 +164,22 @@
     DebugLog(@"扫描结果=%@",stringValue);
     if (stringValue) {
         if ([self.ID isEqualToString:@"1"]) {//首页进入传1，商家端登陆不传
-            [[NSUserDefaults standardUserDefaults]setObject:stringValue forKey:@"bossIDAndPhone"];
-            //进入扫描结果的列表界面
-            SaomiaojieguoVC * vc = [[SaomiaojieguoVC alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+            if (![stringValue containsString:@"@"]) {//判断是否包含@符合
+                UIAlertView * alter = [[UIAlertView alloc]initWithTitle:@"警告:" message:@"该扫描功能仅限您在商家验证时使用，扫描商户二维码后，如果您摇到了该商家的奖品，将会一览无余的展现出来，方便您使用，谢谢!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+                [alter show];
+            }else {//包含@符号时判断时候@符号后边是电话号
+                NSArray * array = [stringValue componentsSeparatedByString:@"@"];
+                NSString * phoneNum = array[1];
+                if (![phone isMobileNumber:phoneNum]) {
+                    UIAlertView * alter = [[UIAlertView alloc]initWithTitle:@"警告:" message:@"该扫描功能仅限您在商家验证时使用，扫描商户二维码后，如果您摇到了该商家的奖品，将会一览无余的展现出来，方便您使用，谢谢!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+                    [alter show];
+                    return;
+                }
+                [[NSUserDefaults standardUserDefaults]setObject:stringValue forKey:@"bossIDAndPhone"];
+                //进入扫描结果的列表界面
+                SaomiaojieguoVC * vc = [[SaomiaojieguoVC alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
             return;
         }else{
             [[NSUserDefaults standardUserDefaults]setObject:stringValue forKey:@"prizeCodes"];

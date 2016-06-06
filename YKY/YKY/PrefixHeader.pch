@@ -33,6 +33,9 @@
 #import "getIpVC.h"
 #import "rightImgBtn.h"
 #import "getLabelHeight.h"
+#import "HGDQQRCodeView.h"
+
+
 
 
 #ifdef __OBJC__

@@ -285,7 +285,13 @@ NSString * const ID = @"cycleCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     SDCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+    if (self.imagesGroup.count == 0) {
+        return cell;
+    }
     long itemIndex = indexPath.item % self.imagesGroup.count;
+    if (itemIndex>self.imagesGroup.count) {
+        return cell;
+    }
     cell.imageView.image = self.imagesGroup[itemIndex];
     if (_titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];

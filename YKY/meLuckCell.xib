@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="14F1808" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="159.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jdL-UR-kjC">
@@ -112,6 +112,20 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXc-2Z-4M2">
+                        <rect key="frame" x="185" y="124" width="56" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="BUq-q8-4Xg"/>
+                            <constraint firstAttribute="width" constant="56" id="MTA-Rq-rGx"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <state key="normal" backgroundImage="好友分享">
+                            <color key="titleColor" red="0.42745098039215684" green="0.42745098039215684" blue="0.42745098039215684" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="shareToFriend:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qSL-Tf-zvL"/>
+                        </connections>
+                    </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10000000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IP0-o3-jPk">
                         <rect key="frame" x="65" y="128" width="55" height="12"/>
                         <constraints>
@@ -145,6 +159,7 @@
                     <constraint firstItem="Nla-4w-fWi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="T37-oB-dCh"/>
                     <constraint firstAttribute="trailing" secondItem="GsY-4o-q2F" secondAttribute="trailing" constant="15" id="Tjh-w3-Zaw"/>
                     <constraint firstItem="IP0-o3-jPk" firstAttribute="leading" secondItem="4Z2-LU-STM" secondAttribute="trailing" constant="2" id="XeH-Z1-ZNN"/>
+                    <constraint firstItem="KUw-Iy-AMK" firstAttribute="leading" secondItem="QXc-2Z-4M2" secondAttribute="trailing" constant="8" id="f4i-V6-PBv"/>
                     <constraint firstAttribute="trailing" secondItem="DWu-n1-w1Y" secondAttribute="trailing" constant="130" id="hnH-uz-esH"/>
                     <constraint firstAttribute="bottom" secondItem="Nla-4w-fWi" secondAttribute="bottom" id="izp-Vm-bB7"/>
                     <constraint firstItem="4Z2-LU-STM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="mvQ-yK-Mx2"/>
@@ -155,6 +170,7 @@
                     <constraint firstItem="IP0-o3-jPk" firstAttribute="top" secondItem="GsY-4o-q2F" secondAttribute="bottom" constant="12" id="q74-gY-Ycf"/>
                     <constraint firstItem="9Rt-jk-OhM" firstAttribute="leading" secondItem="36J-Df-kCN" secondAttribute="leading" id="xV2-IO-W11"/>
                     <constraint firstItem="jdL-UR-kjC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="y69-hQ-vUW"/>
+                    <constraint firstItem="QXc-2Z-4M2" firstAttribute="centerY" secondItem="KUw-Iy-AMK" secondAttribute="centerY" id="yce-d9-rpV"/>
                     <constraint firstItem="9Rt-jk-OhM" firstAttribute="top" secondItem="36J-Df-kCN" secondAttribute="bottom" id="ziC-fr-Nyh"/>
                 </constraints>
                 <variation key="default">
@@ -176,6 +192,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="好友分享" width="80" height="26"/>
         <image name="已完成" width="60" height="20"/>
         <image name="继续摇购" width="60" height="20"/>
     </resources>

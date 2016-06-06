@@ -105,13 +105,6 @@
 
 #pragma mark - 使用按钮点击事件
 -(void)jumptoUsePrize{
-    
-//    NSString * index = [[NSUserDefaults standardUserDefaults]objectForKey:@"index"];
-//    int findex = [index intValue];
-//    if (findex > (int)_dataArray.count || (int)_dataArray.count == 0) {
-//        [MBProgressHUD showError:@"网络链接失败,请检查网络!"];
-//        return;
-//    }
 
     NSString * index = [[NSUserDefaults standardUserDefaults]objectForKey:@"index"];
     int inx = [index intValue];
@@ -120,6 +113,7 @@
     SaomiaoDetailVC * vc = [[SaomiaoDetailVC alloc]init];
     vc.model = model;
     [self.navigationController pushViewController:vc animated:YES];
+    
 }
 
 #pragma mark - 代理方法
@@ -196,6 +190,7 @@
                 self.no = @"1";
                 self.index = 0;
                 [MBProgressHUD showError:@"没有更多数据!"];
+                self.title = responseDic[@"msg"];
                 [self.tableView reloadData];
                 return ;
             }

@@ -11,9 +11,11 @@
 #import "Account.h"
 #import "AccountTool.h"
 #import "getManyFriendsVC.h"
+#import "XLQRCode.h"
 
+#define kBottomMagin 15
 
-@interface getMyFriendsVC ()
+@interface getMyFriendsVC ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *friendsNumLabel;
 @property (weak, nonatomic) IBOutlet UIButton *getFriendBtn;
@@ -29,6 +31,13 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *getNoFirendTopL;
 @property (weak, nonatomic) IBOutlet UILabel *getNoFirendBottomL;
+@property (weak, nonatomic) IBOutlet UITextField *nameField;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomLayout;
+@property (nonatomic) CGFloat bottomY;
+@property (weak, nonatomic) IBOutlet UIView *bottomBackView;
+@property (nonatomic , strong) UIButton * btn;
+
 
 
 @end
@@ -38,6 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"邀请好友";
+    self.nameField.delegate = self;
     [self setLeft];
 
     //设置图片圆角
@@ -46,12 +56,24 @@
     self.getFriendBtn.layer.borderWidth = 0.01;
 
     [self loadData];
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+//    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+//    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.nameField resignFirstResponder];
+
+}
+
 #pragma mark - 设置leftItem
 -(void)setLeft{
     UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"jiantou-Left"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
@@ -60,6 +82,52 @@
 }
 -(void)leftClick{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification{
+    NSDictionary *userInfo = [notification userInfo];
+    // Get the origin of the keyboard when it's displayed.
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    // Get the top of the keyboard as the y coordinate of its origin in self's view's coordinate system. The bottom of the text view's frame should align with the top of the keyboard's final position.
+    CGRect keyboardRect = [aValue CGRectValue];
+    // Get the duration of the animation.
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration;
+    [animationDurationValue getValue:&animationDuration];
+
+    DebugLog(@"=====self.bottomLayout.constant===%f",self.bottomLayout.constant);
+    if ((int)self.bottomLayout.constant != kBottomMagin) {
+        return;
+    }
+
+    self.btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
+    self.btn.backgroundColor = [UIColor blackColor];
+    self.btn.alpha = 0.5;
+    [self.btn addTarget:self action:@selector(diss) forControlEvents:UIControlEventTouchUpInside];
+    [self.view insertSubview:self.btn belowSubview:self.bottomBackView];
+
+    self.bottomLayout.constant = self.bottomLayout.constant+keyboardRect.size.height;
+    self.bottomY = keyboardRect.size.height;
+}
+
+-(void)diss{
+    [self.nameField resignFirstResponder];
+    [self.btn removeFromSuperview];
+
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification{
+    NSDictionary* userInfo = [notification userInfo];
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration;
+    [animationDurationValue getValue:&animationDuration];
+    [self.btn removeFromSuperview];
+
+    if ((int)self.bottomLayout.constant != (int)self.bottomY+kBottomMagin) {
+        return;
+    }
+
+    self.bottomLayout.constant = self.bottomLayout.constant-self.bottomY;
 }
 
 
@@ -78,11 +146,44 @@
 #pragma mark - 速去推荐好友按钮点击事件
 - (IBAction)getFriendBtnClick:(id)sender {
     DebugLog(@"推荐好友按钮点击");
-    Account * account = [AccountTool account];
+    UIAlertView * alter = [[UIAlertView alloc]initWithTitle:@"提示:" message:@"先输入您的名字,让好友知道是您推荐的哦!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+    NSString * name = [self.nameField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    name = [name stringByReplacingOccurrencesOfString:@"\\n" withString:@""];
+    if (name == 0) {
+        [alter show];
+        return;
+    }else if (name.length < 2){
+        [MBProgressHUD showError:@"您的名字输入太少了!"];
+        return;
+    }else if (name.length > 6){
+        [MBProgressHUD showError:@"您的名字输入太长了!"];
+        return;
+    }else{
+        [self diss];
+    }
 
-    [sharToFrend shareWithImgurl:nil andPid:nil phone:account.phone andVC:self];
+    Account * account = [AccountTool account];
+    NSString * tit = [NSString stringWithFormat:@"您的好友 【\"%@\"】 邀您一起来玩 *一块摇* 惊喜不断。注册后你也可以分享给自己的好友，送钱就是这么任性",self.nameField.text];
+
+    NSString * codeStr = [NSString stringWithFormat:@"%@/zhuce.jsp?para=%@",kbaseURL,account.uiId];
+    DebugLog(@"=====%@",codeStr);
+    [sharToFrend shareWithUrl:codeStr title:tit name:name andQRImage:self.QRImgView.image  phone:account.uiId andVC:self];
 }
 
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [self diss];
+    return YES;
+}
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    if (self.nameField.text.length < 2) {
+        [MBProgressHUD showError:@"名字不能少于2个字符哦~"];
+    }
+    if (self.nameField.text.length > 6) {
+        [MBProgressHUD showError:@"输入名字不能过长哦~"];
+    }
+    return YES;
+}
 
 
 
@@ -90,6 +191,18 @@
 -(void)loadData{
     self.friendsNumLabel.text = @"0";
     Account * account = [AccountTool account];
+
+    //设置我的邀请二维码
+    NSString * codeStr = [NSString stringWithFormat:@"%@/zhuce.jsp?para=%@",kbaseURL,account.uiId];
+//    DebugLog(@"====codeStr=%@",codeStr);
+//    XLQRCode * code = [[XLQRCode alloc]init];
+//    code.codeStr = codeStr;
+//    code.imgView = self.QRImgView;
+//    [code getQRCode];
+    [HGDQQRCodeView creatQRCodeWithURLString:codeStr superView:self.QRImgView logoImage:[UIImage imageNamed:@"一块摇4"] logoImageSize:CGSizeMake(40, 40) logoImageWithCornerRadius:5];
+
+
+
     if (!account) {
         [MBProgressHUD showError:@"账号信息有误,请重新登录!"];
         [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(jumpToMyaccountVC) userInfo:nil repeats:NO];
@@ -136,7 +249,6 @@
 
 
 
-
 -(void)jumpToMyaccountVC{
     Account * account2 = [AccountTool account];
     if (account2) {
@@ -154,6 +266,14 @@
         [self.navigationController pushViewController:myAccountVC animated:YES];
     }
 }
+
+
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
 
 
 @end

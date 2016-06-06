@@ -37,7 +37,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBarController.tabBar.hidden = YES;
-    self.navigationItem.title = @"重磅推出";
+    self.navigationItem.title = @"随意摇奖品展示";
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"homeTableViewCell" bundle:nil] forCellReuseIdentifier:@"homeTableViewCell"];
 

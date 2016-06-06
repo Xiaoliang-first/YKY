@@ -37,6 +37,13 @@
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
 #pragma mark - 设置leftItem
 -(void)setLeft{
     UIBarButtonItem * left = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"jiantou-Left"] style:UIBarButtonItemStylePlain target:self action:@selector(leftClick)];
@@ -161,6 +168,7 @@
     self.duihuanBtn.frame = CGRectMake(15, kScreenheight-55-keyboardRect.size.height, kScreenWidth-30, 40);
     
 }
+
 - (void)keyboardWillHide:(NSNotification *)notification{
     NSDictionary* userInfo = [notification userInfo];
     NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];

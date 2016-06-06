@@ -3,7 +3,7 @@
 //  YKY
 //
 //  Created by 亮肖 on 15/6/25.
-//  Copyright (c) 2015年 云途基石（北京）信息技术有限公司. All rights reserved.
+//  Copyright (c) 2015年 金蚂蚁（北京）网络科技有限公司. All rights reserved.
 //
 
 #import "bossViewLogVC.h"
@@ -140,6 +140,7 @@
     self.type = @"0";
     
     [self.dataArray removeAllObjects];
+    [self.tableView reloadData];
     //加载数据
     [self loadConsumeDataWithPage:@"0"];
 }
@@ -155,6 +156,7 @@
     self.type = @"1";
     
     [self.dataArray removeAllObjects];
+    [self.tableView reloadData];
     //加载数据
     [self loadConsumeDataWithPage:@"0"];
 }
@@ -342,10 +344,14 @@
         return;
     }
 
+    DebugLog(@"====parameter==%@",parameters);
+
     [manager POST:str parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
+        DebugLog(@"===列表数据获取结果=%@",responseObject);
         if ([responseObject[@"code"] isEqual:@(0)]) {
-            NSArray * array = responseObject[@"data"];
+            NSArray * array = [[NSArray alloc]init];
+            array = responseObject[@"data"];
             if (array.count == 0) {
                 [MBProgressHUD showError:@"没有更多记录!"];
                 return ;

@@ -49,7 +49,7 @@
     [super viewDidLoad];
 
     if (self.activName.length == 0) {
-        self.navigationItem.title = @"活动详情";
+        self.navigationItem.title = @"列表详情";
     }else{
         self.navigationItem.title = self.activName;
     }
@@ -212,7 +212,7 @@
     priceLB.font = [UIFont systemFontOfSize:14];
     NSString * RMB = @"￥";
     NSString * price = [RMB stringByAppendingFormat:@"%@",self.prizeDetailModel.marketPrice];
-//    DebugLog(@"price=%@-------%@",self.prizeDetailModel.price,price);
+    DebugLog(@"price=%@-------%@",self.prizeDetailModel.marketPrice,price);
     priceLB.text = price;
     [TopView addSubview:priceLB];
 

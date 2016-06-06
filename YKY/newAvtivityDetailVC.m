@@ -79,7 +79,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"奖品列表";
+    self.navigationItem.title = @"指定摇奖品";
     
     //注册cell
     [self.tableView registerNib:[UINib nibWithNibName:@"newActivityDetailCell" bundle:nil] forCellReuseIdentifier:@"newActivityDetailCell"];

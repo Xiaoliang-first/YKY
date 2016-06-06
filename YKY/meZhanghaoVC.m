@@ -72,7 +72,7 @@
     view1.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:view1];
     //label
-    UILabel * msgL = [[UILabel alloc]initWithFrame:CGRectMake(magin, 0.5*(h-labelH), 80, labelH)];
+    UILabel * msgL = [[UILabel alloc]initWithFrame:CGRectMake(magin, 0.5*(h-labelH), 120, labelH)];
     msgL.font = [UIFont systemFontOfSize:[myFont getTitle2]];
     msgL.textColor = [UIColor darkGrayColor];
     msgL.text = title;

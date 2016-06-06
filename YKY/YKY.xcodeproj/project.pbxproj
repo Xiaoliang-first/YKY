@@ -328,6 +328,7 @@
 		DFE84A461CCB727A0092E237 /* YGRockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE84A451CCB727A0092E237 /* YGRockModel.m */; };
 		DFEA156F1CCF5EDE001C8C05 /* meLuckPrizeState.m in Sources */ = {isa = PBXBuildFile; fileRef = DFEA156E1CCF5EDE001C8C05 /* meLuckPrizeState.m */; };
 		DFEA15731CCFA11E001C8C05 /* routeMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DFEA15721CCFA11E001C8C05 /* routeMessageModel.m */; };
+		DFEA6D381D01855C00FE9F84 /* HGDQQRCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = DFEA6D371D01855C00FE9F84 /* HGDQQRCodeView.m */; };
 		DFEAE9E31CC720CC00A8E753 /* YGBannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DFEAE9E21CC720CC00A8E753 /* YGBannerModel.m */; };
 		DFEAE9EA1CC772C900A8E753 /* homeNewScuessPrizeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DFEAE9E91CC772C900A8E753 /* homeNewScuessPrizeVC.m */; };
 		DFEAE9EE1CC7730100A8E753 /* homeNewScuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DFEAE9EC1CC7730100A8E753 /* homeNewScuessCell.m */; };
@@ -959,6 +960,8 @@
 		DFEA156E1CCF5EDE001C8C05 /* meLuckPrizeState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = meLuckPrizeState.m; sourceTree = "<group>"; };
 		DFEA15711CCFA11E001C8C05 /* routeMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = routeMessageModel.h; sourceTree = "<group>"; };
 		DFEA15721CCFA11E001C8C05 /* routeMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = routeMessageModel.m; sourceTree = "<group>"; };
+		DFEA6D361D01855C00FE9F84 /* HGDQQRCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HGDQQRCodeView.h; sourceTree = "<group>"; };
+		DFEA6D371D01855C00FE9F84 /* HGDQQRCodeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HGDQQRCodeView.m; sourceTree = "<group>"; };
 		DFEAE9E11CC720CC00A8E753 /* YGBannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YGBannerModel.h; sourceTree = "<group>"; };
 		DFEAE9E21CC720CC00A8E753 /* YGBannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YGBannerModel.m; sourceTree = "<group>"; };
 		DFEAE9E81CC772C900A8E753 /* homeNewScuessPrizeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = homeNewScuessPrizeVC.h; sourceTree = "<group>"; };
@@ -2233,6 +2236,8 @@
 				DFFB47531CD5D67F00A3B0DE /* getIpVC.m */,
 				DFA146721CFBF42600A5EA38 /* XLQRCode.h */,
 				DFA146731CFBF42600A5EA38 /* XLQRCode.m */,
+				DFEA6D361D01855C00FE9F84 /* HGDQQRCodeView.h */,
+				DFEA6D371D01855C00FE9F84 /* HGDQQRCodeView.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -3799,6 +3804,7 @@
 				CE05CD1A1AF1F640005C3B3E /* UIImage+GIF.m in Sources */,
 				CE05CDCB1AF23BCE005C3B3E /* MJType.m in Sources */,
 				CEAD7C5F1B9C13F700711D2A /* newMeVC.m in Sources */,
+				DFEA6D381D01855C00FE9F84 /* HGDQQRCodeView.m in Sources */,
 				CE05CCED1AF1F60A005C3B3E /* Foundation+Log.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3970,6 +3976,7 @@
 					"$(PROJECT_DIR)/YKY/UMessage_Sdk_1.2.1",
 					"$(PROJECT_DIR)/YKY/SinaSSO",
 					"$(PROJECT_DIR)/YKY/TencentOpenAPI",
+					"$(PROJECT_DIR)/YKY/BMP/BaiduMapAPI",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";
@@ -4032,6 +4039,7 @@
 					"$(PROJECT_DIR)/YKY/UMessage_Sdk_1.2.1",
 					"$(PROJECT_DIR)/YKY/SinaSSO",
 					"$(PROJECT_DIR)/YKY/TencentOpenAPI",
+					"$(PROJECT_DIR)/YKY/BMP/BaiduMapAPI",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				"OTHER_LDFLAGS[arch=*]" = "-ObjC";

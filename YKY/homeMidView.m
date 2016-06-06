@@ -38,9 +38,9 @@
     [line addLineWithFrame:CGRectMake(actiView.width+10, 0, 1, actiView.height) andBackView:backView];
     //添加内容
     if (VC.view.height>668) {//适配6p和6sp
-        [self addDataWithTitle:@"活动专区" andFrame:CGRectMake(magin, magin+6, actiW-2*magin, 20) deTitle:@"火热活动正在进行" andDeTitleFrame:CGRectMake(magin,magin+30,actiView.width-2*magin,15) andimgFrame:CGRectMake(magin, magin+17+0.4*magin+30, 101, 76) andImgName:@"活动专区" ToView:actiView VC:VC andAction:actiAciton];
+        [self addDataWithTitle:@"指定摇专区" andFrame:CGRectMake(magin, magin+6, actiW-2*magin, 20) deTitle:@"火热活动正在进行" andDeTitleFrame:CGRectMake(magin,magin+30,actiView.width-2*magin,15) andimgFrame:CGRectMake(magin, magin+17+0.4*magin+30, 101, 76) andImgName:@"活动专区" ToView:actiView VC:VC andAction:actiAciton];
     }else{//5/5s/6/6s
-        [self addDataWithTitle:@"活动专区" andFrame:CGRectMake(magin, magin+6, actiW-2*magin, 18) deTitle:@"火热活动正在进行" andDeTitleFrame:CGRectMake(magin,magin+25,actiView.width-2*magin,15) andimgFrame:CGRectMake(magin, magin+17+0.4*magin+40, actiW-2*(magin+10), (actiW-2*(magin+10))*actiIMGH/actiIMGW) andImgName:@"活动专区" ToView:actiView VC:VC andAction:actiAciton];
+        [self addDataWithTitle:@"指定摇专区" andFrame:CGRectMake(magin, magin+6, actiW-2*magin, 18) deTitle:@"火热活动正在进行" andDeTitleFrame:CGRectMake(magin,magin+25,actiView.width-2*magin,15) andimgFrame:CGRectMake(magin, magin+17+0.4*magin+40, actiW-2*(magin+10), (actiW-2*(magin+10))*actiIMGH/actiIMGW) andImgName:@"活动专区" ToView:actiView VC:VC andAction:actiAciton];
     }
 
 

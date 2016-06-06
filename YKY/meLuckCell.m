@@ -96,4 +96,16 @@
 
 
 
+- (IBAction)shareToFriend:(id)sender {
+
+    NSString * index = [NSString stringWithFormat:@"%f",self.index];
+    [[NSUserDefaults standardUserDefaults]setObject:index forKey:@"index-xingyundou-share"];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"me-xingyundou-share" object:nil];
+}
+
+
+
+
+
 @end

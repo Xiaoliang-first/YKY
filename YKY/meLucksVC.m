@@ -14,6 +14,7 @@
 #import "lookMyLuckNumVC.h"
 #import "homeTableBarVC.h"
 #import "meLuckPrizeState.h"
+#import "sharToFrend.h"
 
 @interface meLucksVC ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -88,12 +89,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lingqujiangli) name:@"meluck-jixuYG" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jisuanxiangqing) name:@"meluck-ztgz" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lookLuckCode) name:@"me-xingyundou-llcode" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shareToFriends) name:@"me-xingyundou-share" object:nil];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"meluck-jixuYG" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"meluck-ztgz" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"me-xingyundou-llcode" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"me-xingyundou-share" object:nil];
 }
 #pragma mark - 设置leftItem
 -(void)setLeft{
@@ -204,7 +207,18 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+-(void)shareToFriends{
+    NSString * index = [[NSUserDefaults standardUserDefaults]objectForKey:@"me-xingyundou-share"];
+    int findex = [index intValue];
+    DebugLog(@"分享给好友==%d",findex);
+    if (_dataArray.count == 0 || findex > _dataArray.count) {
+        [MBProgressHUD showError:@"网络状况不好,请稍后再试!"];
+        return;
+    }
+    homeNewScuessModel * model = _dataArray[findex];
+    [sharToFrend shareWithImgurl:model.url title:@"我在*一块摇*中随便玩了一下，就中了一个奖，真的是太兴奋了，实在憋不住，要分享一下！" andPid:model.serialId andVC:self];
 
+}
 
 
 

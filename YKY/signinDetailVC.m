@@ -144,7 +144,7 @@
 
 #pragma mark - 代理事件
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 20;
+    return 30;
 }
 #pragma mark - 选中cell
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -228,7 +228,7 @@ static bool agree = YES;
     
     [manager POST:str parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-
+        DebugLog(@"=====注册返回数据==%@",responseObject);
         if ([responseObject[@"code"] isEqual:@(0)]) {
             [MBProgressHUD showSuccess:@"注册成功"];
             //保存登录用户的数据

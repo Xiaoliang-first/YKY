@@ -25,8 +25,8 @@
     [view addSubview:line];
 
     //重磅推出
-    UILabel * la = [[UILabel alloc]initWithFrame:CGRectMake(15, 19, 80, 17)];
-    la.text = @"重磅推出";
+    UILabel * la = [[UILabel alloc]initWithFrame:CGRectMake(15, 19, 200, 17)];
+    la.text = @"随意摇奖品展示";
     la.textAlignment = NSTextAlignmentLeft;
     la.font = [UIFont systemFontOfSize:[myFont getTitle1]];
     la.textColor = [UIColor redColor];

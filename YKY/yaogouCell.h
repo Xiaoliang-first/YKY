@@ -22,7 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *plimitLabel;
 
-@property (nonatomic ) int index;
+@property (nonatomic ) long index;
 
 @property (nonatomic , strong) homeNewScuessModel * prizeModel;
 

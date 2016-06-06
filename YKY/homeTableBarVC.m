@@ -52,6 +52,7 @@ static UIButton * _xiaoX;
         
     }];
 }
+
 -(void)showLuckViewWithModel:(myGold*)model{
 
     _btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];

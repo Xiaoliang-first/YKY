@@ -21,7 +21,7 @@
  *
  *  @return 生成的二维码
  */
-+ (HGDQQRCodeView *)creatQRCodeWithURLString:(NSString *)urlString superView:(UIView *)superView logoImage:(UIImage *)logoImage logoImageSize:(CGSize)logoImageSize logoImageWithCornerRadius:(CGFloat)cornerRadius{
++ (UIImage *)creatQRCodeWithURLString:(NSString *)urlString superView:(UIView *)superView logoImage:(UIImage *)logoImage logoImageSize:(CGSize)logoImageSize logoImageWithCornerRadius:(CGFloat)cornerRadius{
     // 先移除子视图
     HGDQQRCodeView *oldQRCodeView = [superView viewWithTag:123];
     [oldQRCodeView removeFromSuperview];
@@ -40,7 +40,7 @@
     }
     QRCodeView.layer.contents = (__bridge id)qrImage.CGImage;
     [superView addSubview:QRCodeView];
-    return QRCodeView;
+    return qrImage;
 }
 
 

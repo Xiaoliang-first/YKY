@@ -289,7 +289,7 @@
     //1.0添加半透明黑色遮盖
     self.backBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
     self.backBtn.backgroundColor = [UIColor blackColor];
-    self.backBtn.alpha = 0.6f;
+    self.backBtn.alpha = kalpha;
     [self.backBtn addTarget:self action:@selector(chosePhotoCancle:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backBtn];
     //2.0添加选择View
@@ -563,7 +563,7 @@
     //1.添加背景
     self.backBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
     self.backBtn.backgroundColor = [UIColor blackColor];
-    self.backBtn.alpha = 0.6f;
+    self.backBtn.alpha = kalpha;
     [self.backBtn addTarget:self action:@selector(chosePhotoCancle:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backBtn];
     

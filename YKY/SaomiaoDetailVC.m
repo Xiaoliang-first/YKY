@@ -31,6 +31,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"奖品详情";
+    self.view.backgroundColor = [UIColor whiteColor];
+    if (!self.model) {
+        [MBProgressHUD showError:@"网络状况不佳,请稍后再试!"];
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+
     [self setLeft];
 
     [self loadData];
@@ -49,6 +56,9 @@
 -(void)loadData{
     [MBProgressHUD showMessage:@"加载中..." toView:self.view];
     Account * account = [AccountTool account];
+    if (![AccountTool account] || !self.model.cid) {
+        return;
+    }
     NSString * str = kboundDetailDataStr;
 
     NSDictionary *parameter = @{@"couponsId":self.model.cid,@"userId":account.uiId,@"client":Kclient,@"serverToken":account.reponseToken};
@@ -87,7 +97,7 @@
     [self.view addSubview:self.scrollView];
 
 //顶部承载view
-    UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, 0.4*kScreenheight)];
+    UIView * topView = [[UIView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, 0.36*kScreenheight)];
     topView.backgroundColor = [UIColor whiteColor];
     [self.scrollView addSubview:topView];
 
@@ -127,8 +137,9 @@
     dianV.image = [UIImage imageNamed:@""];
     [_scrollView addSubview:dianV];
     CGFloat userLH = [getLabelHeight heightWithConnect:self.prizeModel.instructions andLabelW:kScreenWidth-2*kmagin font:[myFont getTitle3]];
-    UILabel * dianL = [[UILabel alloc]initWithFrame:CGRectMake(2*kmagin, useLabel.y+useLabel.height+kmagin, kScreenWidth-3*kmagin, userLH)];
+    UILabel * dianL = [[UILabel alloc]initWithFrame:CGRectMake(kmagin, useLabel.y+useLabel.height+8, kScreenWidth-3*kmagin, userLH)];
     dianL.numberOfLines = 0;
+    dianL.textColor = YKYDeTitleColor;
     dianL.font = [UIFont systemFontOfSize:[myFont getTitle3]];
     dianL.text = self.prizeModel.instructions;
     [_scrollView addSubview:dianL];
@@ -150,6 +161,7 @@
     UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-kmagin-btnW, 10, btnW, 24)];
     [btn setTitle:@"我要兑换" forState:UIControlStateNormal];
     btn.backgroundColor = [UIColor redColor];
+    btn.titleLabel.font = [UIFont systemFontOfSize:[myFont getTitle3]];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(duihuan) forControlEvents:UIControlEventTouchUpInside];
     [bottomView addSubview:btn];
@@ -179,6 +191,9 @@
     NSString * stringValue = [[NSUserDefaults standardUserDefaults]objectForKey:@"bossIDAndPhone"];
     NSArray * array = [NSArray array];
     array = [stringValue componentsSeparatedByString:@"@"];
+    if (!self.model.cid && !array[0]) {
+        return;
+    }
     NSDictionary * parameters = @{@"couponsId":self.model.cid,@"mId":array[0]};
     [manager POST:str parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject[@"code"] isEqual:@(0)]) {

@@ -42,7 +42,7 @@
         int day = [nowDay intValue];
         
         
-        if (year==2016 && mouth==5 && 12<day && day<15) {
+        if (year==2016 && mouth==6 && 7<day && day<12) {
             return YES;
         }
         return NO;

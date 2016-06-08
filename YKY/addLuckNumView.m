@@ -23,7 +23,7 @@ static UIButton * xiaX;
 
     btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
     btn.backgroundColor = [UIColor blackColor];
-    btn.alpha = 0.6;
+    btn.alpha = kalpha;
     [btn addTarget:self action:@selector(dissmass) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:btn];
     //

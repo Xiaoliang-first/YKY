@@ -133,6 +133,7 @@
 #pragma mark - 数据加载
 -(void)loadData{
     [self loadDataWithPage:@"0"];
+    self.no = @"0";
     _index = 0;
     // 添加传统的上拉刷新
     __weak typeof (self) weakSelf = self;
@@ -165,7 +166,6 @@
             NSArray * array = [NSArray array];
             array = responseDic[@"data"];
             if (array.count == 0) {
-
                 [MBProgressHUD showError:@"暂无更多记录"];
                 self.no = @"1";
                 _index = 0;

@@ -35,7 +35,7 @@
 
 @property (nonatomic , copy) NSString * ip;
 @property (nonatomic , copy) NSString * cityName;
-
+@property (nonatomic , strong) NSDictionary * data;
 
 
 
@@ -57,8 +57,9 @@
     self.view.backgroundColor = YKYColor(247, 237, 240);
     [self setLeft];
     [self setright];
-    [self addView];
-
+    [self loadMessage];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 
@@ -124,17 +125,14 @@
     [self addRedBack];
 
     [self addbottomField];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
 }
 
 -(void)addTop{
     self.topLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,kmagin+64, kScreenWidth, 15)];
-    [self toplableSetTextWithShengNumStr:_model.shengNum andPlimitStr:_model.plimit];
+    [self toplableSetTextWithShengNumStr:[NSString stringWithFormat:@"%@",_data[@"restNum"]] andPlimitStr:_model.plimit];
     [self.view addSubview:self.topLabel];
 }
+
 -(void)toplableSetTextWithShengNumStr:(NSString*)shengStr andPlimitStr:(NSString*)plimitStr{
     DebugLog(@"pli=%@",plimitStr);
     NSString * str1 = [NSString stringWithFormat:@"总需摇购:%@次    剩余:",_model.zongNum];
@@ -176,7 +174,7 @@
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
     self.btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
     self.btn.backgroundColor = [UIColor blackColor];
-    self.btn.alpha = 0.5;
+    self.btn.alpha = kalpha;
     [self.btn addTarget:self action:@selector(dissMiss) forControlEvents:UIControlEventTouchUpInside];
     [self.view insertSubview:self.btn belowSubview:self.fieldBackView];
 
@@ -235,9 +233,9 @@
 
 
     self.textField = [[UITextField alloc]initWithFrame:CGRectMake(jianBtn.width, 0, self.fieldBackView.width-2*jianBtn.width, h)];
-    self.textField.font = [UIFont systemFontOfSize:12];
+    self.textField.font = [UIFont systemFontOfSize:13];
     if (iPhone6plus) {
-        self.textField.font = [UIFont systemFontOfSize:14];
+        self.textField.font = [UIFont systemFontOfSize:15];
     }
     self.textField.textColor = [UIColor whiteColor];
     self.textField.textAlignment = NSTextAlignmentCenter;
@@ -251,8 +249,8 @@
     [jiaBtn addTarget:self action:@selector(jia) forControlEvents:UIControlEventTouchUpInside];
     [self.fieldBackView addSubview:jiaBtn];
 
-
 }
+
 -(void)jian{
     DebugLog(@"减");
     int num = 1;
@@ -346,9 +344,6 @@
     DebugLog(@"keyboardRect  %f:%f:%f:%f",keyboardRect.origin.x,keyboardRect.origin.y,keyboardRect.size.width,keyboardRect.size.height);
     DebugLog(@"animationDuration  %f",animationDuration);
 
-    //    // Animate the resize of the text view's frame in sync with the keyboard's appearance.
-    //    [self moveInputBarWithKeyboardHeight:keyboardRect.size.height withDuration:animationDuration];
-//    self.self.fieldBackView.frame = CGRectMake(15, kScreenheight-55-keyboardRect.size.height, kScreenWidth-30, 40);
     self.fieldBackView.frame = CGRectMake(0.5*(kScreenWidth-0.33*kScreenWidth), self.centerImgV.y+self.centerImgV.height+7*kmagin-keyboardRect.size.height, 0.33*kScreenWidth, 20);
 }
 - (void)keyboardWillHide:(NSNotification *)notification{
@@ -357,7 +352,6 @@
     NSTimeInterval animationDuration;
     [animationDurationValue getValue:&animationDuration];
 
-    //    [self moveInputBarWithKeyboardHeight:0.0 withDuration:animationDuration];
     self.fieldBackView.frame = CGRectMake(0.5*(kScreenWidth-0.33*kScreenWidth), self.centerImgV.y+self.centerImgV.height+6*kmagin, 0.33*kScreenWidth, 20);
 }
 
@@ -367,6 +361,7 @@
 // 用加速计侦测手机的晃动事件，需要在收到重力加速计的数据后做一些复杂的数学运算才能很好的实现，但是，UIResponder给我们提供了方法，已经帮我们完成了计算，我们只需使用下面的接口：
 #pragma mark 重写----手机开始晃动时调用
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    [self.textField resignFirstResponder];
     Account *account = [AccountTool account];
     if (account == nil) {
         [MBProgressHUD showError:@"账号信息有误,请重新登录!"];
@@ -429,7 +424,6 @@
             self.zsLabel.text = [NSString stringWithFormat:@"%@",responseDic[@"data"][0][@"diamonds"]];
             [[NSUserDefaults standardUserDefaults]setObject:[NSString stringWithFormat:@"%@",responseDic[@"data"][0][@"diamonds"]] forKey:@"diamonds"];
 
-
             if ([self.on isEqualToString:@"1"] || self.on.length == 0) {//音效开关开状态
                 [XLAudioTool playSound:@"grade_2.mp3"];
             }
@@ -438,14 +432,15 @@
             [self jumpToMyAccountVC];
         }else{
             [MBProgressHUD showError:responseDic[@"msg"]];
+            if ([responseDic[@"code"] isEqual:@100005]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
-
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showError:@"网络状况不好,请稍后再试!"];
     }];
 }
-
 
 -(void)addSmallViewWithModel:(YGRockModel*)model{
 //    [addLuckNumView addSmallViewWithModel:model.uno VC:self toView:self.view];
@@ -476,14 +471,11 @@
 
 
 
-
-
-
 -(void)showWithArray:(NSArray*)array{
 
     self.btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
     _btn.backgroundColor = [UIColor blackColor];
-    _btn.alpha = 0.6;
+    _btn.alpha = kalpha;
     [_btn addTarget:self action:@selector(dissMess) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_btn];
 
@@ -531,7 +523,6 @@
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     return _codesArray.count?_codesArray.count:0;
 }
-
 -(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     addLuckNumCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"addLuckNumCell" forIndexPath:indexPath];
 
@@ -569,6 +560,42 @@
     [_btn removeFromSuperview];
     [_smallView removeFromSuperview];
     [_xiaX removeFromSuperview];
+}
+
+
+
+
+
+-(void)loadMessage{
+
+    NSString * bindPath = @"/yshakeUtil/detailCloud";
+
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+    if (self.model.serialId) {
+        [parameters setValue:self.model.serialId forKey:@"serailId"];
+    }else{
+        [MBProgressHUD showError:@"网络加载失败,请稍后再试!"];
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+
+    [MBProgressHUD showMessage:@"刷新中..." toView:self.view];
+    [XLRequest AFPostHost:kbaseURL bindPath:bindPath postParam:parameters isClient:NO getParam:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDic) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        DebugLog(@"摇购列表详情获取结果=%@",responseDic);
+        if ([responseDic[@"code"] isEqual:@0]) {
+            self.data = responseDic[@"data"][0];
+            [self addView];//添加控件
+        }else{
+            [MBProgressHUD showError:responseDic[@"msg"]];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError:@"网络加载失败!"];
+        [self.navigationController popViewControllerAnimated:YES];
+        DebugLog(@"摇购列表详情获取失败==error=%@===oper=%@",error,operation);
+    }];
+
 }
 
 

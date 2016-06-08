@@ -151,6 +151,7 @@
         if ([responseObject[@"code"] isEqual:@(0)]) {
             for (NSDictionary * dict in responseObject[@"data"]) {
                 self.prizeDetailModel = [prizeDetailModel modelWithDict:dict];
+                self.title = self.prizeDetailModel.mname;
             }
             [self setDataWithPrizeModel];
         }
@@ -197,7 +198,7 @@
     //图片
     CGFloat IMGVH = TopView.height * 0.83;
     UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, TopView.width, IMGVH)];
-    [TopView addSubview:imgView];
+    [TopView addSubview:imgView]; 
     self.prizeImageView = imgView;
     [self.prizeImageView sd_setImageWithURL:[NSURL URLWithString:self.prizeDetailModel.url] placeholderImage:[UIImage imageNamed:@"prepare_loading_big"]];
     
@@ -211,7 +212,7 @@
     UILabel * priceLB = [[UILabel alloc]initWithFrame:CGRectMake(TopView.width-priceLbW, IMGVH, priceLbW, TopView.height-IMGVH)];
     priceLB.font = [UIFont systemFontOfSize:14];
     NSString * RMB = @"￥";
-    NSString * price = [RMB stringByAppendingFormat:@"%@",self.prizeDetailModel.marketPrice];
+    NSString * price = [RMB stringByAppendingFormat:@"%d",[self.prizeDetailModel.marketPrice intValue]];
     DebugLog(@"price=%@-------%@",self.prizeDetailModel.marketPrice,price);
     priceLB.text = price;
     [TopView addSubview:priceLB];

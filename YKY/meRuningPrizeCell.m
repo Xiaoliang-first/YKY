@@ -39,9 +39,13 @@
     _model = model;
 
     if ([model.joinCount isEqual:model.plimit]) {//已摇满
+        [self.rockAgainBtn setTitle:@"已摇满" forState:UIControlStateNormal];
+        [self.rockAgainBtn setTitleColor:YKYColor(109, 109, 109) forState:UIControlStateNormal];
         [self.rockAgainBtn setBackgroundImage:[UIImage imageNamed:@"已摇满"] forState:UIControlStateNormal];
     }else{
-        [self.rockAgainBtn setBackgroundImage:[UIImage imageNamed:@"再次去摇"] forState:UIControlStateNormal];
+        [self.rockAgainBtn setTitle:@"再次去摇" forState:UIControlStateNormal];
+        [self.rockAgainBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.rockAgainBtn setBackgroundImage:[UIImage imageNamed:@"继续摇购"] forState:UIControlStateNormal];
     }
 
     

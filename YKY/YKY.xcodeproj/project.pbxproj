@@ -2634,6 +2634,13 @@
 			name = M;
 			sourceTree = "<group>";
 		};
+		DF0088401D05634E00B54D2F /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
 		DF05E0B51CB35E150015202B /* 摇购 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2711,6 +2718,7 @@
 		DF4101B31CC8E521009EF034 /* home查看往期 */ = {
 			isa = PBXGroup;
 			children = (
+				DF0088401D05634E00B54D2F /* V */,
 				DF4101B41CC8E53F009EF034 /* C */,
 			);
 			name = "home查看往期";
@@ -3932,8 +3940,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3995,8 +4003,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

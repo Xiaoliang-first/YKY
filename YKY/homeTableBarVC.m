@@ -75,6 +75,7 @@ static UIButton * _xiaoX;
     [_luckV removeFromSuperview];
     [_btn removeFromSuperview];
 }
+
 -(void)btnClick{
     [_xiaoX removeFromSuperview];
     [_luckV removeFromSuperview];

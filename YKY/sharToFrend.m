@@ -88,6 +88,7 @@
 #pragma mark - 推荐好友分享
 +(void)shareWithUrl:(NSString*)imgurl title:(NSString*)title name:(NSString*)name andQRImage:(UIImage *)image phone:(NSString*)phone andVC:(UIViewController*)VC{
 
+
     [UMSocialData defaultData].extConfig.title = title;
     [UMSocialData defaultData].extConfig.qqData.url = imgurl;
 
@@ -102,7 +103,6 @@
     [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToSina,UMShareToLWSession,UMShareToTencent,UMShareToWechatTimeline,UMShareToWechatSession]content:[NSString stringWithFormat:@"%@%@",title,imgurl] image:image location:nil urlResource:nil presentedController:VC completion:^(UMSocialResponseEntity *response) {
         if (response.responseCode == UMSResponseCodeSuccess) {
         }}];
-
 
 
     [UMSocialData defaultData].extConfig.wechatTimelineData.url = imgurl;

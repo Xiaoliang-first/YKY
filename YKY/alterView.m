@@ -22,7 +22,7 @@ static UIViewController * fromeVC;
     //灰色btn背景
     UIButton * bigBlack = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, VC.view.width, VC.view.height)];
     bigBlack.backgroundColor = [UIColor blackColor];
-    bigBlack.alpha = 0.6;
+    bigBlack.alpha = kalpha;
     [bigBlack addTarget:self action:@selector(dissMiss) forControlEvents:UIControlEventTouchUpInside];
     [VC.view addSubview:bigBlack];
     btn = bigBlack;

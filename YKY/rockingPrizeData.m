@@ -25,7 +25,7 @@ static UIButton * cancelBtn;
     btn = [[UIButton alloc]init];
     btn.backgroundColor = [UIColor blackColor];
     btn.frame = CGRectMake(0, 0, kScreenWidth,kScreenheight);
-    btn.alpha = 0.5;
+    btn.alpha = kalpha;
     [btn addTarget:VC action:remove forControlEvents:UIControlEventTouchUpInside];
     [VC.view addSubview:btn];
     

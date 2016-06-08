@@ -37,7 +37,7 @@
 @property (nonatomic) CGFloat bottomY;
 @property (weak, nonatomic) IBOutlet UIView *bottomBackView;
 @property (nonatomic , strong) UIButton * btn;
-
+@property (nonatomic , strong) UIImage * HGDQQRCodeImg;
 
 
 @end
@@ -102,7 +102,7 @@
 
     self.btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
     self.btn.backgroundColor = [UIColor blackColor];
-    self.btn.alpha = 0.5;
+    self.btn.alpha = kalpha;
     [self.btn addTarget:self action:@selector(diss) forControlEvents:UIControlEventTouchUpInside];
     [self.view insertSubview:self.btn belowSubview:self.bottomBackView];
 
@@ -166,8 +166,10 @@
     NSString * tit = [NSString stringWithFormat:@"您的好友 【\"%@\"】 邀您一起来玩 *一块摇* 惊喜不断。注册后你也可以分享给自己的好友，送钱就是这么任性",self.nameField.text];
 
     NSString * codeStr = [NSString stringWithFormat:@"%@/zhuce.jsp?para=%@",kbaseURL,account.uiId];
-    DebugLog(@"=====%@",codeStr);
-    [sharToFrend shareWithUrl:codeStr title:tit name:name andQRImage:self.QRImgView.image  phone:account.uiId andVC:self];
+
+    DebugLog(@"=====%@=====%@",codeStr,self.HGDQQRCodeImg);
+
+    [sharToFrend shareWithUrl:codeStr title:tit name:name andQRImage:self.HGDQQRCodeImg  phone:account.uiId andVC:self];
 }
 
 
@@ -199,8 +201,7 @@
 //    code.codeStr = codeStr;
 //    code.imgView = self.QRImgView;
 //    [code getQRCode];
-    [HGDQQRCodeView creatQRCodeWithURLString:codeStr superView:self.QRImgView logoImage:[UIImage imageNamed:@"一块摇4"] logoImageSize:CGSizeMake(40, 40) logoImageWithCornerRadius:5];
-
+    self.HGDQQRCodeImg = [HGDQQRCodeView creatQRCodeWithURLString:codeStr superView:self.QRImgView logoImage:[UIImage imageNamed:@"一块摇4"] logoImageSize:CGSizeMake(40, 40) logoImageWithCornerRadius:5];
 
 
     if (!account) {

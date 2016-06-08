@@ -14,7 +14,7 @@
 
 #define kmagin 15.0
 #define h 40.0
-#define th  25.0
+#define th  35.0
 #define titW 80.0
 #define textH 17.0
 
@@ -279,8 +279,11 @@
     [self labelWithX:kmagin Y:th+0.5*(h-textH) W:kScreenWidth-2*kmagin text:_model.pname isLeft:YES toView:self.midView];
 
     if ([_model.orderStatue isEqualToString:@"1"]) {
-        UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(self.midView.width-kmagin-80, label.y, 60, textH)];
-        [btn setBackgroundImage:[UIImage imageNamed:@"wl"] forState:UIControlStateNormal];
+        UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(self.midView.width-kmagin-90, 0.5*(th-textH-2), 90, textH+2)];
+        [btn setTitle:@"查看物流信息" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:[myFont getTitle4]];
+        [btn setBackgroundImage:[UIImage imageNamed:@"继续摇购"] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(lookWuLiu) forControlEvents:UIControlEventTouchUpInside];
         [self.midView addSubview:btn];
     }

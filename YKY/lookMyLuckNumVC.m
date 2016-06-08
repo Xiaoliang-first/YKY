@@ -173,7 +173,7 @@
 
     [line addLineWithFrame:CGRectMake(0, 39, kScreenWidth, 1) andBackView:self.midBackView];
 
-    UILabel *left = [[UILabel alloc]initWithFrame:CGRectMake(kmagin, 40, 80, 40)];
+    UILabel *left = [[UILabel alloc]initWithFrame:CGRectMake(3.5*kmagin, 40, 80, 40)];
     left.textColor = YKYTitleColor;
     left.textAlignment = NSTextAlignmentLeft;
     left.text = @"摇购时间";
@@ -181,7 +181,7 @@
     [self.midBackView addSubview:left];
 
 
-    UILabel *center = [[UILabel alloc]initWithFrame:CGRectMake(0.5*(kScreenWidth-80), 40, 80, 40)];
+    UILabel *center = [[UILabel alloc]initWithFrame:CGRectMake(0.63*(kScreenWidth-80), 40, 80, 40)];
     center.textColor = YKYTitleColor;
     center.textAlignment = NSTextAlignmentCenter;
     center.text = @"参与次数";
@@ -189,7 +189,7 @@
     [self.midBackView addSubview:center];
 
 
-    UILabel *right = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-kmagin-80, 40, 80, 40)];
+    UILabel *right = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-kmagin-90, 40, 80, 40)];
     right.textColor = YKYTitleColor;
     right.textAlignment = NSTextAlignmentRight;
     right.text = @"操作";
@@ -276,7 +276,9 @@
                 [self.dataArray addObject:model];
             }
         }else if ([responseDic[@"code"] isEqual:KotherLogin]){
-            [self jumpToMyAccountVC];
+            [MBProgressHUD showError:@"账号信息有误,请重新登录!"];
+            [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(jumpToMyAccountVC) userInfo:nil repeats:NO];
+//            [self jumpToMyAccountVC];
         }
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -314,7 +316,7 @@
 
     self.btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
     _btn.backgroundColor = [UIColor blackColor];
-    _btn.alpha = 0.6;
+    _btn.alpha = kalpha;
     [_btn addTarget:self action:@selector(dissMess) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_btn];
 

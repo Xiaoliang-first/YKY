@@ -121,14 +121,21 @@
     //首次登陆标记设置为1，标示已经登陆过新版本
     [[NSUserDefaults standardUserDefaults]setObject:@"1" forKey:@"first"];
     
+//    UIApplication *app = [UIApplication sharedApplication];
+//    UIWindow *window = app.keyWindow;
+    // 切换window的rootViewController
+//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    homeTableBarVC *VC = [sb instantiateViewControllerWithIdentifier:@"homeTableBarVC"];
+//    myNavViewController * navc = [[myNavViewController alloc]initWithRootViewController:VC];
+//    window.rootViewController = navc;
+
+
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    homeTableBarVC *vc = [sb instantiateViewControllerWithIdentifier:@"homeTableBarVC"];
     UIApplication *app = [UIApplication sharedApplication];
     UIWindow *window = app.keyWindow;
-    // 切换window的rootViewController
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    homeTableBarVC *VC = [sb instantiateViewControllerWithIdentifier:@"homeTableBarVC"];
-    myNavViewController * navc = [[myNavViewController alloc]initWithRootViewController:VC];
-    window.rootViewController = navc;
-    
+    window.rootViewController = vc;
+
 }
 
 

@@ -23,7 +23,7 @@
     
     [self setLeftNavBtn];
     self.webView.delegate = self;
-    self.navigationItem.title = @"帮助中心";
+    self.navigationItem.title = @"新手帮助";
     
     NSString *str = kHelpCenterStr;
     

@@ -65,6 +65,9 @@
 /** 副标题颜色 */
 #define YKYDeTitleColor YKYColor(102, 102, 102)
 
+/** 透明度 */
+#define kalpha 0.5
+
 
 /** 屏幕的宽 */
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width

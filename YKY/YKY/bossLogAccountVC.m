@@ -245,6 +245,7 @@
 #pragma mark - 跳转到扫描界面
 - (void)showQRViewController {
     QRViewController *qrVC = [[QRViewController alloc] init];
+    qrVC.titStr = @"商家扫码验证";
     [self.navigationController pushViewController:qrVC animated:YES];
 }
 

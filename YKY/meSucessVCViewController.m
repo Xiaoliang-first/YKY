@@ -210,7 +210,7 @@
 
     self.btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
     self.btn.backgroundColor = [UIColor blackColor];
-    self.btn.alpha = 0.4f;
+    self.btn.alpha = kalpha;
     [self.btn addTarget:self action:@selector(dissMiss) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.btn];
 

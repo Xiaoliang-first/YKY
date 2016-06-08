@@ -74,8 +74,20 @@
     luckerNameLabel.font = [UIFont systemFontOfSize:[myFont getTitle4]];
     luckerNameLabel.textColor = YKYTitleColor;
     [back addSubview:luckerNameLabel];
-    //揭晓时间label
-    UILabel * label2= [[UILabel alloc]initWithFrame:CGRectMake(label1.x, label1.y+label1.height+8, 60, 13)];
+
+
+
+    //2.1期号//CGRectMake(label2.x, label2.y+label2.height+8, 100, 13)
+    UILabel * orderL = [[UILabel alloc]initWithFrame:CGRectMake(label1.x, label1.y+label1.height+8, 100, 13)];
+    orderL.text = [NSString stringWithFormat:@"第%@期",serials];
+    orderL.font = [UIFont systemFontOfSize:[myFont getTitle4]];
+    orderL.textColor = YKYDeTitleColor;
+    orderL.textAlignment = NSTextAlignmentLeft;
+    [back addSubview:orderL];
+
+
+    //揭晓时间label//CGRectMake(label1.x, label1.y+label1.height+8, 60, 13)
+    UILabel * label2= [[UILabel alloc]initWithFrame:CGRectMake(orderL.x, orderL.y+orderL.height+8, 60, 13)];
     label2.text = @"该期摇购:";
     label2.textAlignment = NSTextAlignmentLeft;
     label2.font = [UIFont systemFontOfSize:[myFont getTitle4]];
@@ -92,17 +104,8 @@
     [back addSubview:luckTimeLabel];
 
 
-    //2.1期号
-    UILabel * orderL = [[UILabel alloc]initWithFrame:CGRectMake(label2.x, label2.y+label2.height+8, 100, 13)];
-    orderL.text = [NSString stringWithFormat:@"第%@期",serials];
-    orderL.font = [UIFont systemFontOfSize:[myFont getTitle4]];
-    orderL.textColor = YKYDeTitleColor;
-    orderL.textAlignment = NSTextAlignmentLeft;
-    [back addSubview:orderL];
-
-
     //摇购时间label
-    UILabel * label3= [[UILabel alloc]initWithFrame:CGRectMake(orderL.x, orderL.y+orderL.height+8, 60, 13)];
+    UILabel * label3= [[UILabel alloc]initWithFrame:CGRectMake(label2.x, label2.y+label2.height+8, 60, 13)];
     label3.text = @"揭晓时间:";
     label3.textAlignment = NSTextAlignmentLeft;
     label3.font = [UIFont systemFontOfSize:[myFont getTitle4]];

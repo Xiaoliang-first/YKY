@@ -58,7 +58,7 @@
     }
     if (model.ptime) {
         self.luckTimeLabel.text = model.ptime;
-    }
+    } 
 }
 
 

@@ -113,6 +113,7 @@
     ///////
     AFHTTPRequestOperationManager *operation = [[AFHTTPRequestOperationManager alloc] init];
     operation.requestSerializer.timeoutInterval = 15.0f;
+
     /////////////////////////////////////////////////////////////////
     //发送请求
     AFSecurityPolicy *securityPolicy = [AFSecurityPolicy defaultPolicy];
@@ -125,6 +126,8 @@
     //申明请求的数据是json类型
     operation.requestSerializer=[AFHTTPRequestSerializer serializer];
     //    operation.requestSerializer=[AFJSONResponseSerializer serializer];
+
+    
     //////////////////////////////////////////////////////////////////
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 

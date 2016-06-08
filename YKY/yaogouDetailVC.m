@@ -495,8 +495,12 @@
         DebugLog(@"摇购列表详情获取结果=%@",responseDic);
         if ([responseDic[@"code"] isEqual:@0]) {
             self.data = responseDic[@"data"][0];
-//            self.
-            [self loadBanner];//加载顶部banner数据
+            if ([_data[@"restNum"] isEqual:@0]) {
+                [MBProgressHUD showError:@"该期已结束!"];
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [self loadBanner];//加载顶部banner数据
+            }
         }else{
             [MBProgressHUD showError:responseDic[@"msg"]];
         }

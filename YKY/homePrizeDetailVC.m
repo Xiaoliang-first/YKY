@@ -126,7 +126,7 @@
 -(void)addTopView{
     
 //主背景
-    UIView * TopView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height*0.36)];
+    UIView * TopView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height*0.35)];
     TopView.backgroundColor = [UIColor whiteColor];
     self.smallBackView = TopView;
     [self.backScrollView addSubview:TopView];
@@ -151,7 +151,7 @@
     UILabel * priceLB = [[UILabel alloc]initWithFrame:CGRectMake(TopView.width-priceLbW-8, IMGVH-4, priceLbW, TopView.height-IMGVH)];
     priceLB.font = [UIFont systemFontOfSize:[myFont getTitle2]];
     NSString * RMB = @"￥";
-    NSString * price = [RMB stringByAppendingFormat:@"%@",self.prizeDetailModel.marketPrice];
+    NSString * price = [RMB stringByAppendingFormat:@"%d",[self.prizeDetailModel.marketPrice intValue]];
     priceLB.text = price;
     priceLB.textColor = [UIColor redColor];
     priceLB.textAlignment = NSTextAlignmentRight;
@@ -162,7 +162,7 @@
 //商家环境和店长推荐
     UIView * bEBcakV = [[UIView alloc]initWithFrame:CGRectMake(0, IMGVH-30, TopView.width, 30)];
     bEBcakV.backgroundColor = [UIColor blackColor];
-    bEBcakV.alpha = 0.6;
+    bEBcakV.alpha = kalpha;
     [TopView addSubview:bEBcakV];
     //商家推荐按钮
     UIButton * bEBtn = [[UIButton alloc]initWithFrame:CGRectMake(bEBcakV.centerX-82, bEBcakV.y, 80, bEBcakV.height)];

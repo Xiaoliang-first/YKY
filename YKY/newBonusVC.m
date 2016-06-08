@@ -358,6 +358,7 @@
 }
 
 static BOOL clickOne = YES;
+
 #pragma mark - 实现cell 删除功能
 -(void)rightClick:(UIButton *)btn{
     if ([AccountTool account] == nil) {
@@ -371,10 +372,10 @@ static BOOL clickOne = YES;
 //添加兑换银币或删除按钮
     CGFloat w = kScreenWidth;
     CGFloat h = 40;
-    CGFloat y = kScreenheight-88;
+    CGFloat y = kScreenheight-40;
     self.deletePrizeBtnBackView = [[UIView alloc]initWithFrame:CGRectMake(0, y, w, h)];
     if (self.view.height > 668) {
-        self.deletePrizeBtnBackView = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenheight-99, w, h)];
+        self.deletePrizeBtnBackView = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenheight-50, w, h)];
     }
     self.deletePrizeBtnBackView.backgroundColor = [UIColor clearColor];
     [self.deletePrizeBtnBackView removeFromSuperview];
@@ -384,7 +385,7 @@ static BOOL clickOne = YES;
     UIView * globView = [self quanxuanView];
 
     //删除按钮
-    [self deletBtnWithX:globView.width-1 andWidth:kScreenWidth-globView.width];
+    [self deletBtnWithX:globView.width andWidth:kScreenWidth-globView.width];
 
     if (clickOne) {
         [self.view insertSubview:self.deletePrizeBtnBackView aboveSubview:self.TableView];

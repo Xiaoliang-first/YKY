@@ -3008,16 +3008,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="rEQ-Tw-Jth">
-                                <rect key="frame" x="0.0" y="-40" width="320" height="608"/>
+                                <rect key="frame" x="0.0" y="-44" width="320" height="661"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="rEQ-Tw-Jth" secondAttribute="trailing" id="3gC-gz-Yu7"/>
-                            <constraint firstItem="rEQ-Tw-Jth" firstAttribute="top" secondItem="Mzu-QB-XOR" secondAttribute="bottom" constant="-60" id="PUR-hg-FOF"/>
-                            <constraint firstItem="c4k-iG-Uh4" firstAttribute="top" secondItem="rEQ-Tw-Jth" secondAttribute="bottom" id="aDs-eq-1Vs"/>
-                            <constraint firstItem="rEQ-Tw-Jth" firstAttribute="leading" secondItem="Cee-jn-vzP" secondAttribute="leading" id="m34-Vl-OiF"/>
+                            <constraint firstItem="rEQ-Tw-Jth" firstAttribute="leading" secondItem="Cee-jn-vzP" secondAttribute="leading" id="KlI-1K-zIo"/>
+                            <constraint firstAttribute="trailing" secondItem="rEQ-Tw-Jth" secondAttribute="trailing" id="bAB-hZ-0lw"/>
+                            <constraint firstItem="rEQ-Tw-Jth" firstAttribute="top" secondItem="Mzu-QB-XOR" secondAttribute="bottom" constant="-64" id="hff-ZZ-Ttw"/>
+                            <constraint firstItem="c4k-iG-Uh4" firstAttribute="top" secondItem="rEQ-Tw-Jth" secondAttribute="bottom" constant="-49" id="uj6-Sl-oKM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="功能介绍" id="t74-wK-qjp"/>
@@ -4678,7 +4678,7 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e92-R2-YxZ">
                                         <rect key="frame" x="122" y="0.0" width="122" height="35"/>
-                                        <state key="normal" title="专区奖品">
+                                        <state key="normal" title="指定摇奖品">
                                             <color key="titleColor" red="0.98401521380000001" green="0.23859860159999999" blue="0.25458162490000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
@@ -4688,7 +4688,7 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6X-FP-Zjj">
                                         <rect key="frame" x="0.0" y="0.0" width="122" height="35"/>
-                                        <state key="normal" title="商家奖品" backgroundImage="twoBtns-left">
+                                        <state key="normal" title="随意摇奖品" backgroundImage="twoBtns-left">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>

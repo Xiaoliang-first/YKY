@@ -14,7 +14,7 @@
 #import "Account.h"
 #import "AccountTool.h"
 
-#define IWNewfeatureImageCount 3
+#define IWNewfeatureImageCount 2
 
 @interface IWNewfeatureViewController () <UIScrollViewDelegate>
 @property (nonatomic, weak) UIPageControl *pageControl;
@@ -100,7 +100,6 @@
     
     // 1.添加开始按钮
     [self setupStartButton:imageView];
-    
 }
 
 
@@ -120,7 +119,7 @@
     // 3.设置frame
     startButton.size = startButton.currentBackgroundImage.size;
     startButton.centerX = self.view.width * 0.5;
-    startButton.centerY = self.view.height * 0.864;
+    startButton.centerY = self.view.height * 0.89;
     
     // 4.设置开始时间
     [startButton addTarget:self action:@selector(start) forControlEvents:UIControlEventTouchUpInside];

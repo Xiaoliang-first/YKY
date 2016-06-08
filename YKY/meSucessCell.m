@@ -62,10 +62,14 @@
     }
 
     if ([model.state isEqualToString:@"0"]) {
-        [self.getPrizeBtn setBackgroundImage:[UIImage imageNamed:@"领取奖励icon"] forState:UIControlStateNormal];
+        [self.getPrizeBtn setTitle:@"领取奖励" forState:UIControlStateNormal];
+        [self.getPrizeBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [self.getPrizeBtn setBackgroundImage:[UIImage imageNamed:@"继续摇购"] forState:UIControlStateNormal];
         self.getPrizeBtn.enabled = YES;
     }else{
-        [self.getPrizeBtn setBackgroundImage:[UIImage imageNamed:@"已领取icon"] forState:UIControlStateNormal];
+        [self.getPrizeBtn setTitle:@"已领取" forState:UIControlStateNormal];
+        [self.getPrizeBtn setTitleColor:YKYColor(51, 51, 51) forState:UIControlStateNormal];
+        [self.getPrizeBtn setBackgroundImage:[UIImage imageNamed:@"好友分享"] forState:UIControlStateNormal];
         self.getPrizeBtn.enabled = NO;
     }
 

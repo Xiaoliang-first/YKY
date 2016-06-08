@@ -37,6 +37,7 @@
 
 
 
+
 @end
 
 
@@ -62,6 +63,7 @@
     self.tabBarController.tabBar.items[1].title = @"摇购";
     self.view.backgroundColor = YKYColor(242, 242, 242);
 
+
     //添加相应的view
     [self addviews];
 
@@ -70,19 +72,24 @@
         [self chooseCity];
         return;
     }
+
+    [self.dataArray removeAllObjects];
+    [self loadData];
+    [self loadDataWithPage:@"0"];
+
 }
 -(void)loadData{
-    _index = 0;
+    self.index = 0;
     // 添加传统的上拉刷新
     __weak typeof (self) weakSelf = self;
     [self.tableView addLegendFooterWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block
         weakSelf.index = weakSelf.index + 1;
         NSString *idx = [NSString stringWithFormat:@"%d",weakSelf.index];
-//        if ([weakSelf.no isEqualToString:@"1"]) {
-//            [weakSelf endrefreshing];
-//            return ;
-//        }
+        if ([weakSelf.no isEqualToString:@"1"]) {
+            [weakSelf endrefreshing];
+            return ;
+        }
         [weakSelf loadDataWithPage:idx];
         [weakSelf endrefreshing];
     }];
@@ -101,7 +108,32 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadData];
+
+    self.no = @"0";
+//    [self loadData];
+
+    NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"YGCurrentAgentId"];
+
+    NSString * kindId = [[NSUserDefaults standardUserDefaults]objectForKey:@"YGCurrentKindID"];
+
+    NSString * oldKindId = [[NSUserDefaults standardUserDefaults] objectForKey:@"YGOldKindId"];
+
+    NSString * oldAgentId = [[NSUserDefaults standardUserDefaults] objectForKey:@"YGOldAgentId"];
+
+    DebugLog(@"====%@=====%@====%@====%@",oldKindId,kindId,oldAgentId,agentId);
+    if (![oldAgentId isEqual:agentId]) {
+        [self.dataArray removeAllObjects];
+        [self.tableView reloadData];
+        self.index = 0;
+        self.no = @"0";
+        [self loadDataWithPage:@"0"];
+    }else if (kindId &&  ![[NSString stringWithFormat:@"%@",oldKindId] isEqualToString:kindId]){
+        [self.dataArray removeAllObjects];
+        [self.tableView reloadData];
+        self.index = 0;
+        self.no = @"0";
+        [self loadDataWithPage:@"0"];
+    }
 
     //未选择城市情况处理
     NSString * YGAgentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"YGCurrentAgentId"];
@@ -114,8 +146,9 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"youAreLuckey" object:nil];
     
     self.tabBarController.tabBar.hidden = NO;
-    [self.dataArray removeAllObjects];
-    [self loadDataWithPage:@"0"];
+//    
+//    [self.dataArray removeAllObjects];
+//    [self loadDataWithPage:@"0"];
 
     NSString *currentKind = [[NSUserDefaults standardUserDefaults]objectForKey:@"YGCurrentKindName"];
     if (currentKind) {
@@ -138,9 +171,9 @@
 -(void)viewWillDisappear:(BOOL)animated{
     //删除通知
     [[NSNotificationCenter defaultCenter]removeObserver:self name:@"quyao" object:nil];
-    //清空数据元
-    [self.dataArray removeAllObjects];
-    [self.tableView reloadData];
+//    //清空数据元
+//    [self.dataArray removeAllObjects];
+//    [self.tableView reloadData];
 }
 
 
@@ -167,7 +200,7 @@
     //黑色半透明背景btn
     UIButton * btn = [[UIButton alloc]initWithFrame:[UIScreen mainScreen].bounds];
     btn.backgroundColor = [UIColor blackColor];
-    btn.alpha = 0.6f;
+    btn.alpha = kalpha;
     [_blackView addSubview:btn];
     [btn addTarget:self action:@selector(dissBlackBtn:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -245,6 +278,7 @@
     [self.view addSubview:self.tableView];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"yaogouCell" bundle:nil] forCellReuseIdentifier:@"yaogouCell"];
 }
@@ -343,7 +377,10 @@
         [MBProgressHUD showError:@"亲~您还没选择摇购城市哦!"];
         return;
     }
-    
+
+    [[NSUserDefaults standardUserDefaults] setObject:kindId forKey:@"YGOldKindId"];
+    [[NSUserDefaults standardUserDefaults] setObject:agentId forKey:@"YGOldAgentId"];
+
     NSMutableDictionary * paramete = [NSMutableDictionary dictionary];
     [paramete setValue:page forKey:@"pageNum"];
     [paramete setValue:kindId forKey:@"type"];
@@ -399,6 +436,8 @@
         return cell;
     }
     cell.prizeModel = _dataArray[indexPath.row];
+
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
     return cell;
 }

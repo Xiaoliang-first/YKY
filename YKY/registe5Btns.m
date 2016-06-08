@@ -40,7 +40,7 @@ static UILabel * addSilverLabel;
     Btn = [[UIButton alloc]init];
     Btn.frame = CGRectMake(0, 0, VC.view.frame.size.width, VC.view.frame.size.height);
     Btn.backgroundColor = [UIColor blackColor];
-    Btn.alpha = 0.75;
+    Btn.alpha = kalpha;
     [Btn addTarget:self action:@selector(dissMess) forControlEvents:UIControlEventTouchUpInside];
     [VC.view addSubview:Btn];
     

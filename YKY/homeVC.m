@@ -35,6 +35,7 @@
 #import "QRViewController.h"
 #import "SaomiaojieguoVC.h"
 #import "homeTableBarVC.h"
+#import "YGPrizeDetailVC.h"
 
 
 
@@ -50,6 +51,9 @@
 /** 本期大奖数据源 */
 @property (nonatomic , strong) NSMutableArray * dataArray;
 
+
+@property (nonatomic , strong) UIAlertView * firstChCityAletr;
+@property (nonatomic , strong) UIView * theMoreBackView;
 
 
 /** 广告图片ID的数组 */
@@ -137,7 +141,6 @@
 
 
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -156,9 +159,20 @@
 
 
     [self setRight];
+
+
+    //判断用户是否需要签到
+    NSDate *  senddate=[NSDate date];
+    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+    [dateformatter setDateFormat:@"dd"];
+    NSString * today=[dateformatter stringFromDate:senddate];
+    NSString * registDay = [[NSUserDefaults standardUserDefaults]objectForKey:@"registOK"];
+
+    if ([AccountTool account] && ![registDay isEqualToString:today]) {//判断上次签到不是今天，另外有用户登录
+        [self getRegistList];
+    }
     
 }
-
 #pragma mark - 设置导航条右侧扫描按钮
 -(void)setRight{
     UIButton * rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 22, 22)];
@@ -177,12 +191,12 @@
         [self.photoAlter show];
     }
 }
+
 #pragma mark - 判断是否有摄像头或者摄像头是否能用
 - (BOOL)validateCamera {
     return [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] &&
     [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
 }
-
 #pragma mark - 跳转到扫描界面
 - (void)showQRViewController {
     if (![AccountTool account]) {
@@ -192,11 +206,10 @@
     }
     QRViewController *qrVC = [[QRViewController alloc] init];
     qrVC.ID = @"1";
+    qrVC.titStr = @"用户扫码验证";
     self.tabBarController.tabBar.hidden = YES;
     [self.navigationController pushViewController:qrVC animated:YES];
 }
-
-
 #pragma mark - 网络变化重新加载数据
 - (void)networkStateChange
 {
@@ -233,14 +246,9 @@
     if (![[NSUserDefaults standardUserDefaults]objectForKey:@"cityId"]) {
         /** 顶部联网动画（关闭）*/
         app.networkActivityIndicatorVisible=NO;
-        //用户第一次登陆的时候是没有城市ID的直接跳转到城市列表界面
-        UIApplication *app = [UIApplication sharedApplication];
-        UIWindow *window = app.keyWindow;
-        // 切换window的rootViewController
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UITableViewController *VC = [sb instantiateViewControllerWithIdentifier:@"citysViewVC"];
-        myNavViewController *navc = [[myNavViewController alloc]initWithRootViewController:VC];
-        window.rootViewController = navc;
+
+//        self.firstChCityAletr = [[UIAlertView alloc]initWithTitle:@"摇哥提示:" message:@"1.选择本地城市,开启100%中奖之旅,奖品仅限到店兑换使用\\n2.没有开通地区的玩家,请耐心等待,您也可以先去摇购,大奖等你来摇。" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"选择城市",@"新手帮助", nil];
+//        [self.firstChCityAletr show];
 
     }else{//用户不是第一次登陆的情况---加载首页banner数据
         [self loadData];
@@ -255,6 +263,19 @@
     if (isOpenRemind == nil) {
         isOpenRemind = @"1";//默认开启，1：开启状态
     }
+}
+
+-(void)firstJumpToCitys{
+//    //用户第一次登陆的时候是没有城市ID的直接跳转到城市列表界面
+//    UIApplication *app = [UIApplication sharedApplication];
+//    UIWindow *window = app.keyWindow;
+//    // 切换window的rootViewController
+//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UITableViewController *VC = [sb instantiateViewControllerWithIdentifier:@"citysViewVC"];
+//    myNavViewController *navc = [[myNavViewController alloc]initWithRootViewController:VC];
+//    window.rootViewController = navc;
+
+    [self jumpToCitysViewVC];
 }
 
 #pragma mark - 添加控件
@@ -277,7 +298,7 @@
     [homeMidView addMidViewWithY:bannerView.y+bannerView.height andViewController:self andActiviAction:@selector(activityCenterBtnClick) andzhongjiagnAction:@selector(lookLucksBtnClick) andTaoAction:@selector(taoGouBtnClick) andYaoAction:@selector(yaoGouBtnClick)];
 
     //theMore
-    [theMore addTheMoreViewWithY:bannerView.y+bannerView.height+170 andVc:self andAction:@selector(TheMoreBtnClick)];
+    self.theMoreBackView = [theMore addTheMoreViewWithY:bannerView.y+bannerView.height+170 andVc:self andAction:@selector(TheMoreBtnClick)];
 
     //currentPrize
     UITableView * table = [[UITableView alloc]initWithFrame:CGRectMake(0, bannerView.y+bannerView.height+215, self.view.width, 5*125)];
@@ -297,6 +318,7 @@
 #pragma mark - 重磅推出没有数据时tableView隐藏，并添加提示view
 -(void)addNoPrizeBottomView{
     self.TableView.hidden = YES;
+    self.theMoreBackView.hidden = YES;
 
     CGFloat viewW = 0.65*kScreenWidth;//267
     CGFloat viewH = 0.35*kScreenWidth;//140
@@ -460,23 +482,27 @@
         }
         self.navigationItem.leftBarButtonItem.title = city;
     }else{//没有选择城市
-        self.locationAlertView = [[UIAlertView alloc]initWithTitle:@"选择城市" message:@"您还未选择活动城市" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-        [self.locationAlertView show];
+//        self.locationAlertView = [[UIAlertView alloc]initWithTitle:@"选择城市" message:@"您还未选择活动城市" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+//        [self.locationAlertView show];
+        self.firstChCityAletr = [[UIAlertView alloc]initWithTitle:@"摇哥提示:" message:@"1.选择本地城市，开启100%中奖之旅，随意摇和指定摇的奖品仅限到店兑换使用\n2.暂时还没开通地区的摇粉，可以先去玩摇购，一元摇大奖，邮寄到您家!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"选择城市",@"新手帮助", nil];
+        [self.firstChCityAletr show];
     }
     
-    //判断用户是否需要签到
-    NSDate *  senddate=[NSDate date];
-    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
-    [dateformatter setDateFormat:@"dd"];
-    NSString * today=[dateformatter stringFromDate:senddate];
-    NSString * registDay = [[NSUserDefaults standardUserDefaults]objectForKey:@"registOK"];
-
-    if ([AccountTool account] && ![registDay isEqualToString:today]) {//判断上次签到不是今天，另外有用户登录
-        [self getRegistList];
-    }else{
+//    //判断用户是否需要签到
+//    NSDate *  senddate=[NSDate date];
+//    NSDateFormatter  *dateformatter=[[NSDateFormatter alloc] init];
+//    [dateformatter setDateFormat:@"dd"];
+//    NSString * today=[dateformatter stringFromDate:senddate];
+//    NSString * registDay = [[NSUserDefaults standardUserDefaults]objectForKey:@"registOK"];
+//
+//    if ([AccountTool account] && ![registDay isEqualToString:today]) {//判断上次签到不是今天，另外有用户登录
+//        [self getRegistList];
+//    }else{
+    if ([AccountTool account]) {
         //发送广播
         [[NSNotificationCenter defaultCenter] postNotificationName:@"youAreLuckey" object:nil];
     }
+
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewDidDisappear:YES];
@@ -745,28 +771,50 @@
 #pragma mark - 在没有选区城市的情况下提醒用户选城市
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController * vc = [sb instantiateViewControllerWithIdentifier:@"citysViewVC"];
-    
+//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//    UIViewController * vc = [sb instantiateViewControllerWithIdentifier:@"citysViewVC"];
+
     switch (buttonIndex) {
         case 0:
             if ([alertView isEqual:self.photoAlter]) {
                 //点击右上角扫描按钮不做处理，避免与跳转城市列表功能重叠
-            }else{
-                [self.navigationController pushViewController:vc animated:YES];
             }
+//            else if ([alertView isEqual:self.locationAlertView]){
+//                [self.navigationController pushViewController:vc animated:YES];
+//            }
             break;
         case 1:
-            if ([alertView isEqual:self.locationAlertView]) {
-                self.haveGoneCitys = YES;
-                [self.navigationController pushViewController:vc animated:YES];
+//            if ([alertView isEqual:self.locationAlertView]) {
+//                self.haveGoneCitys = YES;
+//                [self.navigationController pushViewController:vc animated:YES];
+//            }
+            if ([alertView isEqual:self.firstChCityAletr]) {
+                [self firstJumpToCitys];//第一次跳转到城市选择界面
             }
             
             break;
+        case 2:
+
+            if ([alertView isEqual:self.firstChCityAletr]) {
+                [self jumpToMoreHelp];
+            }
+
+            break;
+
+
         default:
             break;
     }
 }
+
+#pragma mark - 跳转到新手帮助界面
+-(void)jumpToMoreHelp{
+    YGPrizeDetailVC * vc = [[YGPrizeDetailVC alloc]init];
+    vc.title = @"新手帮助";
+    vc.requestUrl = [NSURL URLWithString:kHelpCenterStr];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 #pragma mark - 更多按钮的点击事件
 - (void)TheMoreBtnClick{
@@ -774,6 +822,7 @@
     UIViewController * vc = [sb instantiateViewControllerWithIdentifier:@"theMoreVC"];
     [self.navigationController pushViewController:vc animated:YES];
 }
+
 
 #pragma mark - 数据源
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -796,7 +845,7 @@
 
 #pragma mark - 行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 125;
+    return 110;
 }
 
 #pragma mark - 选中行

@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class homeVC;
 @interface theMore : NSObject
 
-+(void)addTheMoreViewWithY:(CGFloat)Y andVc:(UIViewController*)VC andAction:(SEL)action;
++(UIView*)addTheMoreViewWithY:(CGFloat)Y andVc:(homeVC*)VC andAction:(SEL)action;
 
 @end

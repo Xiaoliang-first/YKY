@@ -14,16 +14,18 @@
 #import "newActivityCell.h"
 #import "newActivityModel.h"
 #import "newAvtivityDetailVC.h"
+#import "YGPrizeDetailVC.h"
 
 
 
-@interface newActivityVC ()
+@interface newActivityVC ()<UIAlertViewDelegate>
 
 
 /** 活动列表数据源数组 */
 @property (nonatomic , strong) NSMutableArray * dataArray;
 /** 没有数据的标注 1:没有数据 0:有数据 */
 @property (nonatomic , copy) NSString * no;
+@property (nonatomic , strong) UIAlertView * agentIdAlert;
 
 
 @end
@@ -88,7 +90,9 @@
     
     if (ciId == nil) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [MBProgressHUD showError:@"城市信息有误"];
+//        [MBProgressHUD showError:@"城市信息有误"];
+        self.agentIdAlert = [[UIAlertView alloc]initWithTitle:@"摇哥提示:" message:@"1.选择本地城市，开启100%中奖之旅，随意摇和指定摇的奖品仅限到店兑换使用\n2.暂时还没开通地区的摇粉，可以先去玩摇购，一元摇大奖，邮寄到您家!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"选择城市",@"新手帮助", nil];
+        [self.agentIdAlert show];
         return;
     }
     
@@ -121,6 +125,40 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         [MBProgressHUD showError:@"网络加载失败"];
     }];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
+        case 1:
+            if ([alertView isEqual:self.agentIdAlert]) {//跳转到城市选择
+                [self jumpToCitys];
+            }
+            break;
+        case 2:
+            if ([alertView isEqual:self.agentIdAlert]) {//跳转到新手帮助
+                [self jumpToNewHelp];
+            }
+            break;
+
+        default:
+            break;
+    }
+}
+
+-(void)jumpToCitys{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController * vc = [sb instantiateViewControllerWithIdentifier:@"citysViewVC"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)jumpToNewHelp{
+    YGPrizeDetailVC * vc = [[YGPrizeDetailVC alloc]init];
+    vc.title = @"新手帮助";
+    vc.requestUrl = [NSURL URLWithString:kHelpCenterStr];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -167,7 +205,7 @@
 
 #pragma mark - 代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 200;
+    return 192;
 }
 
 

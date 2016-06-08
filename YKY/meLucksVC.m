@@ -23,6 +23,9 @@
 @property (nonatomic ) int index;
 @property (nonatomic , copy) NSString * no;
 
+
+@property (nonatomic) BOOL loadIng;
+
 @end
 
 @implementation meLucksVC
@@ -49,7 +52,13 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"meLuckCell" bundle:nil] forCellReuseIdentifier:@"meLuckCell"];
 
-    _index = 0;
+
+}
+
+-(void)loadFirstData{
+    self.loadIng = NO;
+    self.no = @"0";
+    self.index = 0;
     // 添加传统的上拉刷新
     __weak typeof (self) weakSelf = self;
     [self.tableView addLegendFooterWithRefreshingBlock:^{
@@ -71,8 +80,11 @@
         [weakSelf loadDataWithPage:@"0"];
         [weakSelf endrefreshing];
     }];
-
+    [self.dataArray removeAllObjects];
+    [self.tableView reloadData];
+    [self loadDataWithPage:@"0"];
 }
+
 -(void)endrefreshing{
     [self.tableView.header endRefreshing];
     [self.tableView.footer endRefreshing];
@@ -82,9 +94,11 @@
     UIView * top = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
     top.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:top];
-    _index = 0;
-    [self.dataArray removeAllObjects];
-    [self loadDataWithPage:@"0"];
+
+//    _index = 0;
+//    [self.dataArray removeAllObjects];
+//    [self.tableView reloadData];
+    [self loadFirstData];
     self.tabBarController.tabBar.hidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(lingqujiangli) name:@"meluck-jixuYG" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jisuanxiangqing) name:@"meluck-ztgz" object:nil];
@@ -131,12 +145,12 @@
     }
     cell.index = indexPath.row;
     cell.model = _dataArray[indexPath.row];
-
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 160;
+    return 170;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -221,39 +235,45 @@
 }
 
 
-
 -(void)loadDataWithPage:(NSString *)page{
     NSString * bindPath = @"/yshakeCoupons/getCloudShakeWinCouons";
     NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
     [parameters setValue:page forKey:@"pageNum"];
-
-    [XLRequest AFPostHost:kbaseURL bindPath:bindPath postParam:parameters  isClient:YES getParam:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDic) {
-        DebugLog(@"幸运兜奖品请求结果===%@",responseDic);
-        if ([responseDic[@"code"] isEqual:@0]) {
-            NSArray * array = [NSArray array];
-            array = responseDic[@"data"];
-            if (array.count == 0) {
-                [MBProgressHUD showError:@"没有更多数据"];
-                self.no = @"1";
-                return ;
+    if (self.loadIng == NO) {
+        self.loadIng = YES;
+        [XLRequest AFPostHost:kbaseURL bindPath:bindPath postParam:parameters  isClient:YES getParam:nil success:^(AFHTTPRequestOperation *operation, NSDictionary *responseDic) {
+            DebugLog(@"幸运兜奖品请求结果===%@",responseDic);
+            if ([responseDic[@"code"] isEqual:@0]) {
+                NSArray * array = [NSArray array];
+                array = responseDic[@"data"];
+                if (array.count == 0) {
+                    [MBProgressHUD showError:@"没有更多数据"];
+                    self.index = 0;
+                    self.no = @"1";
+                    return ;
+                }
+                for (NSDictionary * dict in responseDic[@"data"]) {
+                    homeNewScuessModel * model = [homeNewScuessModel modelWithDict:dict];
+                    [self.dataArray addObject:model];
+                }
+                [self.tableView reloadData];
+            }else if ([responseDic[@"code"] isEqual:KotherLogin]){
+                self.index = 0;
+                [self jumpToAccountVc];
+            }else{
+                self.index = 0;
+                [MBProgressHUD showError:responseDic[@"msg"]];
             }
-            for (NSDictionary * dict in responseDic[@"data"]) {
-                homeNewScuessModel * model = [homeNewScuessModel modelWithDict:dict];
-                [self.dataArray addObject:model];
-            }
-            [self.tableView reloadData];
-        }else if ([responseDic[@"code"] isEqual:KotherLogin]){
-            [self jumpToAccountVc];
-        }else{
+            self.loadIng = NO;
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            DebugLog(@"幸运兜奖品请求失败==error=%@==oper=%@",error,operation);
+            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [MBProgressHUD showError:@"网络加载失败,请重试!"];
+            self.loadIng = NO;
             self.index = 0;
-            [MBProgressHUD showError:responseDic[@"msg"]];
-        }
+        }];
 
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        DebugLog(@"幸运兜奖品请求失败==error=%@==oper=%@",error,operation);
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [MBProgressHUD showError:@"网络加载失败,请重试!"];
-    }];
+    }
 }
 
 

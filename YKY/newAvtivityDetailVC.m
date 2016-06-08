@@ -189,7 +189,6 @@
     AFHTTPRequestOperationManager * manager = [AFHTTPRequestOperationManager manager];
     
     [manager POST:str parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([responseObject[@"code"] isEqual:@(0)]) {
             NSArray * array = [[NSArray alloc]init];
@@ -335,7 +334,7 @@
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     newActivityPrizeDetailVC * vc = [sb instantiateViewControllerWithIdentifier:@"newActivityPrizeDetailVC"];
-    vc.activName = self.activModel.activeName;
+//    vc.activName = self.activModel.activeName;
     newActivityDetailModel * model = _dataArray[indexPath.row];
     vc.jpId = model.jpId;
     vc.prizeId = model.pid;

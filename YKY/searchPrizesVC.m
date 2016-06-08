@@ -206,7 +206,7 @@
 
     self.backBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, self.tableView.y, self.view.width, self.view.height)];
     self.backBtn.backgroundColor = [UIColor blackColor];
-    self.backBtn.alpha = 0.4;
+    self.backBtn.alpha = kalpha;
     [self.backBtn addTarget:self action:@selector(dissMess:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.backBtn];
 

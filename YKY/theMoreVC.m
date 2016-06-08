@@ -139,13 +139,16 @@
         cell = [[homeTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"homeTableViewCell"];
         return cell;
     }
+    if (_dataArray.count == 0 || _dataArray.count<indexPath.row) {
+        return cell;
+    }
     cell.prizemodel = self.dataArray[indexPath.row];
     return cell;
 }
 
 #pragma mark - 代理方法
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 125;
+    return 110;
 }
 
 #pragma mark - 选中行

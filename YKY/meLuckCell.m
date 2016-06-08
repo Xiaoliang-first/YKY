@@ -56,12 +56,17 @@
         self.luckCodeLabel.text = [NSString stringWithFormat:@"%@",model.luckCode];
     }
     if ([model.orderStatue isEqualToString:@"2"]) {
+        [self.stateBtn setTitle:@"已完成" forState:UIControlStateNormal];
+        [self.stateBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
         [self.stateBtn setBackgroundImage:[UIImage imageNamed:@"已完成"] forState:UIControlStateNormal];
     }else if([model.orderStatue isEqualToString:@"3"]){
-        [self.stateBtn setBackgroundImage:[UIImage imageNamed:@"已摧毁"] forState:UIControlStateNormal];
+        [self.stateBtn setTitle:@"已作废" forState:UIControlStateNormal];
+        [self.stateBtn setBackgroundImage:[UIImage imageNamed:@"已摇满"] forState:UIControlStateNormal];
 //        self.userInteractionEnabled = NO;
     }else{
-        [self.stateBtn setBackgroundImage:[UIImage imageNamed:@"状态跟踪"] forState:UIControlStateNormal];
+        [self.stateBtn setTitle:@"状态跟踪" forState:UIControlStateNormal];
+        [self.stateBtn setTitleColor:YKYColor(51, 51, 51) forState:UIControlStateNormal];
+        [self.stateBtn setBackgroundImage:[UIImage imageNamed:@"好友分享"] forState:UIControlStateNormal];
     }
 }
 

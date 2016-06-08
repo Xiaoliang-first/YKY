@@ -29,7 +29,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"扫描";
+    self.navigationItem.title = _titStr;
 //    [self setLeft];
     // Do any additional setup after loading the view.
 

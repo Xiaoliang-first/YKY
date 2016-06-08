@@ -40,11 +40,11 @@
     [self setLeft];
 
     [self addTableView];
+
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self loadData];
-
     //接收使用按钮的点击事件通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumptoUsePrize) name:@"useBtnClick" object:nil];
 }
@@ -108,17 +108,25 @@
 
     NSString * index = [[NSUserDefaults standardUserDefaults]objectForKey:@"index"];
     int inx = [index intValue];
+    if (self.dataArray.count == 0 || (int)self.dataArray.count < inx) {
+        [MBProgressHUD showError:@"网络状况不佳,请稍后再试!"];
+        return;
+    }
     unUsedPrizeModel *model = self.dataArray[inx];
     DebugLog(@"===%@===%d",index,inx);
+
     SaomiaoDetailVC * vc = [[SaomiaoDetailVC alloc]init];
     vc.model = model;
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 
 #pragma mark - 代理方法
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SaomiaoDetailVC * vc = [[SaomiaoDetailVC alloc]init];
+    if (self.dataArray.count == 0 || self.dataArray.count <indexPath.row) {
+        [MBProgressHUD showError:@"网络状况不佳,请稍后再试!"];
+        return;
+    }
     vc.model = self.dataArray[indexPath.row];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -131,6 +139,7 @@
 #pragma mark - 加载数据
 -(void)loadData{
     [self.dataArray removeAllObjects];
+    [self.tableView reloadData];
     _index = 0;
     __weak typeof (self) weakSelf = self;
     [self.tableView addLegendFooterWithRefreshingBlock:^{

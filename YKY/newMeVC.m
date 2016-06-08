@@ -424,7 +424,7 @@
             title.font = [UIFont systemFontOfSize:[myFont getTitle2]];
             title.textColor = YKYColor(51, 51, 51);
             title.textAlignment = NSTextAlignmentLeft;
-            bottomLineBtn * btn = [[bottomLineBtn alloc]initWithFrame:CGRectMake(title.x+title.width-30, title.y+4, kScreenWidth-title.width, 13)];
+            bottomLineBtn * btn = [[bottomLineBtn alloc]initWithFrame:CGRectMake(title.x+title.width-45, title.y+4, kScreenWidth-title.width, 13)];
             [btn setColor:YKYColor(249, 61, 66)];
             [btn setTitleColor:YKYColor(249, 61, 66) forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:[myFont getTitle4]];

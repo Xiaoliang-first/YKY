@@ -75,7 +75,7 @@
 
     self.navigationItem.title = @"查询记录";
     
-    [self setRigthItem];//设置导航条右侧放大镜按钮
+//    [self setRigthItem];//设置导航条右侧放大镜按钮
     [self setLeftNavBtn];
 
     _index = 0;
@@ -102,6 +102,7 @@
         [weakSelf loadConsumeDataWithPage:@"0"];
         [weakSelf endrefreshing];
     }];
+    
 }
 - (void)endrefreshing{
     [self.tableView.header endRefreshing];
@@ -282,32 +283,20 @@
 
 }
 
-#pragma mark - 设置导航条右侧放大镜按钮
--(void)setRigthItem{
-    UIButton * rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
-    [rightBtn setTitle:@"搜索" forState:UIControlStateNormal];
-    [rightBtn addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
-    self.navigationItem.rightBarButtonItem = right;
-}
-
-
-#pragma mark - 导航栏右侧放大镜按钮被点击事件
--(void)rightClick{
-    if ([self.starDateBtn.titleLabel.text isEqualToString:@"起始时间"] || [self.endDateBtn.titleLabel.text isEqualToString:@"截止时间"]) {
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        [MBProgressHUD showError: @"起止时间选择有误"];
-        return;
-    }else if([_onlyOne isEqualToString:@"1"]){
-        self.onlyOne = @"2";//点击次数标识 1：右键被点击过一次
-    }else{
-        return;
-    }
-    [self.dataArray removeAllObjects];//清空数据源
-    [self.tableView reloadData];//刷新界面
-    [self loadConsumeDataWithPage:@"0"];//初始化时加载第一页
-    
-}
+//#pragma mark - 设置导航条右侧放大镜按钮
+//-(void)setRigthItem{
+//    UIButton * rightBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
+//    [rightBtn setTitle:@"搜索" forState:UIControlStateNormal];
+//    [rightBtn addTarget:self action:@selector(rightClick) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *right = [[UIBarButtonItem alloc]initWithCustomView:rightBtn];
+//    self.navigationItem.rightBarButtonItem = right;
+//}
+//
+//
+//#pragma mark - 导航栏右侧放大镜按钮被点击事件
+//-(void)rightClick{
+//
+//}
 
 #pragma mark - 加载消费列表数据
 -(void)loadConsumeDataWithPage:(NSString*)page{
@@ -424,7 +413,19 @@
 - (IBAction)searchBtnClick:(id)sender {
     [self dissMess];
     DebugLog(@"搜索按钮被点击");
-    [self rightClick];
+
+    if ([self.starDateBtn.titleLabel.text isEqualToString:@"起始时间"] || [self.endDateBtn.titleLabel.text isEqualToString:@"截止时间"]) {
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        [MBProgressHUD showError: @"起止时间选择有误"];
+        return;
+    }else if([_onlyOne isEqualToString:@"1"]){
+        self.onlyOne = @"2";//点击次数标识 1：右键被点击过一次
+    }else{
+        return;
+    }
+    [self.dataArray removeAllObjects];//清空数据源
+    [self.tableView reloadData];//刷新界面
+    [self loadConsumeDataWithPage:@"0"];//初始化时加载第一页
 }
 
 

@@ -32,9 +32,10 @@
 #import "AppDelegate.h"
 #import "rightImgBtn.h"
 #import "newChargeDetailVC.h"
+#import "YGPrizeDetailVC.h"
 
 
-@interface newRockingVC ()<UIAccelerometerDelegate,UMSocialUIDelegate,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate,BMKLocationServiceDelegate>
+@interface newRockingVC ()<UIAccelerometerDelegate,UMSocialUIDelegate,UITableViewDataSource,UITableViewDelegate,CLLocationManagerDelegate,BMKLocationServiceDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *leftTableViewBackView;
 
@@ -110,6 +111,12 @@
 
 @property (nonatomic) BOOL canChooseMi;
 
+@property (nonatomic , strong) UIAlertView * agentIdAlter;
+
+
+
+
+
 @end
 
 @implementation newRockingVC
@@ -149,7 +156,7 @@
     self.leftOneC = YES;
     self.leftbackbt = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenheight)];
     self.leftbackbt.backgroundColor = [UIColor blackColor];
-    self.leftbackbt.alpha = 0.5;
+    self.leftbackbt.alpha = kalpha;
     [self.leftbackbt addTarget:self action:@selector(leftTableBtDissmess) forControlEvents:UIControlEventTouchUpInside];
 
     //设置图片圆角
@@ -180,6 +187,10 @@
 
     //添加遮盖
     [self addzhegai];
+
+
+    //设置导航按钮们
+    [self setLeftNavBtn];
 }
 
 #pragma mark - 是否添加遮盖
@@ -194,7 +205,7 @@
         //黑色半透明背景btn
         UIButton * btn = [[UIButton alloc]initWithFrame:[UIScreen mainScreen].bounds];
         btn.backgroundColor = [UIColor blackColor];
-        btn.alpha = 0.6f;
+        btn.alpha = kalpha;
         [_blackView addSubview:btn];
         [btn addTarget:self action:@selector(dissBlackBtn:) forControlEvents:UIControlEventTouchUpInside];
         //手指图片
@@ -280,21 +291,45 @@
     NSURL *url = [NSURL URLWithString:@"prefs:root=LOCATION_SERVICES"];
     switch (buttonIndex) {
         case 0:
-            
+
             break;
         case 1:
-            
-            if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                //如果点击打开的话，需要记录当前的状态，从设置回到应用的时候会用到
-                [[UIApplication sharedApplication] openURL:url];
+            if ([alertView isEqual:self.agentIdAlter]) {//跳转到城市选择
+                [self jumpToCitys];
             }else{
-                [self.navigationController popViewControllerAnimated:YES];
+                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                    //如果点击打开的话，需要记录当前的状态，从设置回到应用的时候会用到
+                    [[UIApplication sharedApplication] openURL:url];
+                }else{
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
             }
             break;
+        case 2:
+            if ([alertView isEqual:self.agentIdAlter]) {//跳转到新手帮助
+                [self jumpToNewHelp];
+            }
+            break;
+
         default:
             break;
     }
 }
+
+
+-(void)jumpToCitys{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController * vc = [sb instantiateViewControllerWithIdentifier:@"citysViewVC"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+-(void)jumpToNewHelp{
+    YGPrizeDetailVC * vc = [[YGPrizeDetailVC alloc]init];
+    vc.title = @"新手帮助";
+    vc.requestUrl = [NSURL URLWithString:kHelpCenterStr];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 
 #pragma mark - CLLocationManagerDelegate
 // 地理位置发生改变时触发
@@ -330,15 +365,15 @@
             self.userNowAdress = st;
             
             //设置导航按钮们
-            [self setLeftNavBtn];
+//            [self setLeftNavBtn];
         }else if (error == nil && [array count] == 0)
         {
             //设置导航按钮们
-            [self setLeftNavBtn];
+//            [self setLeftNavBtn];
         }else if (error != nil)
         {
             //设置导航按钮们
-            [self setLeftNavBtn];
+//            [self setLeftNavBtn];
         }
     }];
     
@@ -493,10 +528,13 @@ static BOOL bac = YES;
         [[NSUserDefaults standardUserDefaults]setObject:nil forKey:@"juli"];
         [self.leftBtn setImage:[UIImage imageNamed:@"下箭头"] withTitle:@"全城" forState:UIControlStateNormal font:17.0f];
     }else{
-        if (!self.canChooseMi) {
+        if (!self.canChooseMi&&self.userNowAdress) {
             [MBProgressHUD showError:@"您不在所选城市,无法附近摇!"];
             self.leftTableViewBackView.hidden = YES;
             [self.leftBtn setImage:[UIImage imageNamed:@"下箭头"] withTitle:@"全城" forState:UIControlStateNormal font:17.0f];
+            return;
+        }else if (!self.userNowAdress){
+            [MBProgressHUD showError:@"未获取到您的位置信息!"];
             return;
         }
         NSArray * array = @[@"",@"1",@"3",@"5"];
@@ -666,6 +704,8 @@ static BOOL bac = YES;
     NSDictionary *parameters = [NSDictionary dictionary];
 
     if (!account.uiId || !agentId || !account.reponseToken) {
+        self.agentIdAlter = [[UIAlertView alloc]initWithTitle:@"摇哥提示:" message:@"1.选择本地城市，开启100%中奖之旅，随意摇和指定摇的奖品仅限到店兑换使用\n2.暂时还没开通地区的摇粉，可以先去玩摇购，一元摇大奖，邮寄到您家!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"选择城市",@"新手帮助", nil];
+        [self.agentIdAlter show];
         return;
     }
 
@@ -735,6 +775,9 @@ static BOOL bac = YES;
         [MBProgressHUD showError:@"网络加载失败"];
     }];
 }
+
+
+
 
 #pragma mark -  摇到的奖品提示图
 - (void)addbackView{

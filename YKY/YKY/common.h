@@ -24,17 +24,17 @@
 
 //局域网电脑
 //#define kbaseURL @"http://192.168.1.110:8090"
-
 ///ykyInterface
 //#define kbaseURL @"http://192.168.1.91:8090/ykyInterface"
+
 //#define kbaseURL @"http://192.168.1.31:8080"
 
 
 
 //公司外网接口
-#define kbaseURL @"http://api.yikuaiyao.com"//正式环境
+//#define kbaseURL @"http://api.yikuaiyao.com"//正式环境
 
-//#define kbaseURL @"http://192.168.1.19:8086"//正式测试环境
+#define kbaseURL @"http://192.168.1.19:8086"//正式测试环境
 
 
 /** 加载城市列表数据接口 */

@@ -19,6 +19,7 @@
 #import "jumpSafairTool.h"
 #import "Account.h"
 #import "AccountTool.h"
+#import "jiaVC.h"
 
 @interface YaogouVC ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
@@ -341,9 +342,17 @@
     }
     jumpSafairTool * tool = [[jumpSafairTool alloc]init];
     if ([tool jumpOrNo]) {//需要跳转到safair
-        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"agentId"];
-        NSString * str = [NSString stringWithFormat:@"http://api.yikuaiyao.com/ios/index.jsp?rt=%@&uid=%@&t=1&c=%@&acid=0&aid=%@",account.reponseToken,account.uiId,Kclient,agentId];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+//        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"agentId"];
+//        if (!agentId) {
+//            agentId = @"10";
+//        }
+//        NSString * str = [NSString stringWithFormat:@"http://api.yikuaiyao.com/ios/index.jsp?rt=%@&uid=%@&t=1&c=%@&acid=0&aid=%@",account.reponseToken,account.uiId,Kclient,agentId];
+//        DebugLog(@"=====%@",str);
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        //跳转到特定假界面
+        jiaVC * vc = [[jiaVC alloc]initWithNibName:@"jiaVC" bundle:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+
     }else{//正常执行程序
         yaogouRockVC * rockVC = [[yaogouRockVC alloc]init];
         rockVC.model = _dataArray[findex];

@@ -15,6 +15,7 @@
 #import "yaogouRockVC.h"
 #import "yaogouDetailVC.h"
 #import "jumpSafairTool.h"
+#import "jiaVC.h"
 
 @interface meRuningPrizeVC ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -135,9 +136,13 @@
     }
     jumpSafairTool * tool = [[jumpSafairTool alloc]init];
     if ([tool jumpOrNo]) {//需要跳转到safair
-        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"agentId"];
-        NSString * str = [NSString stringWithFormat:@"http://api.yikuaiyao.com/ios/index.jsp?rt=%@&uid=%@&t=1&c=%@&acid=0&aid=%@",account.reponseToken,account.uiId,Kclient,agentId];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+//        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"agentId"];
+//        NSString * str = [NSString stringWithFormat:@"http://api.yikuaiyao.com/ios/index.jsp?rt=%@&uid=%@&t=1&c=%@&acid=0&aid=%@",account.reponseToken,account.uiId,Kclient,agentId];
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
+        jiaVC * vc = [[jiaVC alloc]initWithNibName:@"jiaVC" bundle:nil];
+        [self.navigationController pushViewController:vc animated:YES];
+
     }else{//正常执行程序
         yaogouRockVC * vc = [[yaogouRockVC alloc]init];
         if (_dataArray.count == 0 || findex > (int)_dataArray.count) {

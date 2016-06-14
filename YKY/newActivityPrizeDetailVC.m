@@ -215,6 +215,7 @@
     NSString * price = [RMB stringByAppendingFormat:@"%d",[self.prizeDetailModel.marketPrice intValue]];
     DebugLog(@"price=%@-------%@",self.prizeDetailModel.marketPrice,price);
     priceLB.text = price;
+    priceLB.textColor = [UIColor redColor];
     [TopView addSubview:priceLB];
 
     //底线

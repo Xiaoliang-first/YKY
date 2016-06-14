@@ -18,6 +18,7 @@
 #import "jumpSafairTool.h"
 #import "yaogouRockVC.h"
 #import "YGBannerModel.h"
+#import "jiaVC.h"
 
 #define backClor YKYColor(242, 242, 242)
 
@@ -304,9 +305,12 @@
     }
     jumpSafairTool * tool = [[jumpSafairTool alloc]init];
     if ([tool jumpOrNo]) {//需要跳转到safair
-        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"agentId"];
-        NSString * str = [NSString stringWithFormat:@"http://api.yikuaiyao.com/ios/index.jsp?rt=%@&uid=%@&t=1&c=%@&acid=0&aid=%@",account.reponseToken,account.uiId,Kclient,agentId];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+//        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"agentId"];
+//        NSString * str = [NSString stringWithFormat:@"http://api.yikuaiyao.com/ios/index.jsp?rt=%@&uid=%@&t=1&c=%@&acid=0&aid=%@",account.reponseToken,account.uiId,Kclient,agentId];
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        
+        jiaVC * vc = [[jiaVC alloc]initWithNibName:@"jiaVC" bundle:nil];
+        [self.navigationController pushViewController:vc animated:YES];
     }else{//正常执行程序
         yaogouRockVC * rockVC = [[yaogouRockVC alloc]init];
         rockVC.model = _prizeModel;

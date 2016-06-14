@@ -81,7 +81,13 @@ BMKMapManager* _mapManager;
 //    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://www.yshow.net"];
     //qq
     //设置分享到QQ空间的应用Id，和分享url 链接
-//    [UMSocialQQHandler setQQWithAppId:@"" appKey:@"" url:@"http://www.yshow.net"];
+    [UMSocialQQHandler setQQWithAppId:@"1103418867" appKey:@"uxJx0jBvXp5zMnxf" url:@"http://www.yikuaiyao.com"];
+
+    //第一个参数为新浪appkey,第二个参数为新浪secret，第三个参数是新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致。
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1178345880"
+                                              secret:@"	f69f77ce3e26150d3e06a8377100cb1a"
+                                         RedirectURL:@"http://www.yikuaiyao.com"];
+
 
     [UMSocialData openLog:NO];
     [UMessage setAutoAlert:NO];
@@ -221,6 +227,12 @@ BMKMapManager* _mapManager;
          annotation:(id)annotation
 {
     return [UMSocialSnsService handleOpenURL:url wxApiDelegate:self];
+
+//    BOOL result = [UMSocialSnsService handleOpenURL:url];
+//    if (result == FALSE) {
+//        //调用其他SDK，例如支付宝SDK等
+//    }
+//    return result;
 }
 
 
@@ -325,7 +337,6 @@ BMKMapManager* _mapManager;
         [vc isHaveDataWithRemindIsOn:isOpenRemind andTimer:timer];
     }
 }
-
 
 
 #pragma mark - 程序在后台时 用户点击提醒横幅的时候调用的方法
@@ -479,6 +490,7 @@ BMKMapManager* _mapManager;
 //-(void)checkNetworkStatus{
 //    [getIpVC getUserIp];
 //}
+
 
 
 

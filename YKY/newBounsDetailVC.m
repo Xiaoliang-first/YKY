@@ -185,7 +185,6 @@
 #pragma mark - 添加固定位置View
 -(void)addTopView{
     
-    
     //主背景
     UIView * TopView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height*0.36)];
     TopView.backgroundColor = [UIColor whiteColor];
@@ -212,6 +211,7 @@
     NSString * price = [RMB stringByAppendingFormat:@"%@",self.boundsDetailModel.marketPrice];
     DebugLog(@"===%@====%@",self.boundsDetailModel.marketPrice,price);
     priceLB.text = price;
+    priceLB.textColor = [UIColor redColor];
     priceLB.textAlignment = NSTextAlignmentRight;
     [TopView addSubview:priceLB];
 
@@ -276,7 +276,6 @@
 
 #pragma mark - 添加奖品详情
 -(void)addBossDesc{
-    
     //标题
     self.bossDeTitle = [[detailTitleLabel alloc]initWithFrame:CGRectMake(10, self.bossDescLabel.y+self.bossDescLabel.height+20, 80, 20)];
     self.bossDeTitle.text = @"奖品详情:";

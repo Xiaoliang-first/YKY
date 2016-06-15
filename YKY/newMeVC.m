@@ -714,7 +714,7 @@
     NSDictionary *parameter = @{@"client":Kclient,@"userId":account.uiId,@"serverToken":account.reponseToken};
 
     [manager POST:str parameters:parameter success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
+        DebugLog(@"=====登陆返回信息=%@",responseObject);
         if ([responseObject[@"code"] isEqual:KotherLogin]){
             [MBProgressHUD hideHUDForView:self.view animated:YES];
             [MBProgressHUD showError:@"账号已过有效期,请重新登录"];
@@ -780,6 +780,8 @@
         self.userNameLabel.text = @"昵称";
     }
     if (self.userModel.uiHeadImage) {
+        [[SDImageCache sharedImageCache] clearDisk];
+        [[SDImageCache sharedImageCache] clearMemory];
         self.iconUrl = [NSURL URLWithString:self.userModel.uiHeadImage];
         [self.iconImageView setImage:[UIImage imageNamed:@"icon-me"]];
         [self.iconImageView sd_setImageWithURL:self.iconUrl placeholderImage:[UIImage imageNamed:@"icon-me"]];

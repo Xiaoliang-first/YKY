@@ -78,15 +78,13 @@ BMKMapManager* _mapManager;
     [UMSocialWechatHandler setWXAppId:@"wx2c2c2bfb37bc3af6" appSecret:@"999a8ffe1c324f72b84f477c847bc255" url:@"http://www.yikuaiyao.com"];
 
     //sina
-//    [UMSocialSinaHandler openSSOWithRedirectURL:@"http://www.yshow.net"];
+//    [UMSocialSinaHandler openSSOWithRedirectURL:@"www.yikuaiyao.com"];
     //qq
     //设置分享到QQ空间的应用Id，和分享url 链接
     [UMSocialQQHandler setQQWithAppId:@"1103418867" appKey:@"uxJx0jBvXp5zMnxf" url:@"http://www.yikuaiyao.com"];
 
     //第一个参数为新浪appkey,第二个参数为新浪secret，第三个参数是新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致。
-    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1178345880"
-                                              secret:@"	f69f77ce3e26150d3e06a8377100cb1a"
-                                         RedirectURL:@"http://www.yikuaiyao.com"];
+//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1178345880"secret:@"f69f77ce3e26150d3e06a8377100cb1a"RedirectURL:@"http://www.yuntubj.com/yikuaiyao.html"];
 
 
     [UMSocialData openLog:NO];

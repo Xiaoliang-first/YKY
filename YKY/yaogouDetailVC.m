@@ -305,12 +305,20 @@
     }
     jumpSafairTool * tool = [[jumpSafairTool alloc]init];
     if ([tool jumpOrNo]) {//需要跳转到safair
-//        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"agentId"];
-//        NSString * str = [NSString stringWithFormat:@"http://api.yikuaiyao.com/ios/index.jsp?rt=%@&uid=%@&t=1&c=%@&acid=0&aid=%@",account.reponseToken,account.uiId,Kclient,agentId];
-//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
         
-        jiaVC * vc = [[jiaVC alloc]initWithNibName:@"jiaVC" bundle:nil];
-        [self.navigationController pushViewController:vc animated:YES];
+        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"YGCurrentAgentId"];
+        if (!agentId) {
+            agentId = @"10";
+        }
+        NSString * ip = [[NSUserDefaults standardUserDefaults] objectForKey:@"userIP"];
+        NSString * seriaiId = _prizeModel.serialId;
+
+        NSString * str = [NSString stringWithFormat:@"%@/iosyg/index.jsp?c=%@&t=%@&u=%@&a=%@&s=%@&ip=%@",kbaseURL,Kclient,account.reponseToken,account.uiId,agentId,seriaiId,ip];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
+//        jiaVC * vc = [[jiaVC alloc]initWithNibName:@"jiaVC" bundle:nil];
+//        [self.navigationController pushViewController:vc animated:YES];
+
     }else{//正常执行程序
         yaogouRockVC * rockVC = [[yaogouRockVC alloc]init];
         rockVC.model = _prizeModel;

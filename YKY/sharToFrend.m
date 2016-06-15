@@ -38,11 +38,15 @@
     //设置分享内容，（图片加上分享内容和链接）
     UIImageView *imgview = [[UIImageView alloc]init];
 //    [imgview sd_setImageWithURL:[NSURL URLWithString:imgurl]];
+
     [imgview sd_setImageWithURL:[NSURL URLWithString:imgurl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [UMSocialSnsService presentSnsIconSheetView:VC appKey:@"53f77204fd98c585f200de09"shareText:[NSString stringWithFormat:@"%@%@",title,url] shareImage:imgview.image shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToSina,UMShareToQzone,UMShareToTencent] delegate:VC];
-        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToSina,UMShareToQzone,UMShareToTencent]content:[NSString stringWithFormat:@"%@%@",title,url] image:imgview.image location:nil urlResource:nil presentedController:VC completion:^(UMSocialResponseEntity *response) {
+
+        [UMSocialSnsService presentSnsIconSheetView:VC appKey:@"53f77204fd98c585f200de09"shareText:[NSString stringWithFormat:@"%@%@",title,url] shareImage:imgview.image shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone] delegate:VC];
+
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]content:[NSString stringWithFormat:@"%@%@",title,url] image:imgview.image location:nil urlResource:nil presentedController:VC completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
             }}];
+        
     }];
 
 //    [UMSocialSnsService presentSnsIconSheetView:VC
@@ -80,8 +84,8 @@
     UIImageView *imgview = [[UIImageView alloc]init];
 
     [imgview sd_setImageWithURL:[NSURL URLWithString:imgUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [UMSocialSnsService presentSnsIconSheetView:VC appKey:@"53f77204fd98c585f200de09"shareText:[NSString stringWithFormat:@"%@%@",title,url] shareImage:imgview.image shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToSina,UMShareToQzone,UMShareToTencent] delegate:VC];
-        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToSina,UMShareToQzone,UMShareToTencent]content:[NSString stringWithFormat:@"%@%@",title,url] image:imgview.image location:nil urlResource:nil presentedController:VC completion:^(UMSocialResponseEntity *response) {
+        [UMSocialSnsService presentSnsIconSheetView:VC appKey:@"53f77204fd98c585f200de09"shareText:[NSString stringWithFormat:@"%@%@",title,url] shareImage:imgview.image shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone] delegate:VC];
+        [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]content:[NSString stringWithFormat:@"%@%@",title,url] image:imgview.image location:nil urlResource:nil presentedController:VC completion:^(UMSocialResponseEntity *response) {
             if (response.responseCode == UMSResponseCodeSuccess) {
             }}];
     }];
@@ -113,11 +117,11 @@
                                          appKey:@"53f77204fd98c585f200de09"
                                       shareText:[NSString stringWithFormat:@"%@%@",title,imgurl]
                                      shareImage:image
-                                shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToSina,UMShareToQzone,UMShareToTencent]
+                                shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]
                                        delegate:VC];
 
 
-    [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToSina,UMShareToQzone,UMShareToTencent]content:[NSString stringWithFormat:@"%@%@",title,imgurl] image:image location:nil urlResource:nil presentedController:VC completion:^(UMSocialResponseEntity *response) {
+    [[UMSocialDataService defaultDataService] postSNSWithTypes:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToQzone]content:[NSString stringWithFormat:@"%@%@",title,imgurl] image:image location:nil urlResource:nil presentedController:VC completion:^(UMSocialResponseEntity *response) {
         if (response.responseCode == UMSResponseCodeSuccess) {
         }}];
 

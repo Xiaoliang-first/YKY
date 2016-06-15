@@ -1046,6 +1046,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE0370C61B3A664E007703B9 /* ImageIO.framework in Frameworks */,
 				DFCAEA0E1D0E9EEE00AF3CF4 /* libstdc++.tbd in Frameworks */,
 				DFCAEA0C1D0E9E9000AF3CF4 /* libiconv.tbd in Frameworks */,
 				CEC4B6591B0CE8AB00705BD4 /* Security.framework in Frameworks */,
@@ -1064,7 +1065,6 @@
 				CE9F90CB1C045D5400995C62 /* BaiduMapAPI_Map.framework in Frameworks */,
 				CE03710F1B3A7FD2007703B9 /* MapKit.framework in Frameworks */,
 				CE0370C81B3A6672007703B9 /* CoreMotion.framework in Frameworks */,
-				CE0370C61B3A664E007703B9 /* ImageIO.framework in Frameworks */,
 				DFE862591D0FBD2500FEC8BA /* TencentOpenAPI.framework in Frameworks */,
 				CE0370C21B395374007703B9 /* OpenGLES.framework in Frameworks */,
 				DFE862581D0FBD2500FEC8BA /* libSocialQQ.a in Frameworks */,
@@ -3888,8 +3888,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -3934,8 +3934,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -3963,8 +3963,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4030,8 +4030,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shengjin yu (4YK3N5G9QE)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Gold Ants (Beijing) Network Technology Co., Ltd. (BNM29GQGJS)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

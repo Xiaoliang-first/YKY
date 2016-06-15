@@ -293,34 +293,45 @@
 
 #pragma mark - 新浪登录
 - (IBAction)sinaLogIn:(id)sender {
-    
     [MBProgressHUD showMessage:@"正在验证第三方..." toView:self.view];
-    
+
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
-    
+
+    //这里判断是否授权
+    if ([UMSocialAccountManager isOauthAndTokenNotExpired:snsPlatform.platformName]) {
+        DebugLog(@"授权成功!");
+    }else{
+        DebugLog(@"授权失败");
+    }
+
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-        
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
         //获取微博用户名、uid、token等
         if (response.responseCode == UMSResponseCodeSuccess) {
+//            NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
+//            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
+
             //友盟返回的用户信息 （点语法获得）
             UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
-            
+
             //后台验证
             [self authMyBackWithRegistType:@"3" openId:snsAccount.usid snsAccount:snsAccount];
             
             [MobClick profileSignInWithPUID:snsAccount.openId provider:@"sinaWebo"];
+
+
+            DebugLog(@"==第三方登录新浪微博信息===\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
         }
     });    
     
     //获取accestoken以及新浪用户信息，得到的数据在回调Block对象形参respone的data属性
     [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToSina  completion:^(UMSocialResponseEntity *response){
+        DebugLog(@"========微博信息回调=%@",response);
 //        [MBProgressHUD hideHUDForView:self.view animated:YES];
     }];
-    
+
     [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(dismissAuthAlter) userInfo:nil repeats:NO];
-    
+
 }
 
 

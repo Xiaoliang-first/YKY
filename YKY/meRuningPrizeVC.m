@@ -136,12 +136,26 @@
     }
     jumpSafairTool * tool = [[jumpSafairTool alloc]init];
     if ([tool jumpOrNo]) {//需要跳转到safair
+        
+        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"YGCurrentAgentId"];
+        if (!agentId) {
+            agentId = @"10";
+        }
+        NSString * ip = [[NSUserDefaults standardUserDefaults] objectForKey:@"userIP"];
+        if (_dataArray.count == 0 || findex > (int)_dataArray.count) {
+            [MBProgressHUD showError:@"网络状况不好,请稍后再试!"];
+            return;
+        }
+        homeNewScuessModel * model = _dataArray[findex];
+        NSString * seriaiId = model.serialId;
+        NSString * str = [NSString stringWithFormat:@"%@/iosyg/index.jsp?c=%@&t=%@&u=%@&a=%@&s=%@&ip=%@",kbaseURL,Kclient,account.reponseToken,account.uiId,agentId,seriaiId,ip];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 //        NSString * agentId = [[NSUserDefaults standardUserDefaults]objectForKey:@"agentId"];
 //        NSString * str = [NSString stringWithFormat:@"http://api.yikuaiyao.com/ios/index.jsp?rt=%@&uid=%@&t=1&c=%@&acid=0&aid=%@",account.reponseToken,account.uiId,Kclient,agentId];
 //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 
-        jiaVC * vc = [[jiaVC alloc]initWithNibName:@"jiaVC" bundle:nil];
-        [self.navigationController pushViewController:vc animated:YES];
+//        jiaVC * vc = [[jiaVC alloc]initWithNibName:@"jiaVC" bundle:nil];
+//        [self.navigationController pushViewController:vc animated:YES];
 
     }else{//正常执行程序
         yaogouRockVC * vc = [[yaogouRockVC alloc]init];

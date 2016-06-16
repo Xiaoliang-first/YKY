@@ -589,10 +589,6 @@
     [self.the4View addSubview:self.logAndOutBtn];
 //    [line addLineWithFrame:CGRectMake(0, _the3View.height+_the3View.y+88, kScreenWidth, 1) andBackView:self.backScrollView];
 
-//    //设置图片圆角
-//    self.logAndOutBtn.layer.cornerRadius = 5;
-//    self.logAndOutBtn.layer.masksToBounds = YES;
-//    self.logAndOutBtn.layer.borderWidth = 0.01;
     //重置滚动位置
     self.backScrollView.contentSize = CGSizeMake(kScreenWidth, self.the4View.y+self.the4View.height+3*kMargin);
 

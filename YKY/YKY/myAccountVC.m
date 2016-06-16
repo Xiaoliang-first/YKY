@@ -25,7 +25,7 @@
 
 
 
-@interface myAccountVC () <UIAlertViewDelegate,UITextFieldDelegate>
+@interface myAccountVC () <UIAlertViewDelegate,UITextFieldDelegate,UMSocialUIDelegate>
 
 
 
@@ -270,10 +270,8 @@
             [self authMyBackWithRegistType:@"2" openId:snsAccount.openId snsAccount:snsAccount];
 /*
  友盟在统计用户时以设备为标准，如果需要统计应用自身的账号，请使用以下接口（需使用3.6.4及以上版本SDK）：
- 
  + (void)profileSignInWithPUID:(NSString *)puid;
  + (void)profileSignInWithPUID:(NSString *)puid provider:(NSString *)provider;
- 
  PUID：用户账号ID.长度小于64字节
  Provider：账号来源。如果用户通过第三方账号登陆，可以调用此接口进行统计。不能以下划线"_"开头，使用大写字母和数字标识，长度小于32 字节 ; 如果是上市公司，建议使用股票代码。
 */
@@ -296,42 +294,68 @@
     [MBProgressHUD showMessage:@"正在验证第三方..." toView:self.view];
 
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
-
     //这里判断是否授权
     if ([UMSocialAccountManager isOauthAndTokenNotExpired:snsPlatform.platformName]) {
         DebugLog(@"授权成功!");
     }else{
         DebugLog(@"授权失败");
     }
-
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         //获取微博用户名、uid、token等
         if (response.responseCode == UMSResponseCodeSuccess) {
-//            NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
-//            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatform.platformName];
-
             //友盟返回的用户信息 （点语法获得）
             UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
-
             //后台验证
             [self authMyBackWithRegistType:@"3" openId:snsAccount.usid snsAccount:snsAccount];
-            
+            //用户统计
             [MobClick profileSignInWithPUID:snsAccount.openId provider:@"sinaWebo"];
-
-
             DebugLog(@"==第三方登录新浪微博信息===\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
         }
     });    
-    
-    //获取accestoken以及新浪用户信息，得到的数据在回调Block对象形参respone的data属性
-    [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToSina  completion:^(UMSocialResponseEntity *response){
-        DebugLog(@"========微博信息回调=%@",response);
+/*
+//    //获取accestoken以及新浪用户信息，得到的数据在回调Block对象形参respone的data属性
+//    [[UMSocialDataService defaultDataService] requestSnsInformation:UMShareToSina  completion:^(UMSocialResponseEntity *response){
+//        DebugLog(@"========微博信息回调=%@",response);
 //        [MBProgressHUD hideHUDForView:self.view animated:YES];
-    }];
+//        if (response.responseCode == 200) {
+//            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToSina];
+//            DebugLog(@"-=-=-=-=-=-=-=-=-snsAccount=%@",snsAccount);
+//            //后台验证
+//            [self authMyBackWithRegistType:@"3" openId:snsAccount.usid snsAccount:snsAccount];
+//            //用户统计
+//            [MobClick profileSignInWithPUID:snsAccount.usid provider:@"sinaWebo"];
+//        }else{
+//            [MBProgressHUD showError:@"网络状况不佳,请稍后再试!"];
+//            return ;
+//        }
+//    }];
 
-    [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(dismissAuthAlter) userInfo:nil repeats:NO];
-
+//    //设置代理
+//    [UMSocialControllerService defaultControllerService].socialUIDelegate = self;
+//    //设置平台
+//    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToSina];
+//    //这里判断是否授权
+//    if ([UMSocialAccountManager isOauthAndTokenNotExpired:snsPlatform.platformName]) {
+//        DebugLog(@"授权成功!");
+//    }else{
+//        DebugLog(@"授权失败");
+//    }
+//    snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+//        //获取微博用户名、uid、token、第三方的原始用户信息thirdPlatformUserProfile等
+//        if (response.responseCode == UMSResponseCodeSuccess) {
+//            NSDictionary *dict = [UMSocialAccountManager socialAccountDictionary];
+//            UMSocialAccountEntity *snsAccount = [dict valueForKey:UMShareToSina];
+//            //后台验证
+//            [self authMyBackWithRegistType:@"3" openId:snsAccount.usid snsAccount:snsAccount];
+//            //用户统计
+//            [MobClick profileSignInWithPUID:snsAccount.openId provider:@"sinaWebo"];
+//
+//            DebugLog(@"\nusername = %@,\n usid = %@,\n token = %@ iconUrl = %@,\n unionId = %@,\n thirdPlatformUserProfile = %@,\n thirdPlatformResponse = %@ \n, message = %@",snsAccount.userName,snsAccount.usid,snsAccount.accessToken,snsAccount.iconURL, snsAccount.unionId, response.thirdPlatformUserProfile, response.thirdPlatformResponse, response.message);
+//        }
+//    });
+*/
+    [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(dismissAuthAlter) userInfo:nil repeats:NO];
 }
 
 
@@ -343,18 +367,13 @@
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToQzone];
     
     snsPlatform.loginClickHandler(self,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
-        
         [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
         //获取微博用户名、uid、token等
         if (response.responseCode == UMSResponseCodeSuccess) {
-            
             //友盟返回用户信息
             UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:UMShareToQzone];
-            
             //后台验证
             [self authMyBackWithRegistType:@"1" openId:snsAccount.usid snsAccount:snsAccount];
-            
             [MobClick profileSignInWithPUID:snsAccount.usid provider:@"QQ"];
         }
     });

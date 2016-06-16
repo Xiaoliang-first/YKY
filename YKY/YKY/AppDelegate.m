@@ -70,25 +70,24 @@ BMKMapManager* _mapManager;
 
     //将channelId:@"Web" 中的Web 替换为您应用的推广渠道。channelId为nil或@""时，默认会被当作@"App Store"渠道。
     [MobClick startWithAppkey:@"53f77204fd98c585f200de09" reportPolicy:BATCH   channelId:nil];
-    
     //集成友盟SDK
     [UMSocialData setAppKey:@"53f77204fd98c585f200de09"];
-    
+    //for log
+    [UMSocialData openLog:YES];
+    [UMessage setAutoAlert:YES];
+    [UMessage setLogEnabled:YES];
+
+
     //设置微信AppId、appSecret，分享url .:wx2c2c2bfb37bc3af6  ;wxd930ea5d5a258f4f
     [UMSocialWechatHandler setWXAppId:@"wx2c2c2bfb37bc3af6" appSecret:@"999a8ffe1c324f72b84f477c847bc255" url:@"http://www.yikuaiyao.com"];
 
-    //sina
-//    [UMSocialSinaHandler openSSOWithRedirectURL:@"www.yikuaiyao.com"];
     //qq
     //设置分享到QQ空间的应用Id，和分享url 链接
     [UMSocialQQHandler setQQWithAppId:@"1103418867" appKey:@"uxJx0jBvXp5zMnxf" url:@"http://www.yikuaiyao.com"];
 
     //第一个参数为新浪appkey,第二个参数为新浪secret，第三个参数是新浪微博回调地址，这里必须要和你在新浪微博后台设置的回调地址一致。
-//    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1178345880"secret:@"f69f77ce3e26150d3e06a8377100cb1a"RedirectURL:@"http://www.yuntubj.com/yikuaiyao.html"];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"1178345880"secret:@"f69f77ce3e26150d3e06a8377100cb1a"RedirectURL:@"http://sns.whalecloud.com/sina2/callback"];
 
-
-    [UMSocialData openLog:NO];
-    [UMessage setAutoAlert:NO];
     [[NSUserDefaults standardUserDefaults]setObject:@"0" forKey:@"userInfoIng"];
 
     // 要使用百度地图，请先启动BaiduMapManager
@@ -130,14 +129,19 @@ BMKMapManager* _mapManager;
 #else
     register remoteNotification types (iOS 8.0以下)
     [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeSound|UIRemoteNotificationTypeAlert];
-
 #endif
-    //for log
-    [UMessage setLogEnabled:YES];
     
-    DebugLog(@"=====launchOptions=%@",launchOptions);
 
-//注册推送别名
+    DebugLog(@"=====launchOptions=%@",launchOptions);
+    [self push:launchOptions app:application];
+
+    return YES;
+}
+
+
+//远程推送和本地通知
+-(void)push:(NSDictionary*)launchOptions app:(UIApplication*)application{
+    //注册推送别名
     NSString * agt = [[NSUserDefaults standardUserDefaults]objectForKey:@"agentId"];
     DebugLog(@"===agt=%@",agt);
     NSString * isUpTag = [[NSUserDefaults standardUserDefaults]objectForKey:@"agientID-UMAliasTag"];
@@ -150,7 +154,7 @@ BMKMapManager* _mapManager;
         }];
     }
 
-//远程推送信息处理
+    //远程推送信息处理
     NSDictionary * userInfo = [NSDictionary dictionaryWithDictionary:[launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey]];
 
     NSString * str = [NSString stringWithFormat:@"%@",userInfo[@"isJump"]];
@@ -165,7 +169,7 @@ BMKMapManager* _mapManager;
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
         // 程序正处在前台运行，直接返回
         if (application.applicationState == UIApplicationStateActive) {
-            return YES;
+            return;
         }
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         remaindVC *remaindVC = [sb instantiateViewControllerWithIdentifier:@"remaindVC"];
@@ -186,9 +190,9 @@ BMKMapManager* _mapManager;
     }else{
         [self goToMessageVCWithMessage:str];
     }
-
-    return YES;
 }
+
+
 
 -(void)goToMessageVCWithMessage:(NSString*)str{
     //注意：字段一定要是“isJump”,值为“1”。哪个都不能错，在友盟后台发消息的时候一定要在key对应的地方写“isJump”.在value对应位置写“1”，这样才能跳转到系统消息界面。不写isJump时没反应，只写isJump不写value时提示推送的内容，得点击ok按钮才消失。
@@ -488,8 +492,6 @@ BMKMapManager* _mapManager;
 //-(void)checkNetworkStatus{
 //    [getIpVC getUserIp];
 //}
-
-
 
 
 @end

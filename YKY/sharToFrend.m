@@ -22,7 +22,6 @@
 #pragma mark - 奖兜
 +(void)shareWithImgurl:(NSString*)imgurl title:(NSString*)title andPid:(NSString *)pid phone:(NSString*)phone andVC:(UIViewController*)VC{
 
-
 //    UMShareToLWSession,UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQzone,UMShareToSina,UMShareToQQ,  UMShareToTencent
 
 //    我刚在一块摇中获取了一个奖品，只要你摇，惊喜一直不断，你准备好了吗？
@@ -48,14 +47,6 @@
             }}];
         
     }];
-
-//    [UMSocialSnsService presentSnsIconSheetView:VC
-//                                         appKey:@"53f77204fd98c585f200de09"
-//                                      shareText:[NSString stringWithFormat:@"%@%@",title,url]
-//                                     shareImage:imgview.image
-//                                shareToSnsNames:@[UMShareToWechatSession,UMShareToWechatTimeline,UMShareToQQ,UMShareToSina,UMShareToQzone,UMShareToTencent]
-//                                       delegate:VC];
-
     
     [UMSocialData defaultData].extConfig.wechatTimelineData.url = url;
     [UMSocialData defaultData].extConfig.wechatSessionData.url = url;

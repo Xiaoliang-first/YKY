@@ -392,7 +392,7 @@
             myBool = @"1";
             //获取当前天
             NSDateFormatter *dateformate = [[NSDateFormatter alloc]init];
-            [dateformatqe setDateFormat:@"dd"];
+            [dateformate setDateFormat:@"dd"];
             NSString *fire = [dateformate stringFromDate:[NSDate date]];
             if ([isOn isEqualToString:@"0"]) {//用户没有开启提醒
                 [[UIApplication sharedApplication] cancelAllLocalNotifications];

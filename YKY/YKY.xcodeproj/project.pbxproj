@@ -248,8 +248,6 @@
 		DF1EB4291C89953700F71D20 /* adBannerModle.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1EB4281C89953700F71D20 /* adBannerModle.m */; };
 		DF1EB42C1C8A7D9F00F71D20 /* prizeDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1EB42B1C8A7D9F00F71D20 /* prizeDetailModel.m */; };
 		DF1EB4301C8ABCB800F71D20 /* lookLucksModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DF1EB42F1C8ABCB800F71D20 /* lookLucksModel.m */; };
-		DF26FBE81D0D187500F7AF2A /* jiaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = DF26FBE61D0D187500F7AF2A /* jiaVC.m */; };
-		DF26FBE91D0D187500F7AF2A /* jiaVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = DF26FBE71D0D187500F7AF2A /* jiaVC.xib */; };
 		DF2C375D1C34E82300F82785 /* homeMidView.m in Sources */ = {isa = PBXBuildFile; fileRef = DF2C375C1C34E82300F82785 /* homeMidView.m */; };
 		DF415FF91C3A2CBF009F25EB /* theMore.m in Sources */ = {isa = PBXBuildFile; fileRef = DF415FF81C3A2CBF009F25EB /* theMore.m */; };
 		DF4A0B981CBB4B71001D67BD /* XLTextLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = DF4A0B971CBB4B71001D67BD /* XLTextLabel.m */; };
@@ -816,9 +814,6 @@
 		DF1EB42B1C8A7D9F00F71D20 /* prizeDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = prizeDetailModel.m; sourceTree = "<group>"; };
 		DF1EB42E1C8ABCB800F71D20 /* lookLucksModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lookLucksModel.h; sourceTree = "<group>"; };
 		DF1EB42F1C8ABCB800F71D20 /* lookLucksModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = lookLucksModel.m; sourceTree = "<group>"; };
-		DF26FBE51D0D187500F7AF2A /* jiaVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jiaVC.h; sourceTree = "<group>"; };
-		DF26FBE61D0D187500F7AF2A /* jiaVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = jiaVC.m; sourceTree = "<group>"; };
-		DF26FBE71D0D187500F7AF2A /* jiaVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = jiaVC.xib; sourceTree = "<group>"; };
 		DF26FF531CAE5762000F991E /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		DF2C375B1C34E82300F82785 /* homeMidView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = homeMidView.h; sourceTree = "<group>"; };
 		DF2C375C1C34E82300F82785 /* homeMidView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = homeMidView.m; sourceTree = "<group>"; };
@@ -2611,9 +2606,6 @@
 			children = (
 				DF05E0B61CB35E5D0015202B /* YaogouVC.h */,
 				DF05E0B71CB35E5D0015202B /* YaogouVC.m */,
-				DF26FBE51D0D187500F7AF2A /* jiaVC.h */,
-				DF26FBE61D0D187500F7AF2A /* jiaVC.m */,
-				DF26FBE71D0D187500F7AF2A /* jiaVC.xib */,
 				DF877A091CBCFA2C00BED752 /* 选择分类 */,
 				DF877A0A1CBCFA3700BED752 /* 选择城市 */,
 				DF05E0CD1CB3D1FA0015202B /* 摇奖界面 */,
@@ -3525,7 +3517,6 @@
 				CE19163C1B4271E700AFC192 /* bossExpenseCell.xib in Resources */,
 				CEE4FC811B9FEEBB007BBB1D /* boundCells.xib in Resources */,
 				DF873CDF1CFD35E700193B51 /* getMyFriendsVC.xib in Resources */,
-				DF26FBE91D0D187500F7AF2A /* jiaVC.xib in Resources */,
 				DFE862521D0FBB4A00FEC8BA /* README.txt in Resources */,
 				DFE8627B1D0FBD8B00FEC8BA /* UMShareEditViewController.xib in Resources */,
 				DF05E0C31CB3729B0015202B /* yaogouCell.xib in Resources */,
@@ -3770,7 +3761,6 @@
 				CEE4368E1BAFA60A00A0E7B4 /* newAboutRockingVC.m in Sources */,
 				CEE2CF331B11EA9000ABA795 /* MJRefreshLegendHeader.m in Sources */,
 				DF5EF42C1C3E5D880081A683 /* duihuanyinbi.m in Sources */,
-				DF26FBE81D0D187500F7AF2A /* jiaVC.m in Sources */,
 				DFE6569C1CD33AF1006B8B42 /* phone.m in Sources */,
 				CE05CDCD1AF23BCE005C3B3E /* NSObject+MJKeyValue.m in Sources */,
 				CE05CD991AF1F7F9005C3B3E /* myAccountVC.m in Sources */,
